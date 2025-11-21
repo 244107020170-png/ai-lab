@@ -122,38 +122,11 @@
     });
   };
   window.addEventListener("scroll", reveal);
-  // run once in case content already visible
   reveal();
 
-  /**
-   * openProfile(...)
-   * Arguments (9):
-   *  name, img, descShort, descLong, role, linkedin, scholar, researchgate, orcid
-   *
-   * We append both `desc` AND `descLong` to URL to keep it compatible
-   * with both simple and extended profile implementations.
-   */
-  function openProfile(name, img, descShort, descLong, role, linkedin, scholar, researchgate, orcid) {
-    try {
-      const url = new URL("member-profile.html", window.location.href);
-
-      url.searchParams.set("name", name || "");
-      url.searchParams.set("img", img || "");
-      // keep a short `desc` (for older profile page) and a `descLong` (for extended)
-      url.searchParams.set("desc", descShort || descLong || "");
-      url.searchParams.set("descLong", descLong || descShort || "");
-      url.searchParams.set("role", role || "");
-
-      url.searchParams.set("linkedin", linkedin || "");
-      url.searchParams.set("scholar", scholar || "");
-      url.searchParams.set("researchgate", researchgate || "");
-      url.searchParams.set("orcid", orcid || "");
-
-      window.location.href = url.toString();
-    } catch (e) {
-      console.error("openProfile error:", e);
-      alert("Terjadi kesalahan saat membuka profile. Coba lagi.");
-    }
+  // openProfile → hanya kirim ID
+  function openProfile(id) {
+    window.location.href = `member-profile.html?id=${id}`;
   }
 
   async function loadMembers() {
@@ -161,15 +134,14 @@
         const res = await fetch("http://127.0.0.1:8000/api/members");
         const data = await res.json();
 
-        // pisahkan head dan researchers
         const head = data.find(m => m.role === "Head of Laboratory");
         const researchers = data.filter(m => m.role !== "Head of Laboratory");
 
-        // --- Render Head of Lab ---
+        // HEAD
         if (head) {
             document.querySelector("#headContainer").innerHTML = `
                 <div class="bg-white/40 backdrop-blur-sm p-10 rounded-3xl shadow-lg text-center hover:shadow-xl cursor-pointer transition"
-                    onclick="openProfile('${head.full_name}','${head.photo}','${head.expertise}','${head.description}','${head.role}','${head.linkedin}','${head.scholar}','${head.researchgate}','${head.orcid}')">
+                    onclick="openProfile(${head.id})">
 
                     <img src="${head.photo}" class="w-44 h-52 mx-auto rounded-2xl shadow-lg object-cover" />
                     <h3 class="text-3xl font-bold text-sky-700 mt-6">${head.full_name}</h3>
@@ -178,15 +150,15 @@
             `;
         }
 
-        // --- Render the researchers list ---
+        // RESEARCHERS
         const listContainer = document.querySelector("#researcherList");
-        listContainer.innerHTML = ""; // clear default content
+        listContainer.innerHTML = "";
 
         researchers.forEach(m => {
             listContainer.innerHTML += `
                 <div class="bg-white/50 p-8 rounded-3xl shadow-md text-center hover:shadow-xl cursor-pointer transition"
-                    onclick="openProfile('${m.full_name}','${m.photo}','${m.expertise}','${m.description}','${m.role}','${m.linkedin}','${m.scholar}','${m.researchgate}','${m.orcid}')">
-                    
+                    onclick="openProfile(${m.id})">
+
                     <img src="${m.photo}" class="w-44 h-52 mx-auto rounded-2xl shadow-md object-cover" />
                     <h3 class="mt-6 text-2xl font-bold text-sky-700">${m.full_name}</h3>
                     <p class="text-lg mt-4 px-4">${m.expertise || ''}</p>
