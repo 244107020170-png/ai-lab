@@ -162,50 +162,57 @@
 </footer>
 
 <script>
-  // GET PARAMS
-  const params = new URLSearchParams(window.location.search);
+  async function loadProfile() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
 
-  const name = params.get("name") || "Unknown";
-  const img = params.get("img") || "img/default.png";
-  const descShort = params.get("desc") || "";
-  const descLong = params.get("descLong") || "";
-  const role = params.get("role") || "";
-
-  const linkedin = params.get("linkedin") || "";
-  const scholar = params.get("scholar") || "";
-  const researchgate = params.get("researchgate") || "";
-  const orcid = params.get("orcid") || "";
-
-  // APPLY CONTENT
-  document.getElementById("profileName").textContent = name;
-  document.getElementById("profileImg").src = img;
-
-  // choose long desc > short desc
-  document.getElementById("profileDesc").textContent = descLong || descShort;
-
-  document.getElementById("profileRole").textContent = role;
-
-  // ICON BUILDER
-  const iconsContainer = document.getElementById("socialIcons");
-
-  const icons = [
-    { url: linkedin, icon: "img/linkedin.png" },
-    { url: scholar, icon: "img/scholar.png" },
-    { url: researchgate, icon: "img/rlogo.png" },
-    { url: orcid, icon: "img/orcid.png" }
-  ];
-
-  icons.forEach(i => {
-    if (i.url.trim() !== "") {
-      const a = document.createElement("a");
-      a.href = i.url;
-      a.target = "_blank";
-      a.innerHTML = `<img src="${i.icon}" class="w-9 h-9">`;
-      iconsContainer.appendChild(a);
+    if (!id) {
+        alert("No member ID provided!");
+        return;
     }
-  });
 
+    try {
+        const res = await fetch(`http://127.0.0.1:8000/api/members/${id}`);
+        if (!res.ok) throw new Error("Member not found");
+
+        const m = await res.json();
+
+        // isi halaman
+        document.getElementById("profileName").textContent = m.full_name;
+        document.getElementById("profileImg").src = m.photo || "img/default.png";
+        document.getElementById("profileDesc").textContent = m.description || m.expertise || "";
+        document.getElementById("profileRole").textContent = m.role;
+
+        // social icons
+        const iconsContainer = document.getElementById("socialIcons");
+        iconsContainer.innerHTML = ""; // RESET biar tidak double
+
+        const icons = [
+            { url: m.linkedin, icon: "img/linkedin.png" },
+            { url: m.scholar, icon: "img/scholar.png" },
+            { url: m.researchgate, icon: "img/rlogo.png" },
+            { url: m.orcid, icon: "img/orcid.png" }
+        ];
+
+        icons.forEach(i => {
+            if (i.url && i.url.trim() !== "") {
+                const a = document.createElement("a");
+                a.href = i.url;
+                a.target = "_blank";
+                a.innerHTML = `<img src="${i.icon}" class="w-9 h-9">`;
+                iconsContainer.appendChild(a);
+            }
+        });
+
+    } catch (e) {
+        console.error(e);
+        alert("Error loading profile");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadProfile);
 </script>
+
 
 </body>
 </html>
