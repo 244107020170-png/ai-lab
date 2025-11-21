@@ -135,7 +135,14 @@
         const data = await res.json();
 
         const head = data.find(m => m.role === "Head of Laboratory");
-        const researchers = data.filter(m => m.role !== "Head of Laboratory");
+        let researchers = data.filter(m => m.role !== "Head of Laboratory");
+
+        // Sort: yang punya expertise dulu, kosong di bawah
+        researchers = researchers.sort((a, b) => {
+            const aHas = a.expertise && a.expertise.trim() !== "";
+            const bHas = b.expertise && b.expertise.trim() !== "";
+            return (aHas === bHas) ? 0 : aHas ? -1 : 1;
+        });
 
         // HEAD
         if (head) {
