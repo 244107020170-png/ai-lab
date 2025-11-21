@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actvity | AILab</title>  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #DFF0F9 25%, #E5F4FF 75%);
+      overflow-x: hidden;
+    }
+
+    /*Fade Up*/
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all .8s ease;
+    }
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Sticky Navbar Effect */
+    .navbar {
+      transition: 0.4s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+    .disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR SAME -->
+<nav class="navbar fixed top-0 w-full z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
+    <img src="img/logorm.png" class="w-40" alt="logo">
+
+    <ul class="hidden md:flex space-x-8 text-lg font-medium">
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="research.html" class="nav-link">Research</a></li>
+      <li><a href="activity.html" class="nav-link bg-orange-500 text-white px-4 py-1 rounded-full shadow">Activity</a></li>
+      <li><a href="members.html" class="nav-link">Members</a></li>
+      <li><a href="facility.html" class="nav-link">Facility</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- BG -->
+<div class="absolute w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[120px] top-[200px] left-[900px]"></div>
+
+<!-- TITLE -->
+<section class="pt-40 text-center fade-up">
+  <h1 class="text-5xl font-bold text-sky-700 font-['Inter']">Lab Activity</h1>
+</section>
+
+<!-- ACTIVITY GRID -->
+<section class="max-w-7xl mx-auto mt-14 px-10 fade-up">
+
+  <div id="activityList" class="grid md:grid-cols-3 gap-12"></div>
+
+</section>
+
+<!-- PAGINATION DINAMIS -->
+<div id="pagination" class="flex justify-center mt-16 fade-up"></div>
+
+<!-- FOOTER SAME -->
+<footer class="mt-32 bg-cyan-900 text-white py-8">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
+
+    <div>
+      <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4">
+      <p class="text-sm text-blue-100">
+        AI Lab Polinema — a collaborative innovation hub advancing applied informatics.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+      <ul class="space-y-2 text-blue-100">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold mb-3">Contact Us</h3>
+      <p class="text-blue-100 text-sm">
+        Gedung Pascasarjana Lt. 2, Politeknik Negeri Malang <br>
+        Email: <a href="mailto:ailab@polinema.ac.id" class="underline text-white">ailab@polinema.ac.id</a>
+      </p>
+    </div>
+
+  </div>
+  <div class="text-center text-blue-100 text-sm border-t border-blue-200 mt-6 pt-4">
+    © 2025 AI Lab Polinema. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // Fade scroll
+  const fadeElements = document.querySelectorAll(".fade-up");
+  const reveal = () => {
+    fadeElements.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+        el.classList.add("show");
+      }
+    });
+  };
+  window.addEventListener("scroll", reveal);
+  reveal();
+
+  // Navbar scroll effect
+  const navbar = document.querySelector(".navbar");
+  window.addEventListener("scroll", () => {
+    navbar.classList.toggle("scrolled", window.scrollY > 20);
+  });
+
+  // ============= CONFIG =============
+let activities = [];         // data dari API
+let currentPage = 1;         // halaman aktif
+const perPage = 9;           // 9 card per halaman
+
+// ============= FETCH DATA =============
+async function loadActivities() {
+    try {
+        const res = await fetch("http://127.0.0.1:8000/api/activities");
+        const data = await res.json();
+
+        activities = data; // simpan ke array global
+        renderActivities();     // tampilkan halaman pertama
+        renderPagination();     // buat pagination
+    } catch (err) {
+        console.error("Failed to load activities:", err);
+    }
+}
+
+// ============= RENDER CARD =============
+function renderActivities() {
+    const container = document.getElementById("activityList");
+    container.innerHTML = "";
+
+    // Hitung item berdasarkan page
+    const start = (currentPage - 1) * perPage;
+    const end = start + perPage;
+    const pageItems = activities.slice(start, end);
+
+    // Generate card dinamis
+    pageItems.forEach(item => {
+        const img = item.thumbnail_image ?? "img/activitymage.png";
+        const date = item.published_at ?? "—";
+        const short = item.short_description ?? "Short description";
+
+        container.innerHTML += `
+            <div class="bg-white rounded-3xl shadow-md p-4 hover:-translate-y-1 transition">
+                <img src="${img}" class="w-full h-36 object-cover rounded-3xl" />
+                
+                <h3 class="text-xl text-sky-900 font-bold mt-4">${item.title}</h3>
+                <p class="text-gray-600">${short}</p>
+                <p class="text-gray-600">Published Date: ${date}</p>
+
+                <a href="activity-detail.html?id=${item.id}"
+                   class="mt-4 inline-block bg-orange-500 text-white text-xs px-4 py-1 rounded-lg shadow hover:bg-orange-600 transition">
+                    Read More
+                </a>
+            </div>
+        `;
+    });
+}
+
+// ============= RENDER PAGINATION =============
+function renderPagination() {
+    const totalPages = Math.ceil(activities.length / perPage);
+    const container = document.getElementById("pagination");
+
+    container.innerHTML = ""; 
+    const wrapper = document.createElement("div");
+    wrapper.className = "flex items-center gap-3";
+
+    // Prev Button
+    const btnPrev = document.createElement("button");
+    btnPrev.innerHTML = `<img src="img/actleft.png" class="w-5 h-5" />`;
+    btnPrev.className = "w-8 h-8 flex items-center justify-center bg-amber-200 rounded-full hover:bg-amber-300 transition";
+    btnPrev.onclick = () => goToPage(currentPage - 1);
+    if (currentPage === 1) btnPrev.classList.add("opacity-40", "pointer-events-none");
+    wrapper.appendChild(btnPrev);
+
+    // Page Number Buttons
+    for (let i = 1; i <= totalPages; i++) {
+        const pageBtn = document.createElement("button");
+        pageBtn.textContent = i;
+
+        if (i === currentPage) {
+            pageBtn.className = "bg-orange-500 text-white px-3 py-1 rounded-full";
+        } else {
+            pageBtn.className = "text-gray-700 hover:text-orange-500";
+            pageBtn.onclick = () => goToPage(i);
+        }
+
+        wrapper.appendChild(pageBtn);
+    }
+
+    // Next Button
+    const btnNext = document.createElement("button");
+    btnNext.innerHTML = `<img src="img/actright.png" class="w-5 h-5" />`;
+    btnNext.className = "w-8 h-8 flex items-center justify-center bg-orange-500 rounded-full hover:bg-orange-600 transition";
+    btnNext.onclick = () => goToPage(currentPage + 1);
+    const totalPagesCalc = Math.ceil(activities.length / perPage);
+    if (currentPage === totalPagesCalc) btnNext.classList.add("opacity-40", "pointer-events-none");
+    wrapper.appendChild(btnNext);
+
+    container.appendChild(wrapper);
+}
+
+// ============= CHANGE PAGE =============
+function goToPage(page) {
+    const totalPages = Math.ceil(activities.length / perPage);
+
+    if (page < 1 || page > totalPages) return;
+
+    currentPage = page;
+    renderActivities();
+    renderPagination();
+}
+
+// Jalankan saat halaman di-load
+loadActivities();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Activity Detail — AI Lab Polinema</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: linear-gradient(180deg,#DFF0F9 25%,#E5F4FF 75%); }
+    .fade-up { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .fade-up.show { opacity: 1; transform: translateY(0); }
+    .navbar.scrolled { background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+    /* small typography helper (since Tailwind-prose plugin may not be available) */
+    .content-prose p { margin-bottom: 1rem; color: #334155; line-height: 1.75; }
+    .content-prose h2 { margin-top: 1.25rem; margin-bottom: .75rem; }
+    .content-prose ul { margin-left: 1.25rem; margin-bottom: 1rem; }
+
+    /* responsive banner area */
+    #bannerArea img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    #pageMain:focus {
+  outline: none;
+}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR (paste from index.html for consistent look) -->
+  <nav class="navbar fixed top-0 w-full z-50 bg-transparent">
+    <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 md:px-10">
+      <div class="flex items-center gap-3">
+        <a href="index.html" aria-label="AI Lab Polinema homepage"><img src="img/logorm.png" alt="AI Lab Polinema" class="w-36 h-auto"></a>
+      </div>
+
+      <ul class="hidden md:flex space-x-8 text-lg font-medium">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="research.html" class="nav-link">Research</a></li>
+        <li><a href="activity.html" class="nav-link nav-active">Activity</a></li>
+        <li><a href="members.html" class="nav-link">Members</a></li>
+        <li><a href="facility.html" class="nav-link">Facility</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE CONTAINER -->
+  <main class="pt-28 max-w-6xl mx-auto px-6 fade-up" id="pageMain" tabindex="0">
+    <!-- Breadcrumb / Back -->
+    <div class="mb-6">
+      <a href="activity.html" class="inline-flex items-center gap-2 text-sky-700 hover:underline" id="backLink">
+        ← Back to Activities
+      </a>
+    </div>
+
+    <!-- ACTIVITY DETAIL WRAPPER -->
+    <div id="activityWrapper" class="bg-white/80 rounded-3xl shadow-xl overflow-hidden" role="article" aria-labelledby="title">
+      <!-- Banner (filled by JS) -->
+      <div id="bannerArea" class="w-full h-64 bg-slate-100 flex items-center justify-center overflow-hidden" aria-hidden="false">
+        <!-- image injected here -->
+      </div>
+
+      <div class="p-8 md:p-12">
+        <div id="metaArea" class="mb-4 text-sm text-gray-600" aria-live="polite">
+          <!-- label / date -->
+        </div>
+
+        <h1 id="title" class="text-3xl md:text-4xl font-bold text-sky-800 mb-6">Loading title…</h1>
+
+        <div id="contentArea" class="content-prose max-w-none text-gray-800">
+          <!-- full description injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- States -->
+    <div id="loadingState" class="text-center py-12 text-gray-600 hidden" role="status" aria-live="polite">
+      Loading activity...
+    </div>
+
+    <div id="notFoundState" class="text-center py-12 text-red-600 hidden" role="alert" aria-live="assertive">
+      Activity not found.
+    </div>
+
+    <div id="errorState" class="text-center py-12 text-red-600 hidden" role="alert" aria-live="assertive">
+      Error fetching activity. Check your API.
+    </div>
+  </main>
+
+  <!-- FOOTER (copy from index.html) -->
+  <footer class="mt-16 bg-cyan-900 text-white py-8">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
+      <div>
+        <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4" alt="logo white">
+        <p class="text-sm text-blue-100">AI Lab Polinema — a collaborative innovation hub advancing applied informatics.</p>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2 text-blue-100">
+          <li><a href="index.html" class="hover:text-white">Home</a></li>
+          <li><a href="about.html" class="hover:text-white">About</a></li>
+          <li><a href="research.html" class="hover:text-white">Research</a></li>
+          <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Contact Us</h3>
+        <p class="text-blue-100 text-sm">
+          Gedung Pascasarjana Lt. 2, <br>Politeknik Negeri Malang <br>
+          Email: <a href="mailto:ailab@polinema.ac.id" class="underline">ailab@polinema.ac.id</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-blue-200 mt-6 pt-4 text-center text-blue-100 text-sm">
+      © 2025 AI Lab Polinema. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // reveal & navbar
+    function revealScroll() {
+      const nav = document.querySelector('.navbar');
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      document.querySelectorAll('.fade-up').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('show');
+      });
+    }
+    document.addEventListener('scroll', revealScroll);
+
+    // helper parse query
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    // date formatter -> '21 Jan 2025'
+    function formatDateISO(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      if (isNaN(d)) return dateStr;
+      return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    // UI elements
+    const loadingState = document.getElementById('loadingState');
+    const notFoundState = document.getElementById('notFoundState');
+    const errorState = document.getElementById('errorState');
+    const activityWrapper = document.getElementById('activityWrapper');
+    const bannerArea = document.getElementById('bannerArea');
+    const titleEl = document.getElementById('title');
+    const metaArea = document.getElementById('metaArea');
+    const contentArea = document.getElementById('contentArea');
+
+    // show/hide helper
+    function show(el){ el.classList.remove('hidden'); }
+    function hide(el){ el.classList.add('hidden'); }
+
+    async function loadActivity() {
+      const id = getParam('id');
+      if (!id) {
+        hide(activityWrapper);
+        show(notFoundState);
+        return;
+      }
+
+      show(loadingState);
+      hide(notFoundState); hide(errorState); activityWrapper.classList.add('opacity-60');
+
+      try {
+        const res = await fetch(`http://127.0.0.1:8000/api/activities/${id}`);
+        if (res.status === 404) {
+          hide(loadingState);
+          hide(activityWrapper);
+          show(notFoundState);
+          return;
+        }
+        if (!res.ok) {
+          throw new Error('HTTP '+res.status);
+        }
+        const item = await res.json();
+
+        // fill banner image (fallbacks)
+        const bannerUrl = item.banner_image || item.thumbnail_image || 'img/activitymage.png';
+        bannerArea.innerHTML = `<img src="${bannerUrl}" alt="${(item.title||'Activity')} banner">`;
+
+        // meta
+        const published = item.published_at ? formatDateISO(item.published_at) : '';
+        metaArea.innerHTML = `${item.label ? `<span class="font-semibold text-sky-700">${escapeHtml(item.label)}</span> · ` : ''}<span>${escapeHtml(published)}</span>`;
+
+        // title
+        titleEl.textContent = item.title || 'Untitled';
+
+        // content (support HTML stored in backend)
+        if (item.full_description) {
+          // assume backend sends safe HTML; if not, consider sanitizing on backend
+          contentArea.innerHTML = item.full_description;
+        } else if (item.short_description) {
+          contentArea.innerHTML = `<p>${escapeHtml(item.short_description)}</p>`;
+        } else {
+          contentArea.innerHTML = `<p>No details available.</p>`;
+        }
+
+        hide(loadingState);
+        activityWrapper.classList.remove('opacity-60');
+
+        // focus to main content for accessibility
+        document.getElementById('pageMain').focus();
+      } catch (err) {
+        console.error(err);
+        hide(loadingState);
+        hide(activityWrapper);
+        show(errorState);
+      }
+    }
+
+    // small util to escape text when injecting into HTML for safety
+    function escapeHtml(unsafe) {
+      if (unsafe === null || unsafe === undefined) return '';
+      return String(unsafe)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // run on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      loadActivity();
+      revealScroll();
+    });
+  </script>
+</body>
+</html>
