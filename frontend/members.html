@@ -383,6 +383,51 @@
       alert("Terjadi kesalahan saat membuka profile. Coba lagi.");
     }
   }
+
+  async function loadMembers() {
+    try {
+        const res = await fetch("http://127.0.0.1:8000/api/members");
+        const data = await res.json();
+
+        // pisahkan head dan researchers
+        const head = data.find(m => m.role === "Head of Laboratory");
+        const researchers = data.filter(m => m.role !== "Head of Laboratory");
+
+        // --- Render Head of Lab ---
+        if (head) {
+            document.querySelector("#headContainer").innerHTML = `
+                <div class="bg-white/40 backdrop-blur-sm p-10 rounded-3xl shadow-lg text-center hover:shadow-xl cursor-pointer transition"
+                    onclick="openProfile('${head.full_name}','${head.photo}','${head.expertise}','${head.description}','${head.role}','${head.linkedin}','${head.scholar}','${head.researchgate}','${head.orcid}')">
+
+                    <img src="${head.photo}" class="w-44 h-52 mx-auto rounded-2xl shadow-lg object-cover" />
+                    <h3 class="text-3xl font-bold text-sky-700 mt-6">${head.full_name}</h3>
+                    <p class="text-xl text-black mt-4 px-4">${head.expertise || ''}</p>
+                </div>
+            `;
+        }
+
+        // --- Render the researchers list ---
+        const listContainer = document.querySelector("#researcherList");
+        listContainer.innerHTML = ""; // clear default content
+
+        researchers.forEach(m => {
+            listContainer.innerHTML += `
+                <div class="bg-white/50 p-8 rounded-3xl shadow-md text-center hover:shadow-xl cursor-pointer transition"
+                    onclick="openProfile('${m.full_name}','${m.photo}','${m.expertise}','${m.description}','${m.role}','${m.linkedin}','${m.scholar}','${m.researchgate}','${m.orcid}')">
+                    
+                    <img src="${m.photo}" class="w-44 h-52 mx-auto rounded-2xl shadow-md object-cover" />
+                    <h3 class="mt-6 text-2xl font-bold text-sky-700">${m.full_name}</h3>
+                    <p class="text-lg mt-4 px-4">${m.expertise || ''}</p>
+                </div>
+            `;
+        });
+
+    } catch (err) {
+        console.error("Error load members:", err);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadMembers);
 </script>
 
 </body>
