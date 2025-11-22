@@ -88,11 +88,11 @@
 <!-- TABS -->
 <div class="max-w-6xl mx-auto px-6 mt-16 border-b border-gray-300">
   <div class="flex gap-10 justify-center text-xl font-medium text-gray-600">
-    <button onclick="openTab('publicationTab', event)" class="tab-btn tab-active">Publications</button>
-    <button onclick="openTab('researchTab', event)" class="tab-btn">Research</button>
-    <button onclick="openTab('ipTab', event)" class="tab-btn">Intellectual Property</button>
-    <button onclick="openTab('ppmTab', event)" class="tab-btn">PPM</button>
-    <button onclick="openTab('activityTab', event)" class="tab-btn">Activities</button>
+    <button class="tab-btn tab-active" onclick="openTab('publicationTab', this)">Publications</button>
+<button class="tab-btn" onclick="openTab('researchTab', this)">Research</button>
+<button class="tab-btn" onclick="openTab('ipTab', this)">Intellectual Property</button>
+<button class="tab-btn" onclick="openTab('ppmTab', this)">PPM</button>
+<button class="tab-btn" onclick="openTab('activityTab', this)">Activities</button>
   </div>
 </div>
 
@@ -270,30 +270,32 @@ async function loadProfile() {
 }
 
 // ========= TAB CONTROLLER =========
-function openTab(name, evt) {
-    document.querySelectorAll(".tab-content").forEach(sec => {
-        sec.classList.add("hidden");
-        sec.classList.remove("show");
+function openTab(name, button) {
+    // hide all
+    document.querySelectorAll(".tab-content").forEach(t => {
+        t.classList.add("hidden");
+        t.classList.remove("show");
     });
 
+    // show selected
     const selected = document.getElementById(name);
     selected.classList.remove("hidden");
     setTimeout(() => selected.classList.add("show"), 10);
 
+    // update tab button active
     document.querySelectorAll(".tab-btn").forEach(btn =>
         btn.classList.remove("tab-active")
     );
 
-    evt.currentTarget.classList.add("tab-active");
+    button.classList.add("tab-active");
 }
 
 // === INIT ===
 document.addEventListener("DOMContentLoaded", () => {
-    loadProfile();
-    // set default tab: publications
-    const btn = document.querySelector(".tab-btn");
-    if (btn) btn.classList.add("tab-active");
-    openTab("publicationTab", { currentTarget: btn });
+    loadProfile().then(() => {
+        const first = document.querySelector(".tab-btn");
+        openTab("publicationTab", first);
+    });
 });
 </script>
 
