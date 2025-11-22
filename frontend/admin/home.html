@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="home.css">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;600;700&family=League+Spartan:wght@700&family=Pontano+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --img-opacity: 0.25;
+            /* change to taste */
+        }
+
+        /* reset / base */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'SF Pro Display', system-ui, sans-serif;
+        }
+
+        /* container for background layers */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            /* top/right/bottom/left = 0 */
+            pointer-events: none;
+            /* lets clicks pass through */
+            z-index: -2;
+            /* below page content */
+        }
+
+        /* image layer (full-screen) */
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background-image: url("img/background3.jpg");
+            background-size: cover;
+            background-position: center;
+            opacity: var(--img-opacity);
+            /* sets image opacity without affecting other layers */
+            transform: translateZ(0);
+            /* helps some browsers with rendering */
+        }
+
+        /* gradient layer sits above image but still behind content */
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(#0F2027, #203A43, #2C5364);
+            z-index: -1;
+            mix-blend-mode: normal;
+            /* keep gradient colors intact */
+        }
+
+        /* page content */
+        main {
+            position: relative;
+            /* above background layers (z-index default 0) */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- background layers -->
+    <div class="bg-layer" aria-hidden="true">
+        <div class="bg-image"></div>
+        <div class="bg-gradient"></div>
+    </div>
+
+    <div class="w-[1440px] h-[954px] relative bg-blend-soft-light overflow-hidden">
+        <div class="w-80 left-[110px] top-[882px] absolute text-center justify-start"><span
+                class="text-white text-3xl font-normal font-['Poppins']">©</span><span
+                class="text-white text-2xl font-normal font-['Poppins']"> 2025 AI Lab Polinema</span></div>
+        <div
+            class="w-24 h-9 left-[958px] top-[894px] absolute text-center justify-start text-white text-2xl font-normal font-['Inter']">
+            Contact:</div>
+        <div class="w-80 h-9 left-[1007px] top-[894px] absolute text-center justify-start"><span
+                class="text-white text-2xl font-normal font-['Inter'] underline">ailab@polinema.ac.id</span></div>
+        <div class="w-[1258px] left-[91px] top-[23px] absolute inline-flex justify-between items-center">
+            <div class="w-96 h-16 px-1 relative inline-flex flex-col justify-center items-center gap-2.5">
+                <div data-mode="Dark" class="w-96 h-16 left-0 top-0 absolute">
+                    <div class="w-[470px] h-28 left-[-26px] top-[-26px] absolute">
+                        <div class="w-[570px] h-56 left-[-50px] top-[-50px] absolute bg-white">
+                            <div class="w-96 h-16 left-[76px] top-[76px] absolute bg-black rounded-[34px]"></div>
+                        </div>
+                        <div
+                            class="w-96 h-16 left-[26px] top-[31px] absolute bg-blend-hard-light bg-black/10 rounded-[34px] blur-[20px] backdrop-blur-2xl">
+                        </div>
+                    </div>
+                    <div class="w-96 h-16 left-0 top-0 absolute opacity-70 bg-white/5 rounded-[34px]"></div>
+                    <div class="w-96 h-16 left-0 top-0 absolute bg-black/0 rounded-[34px] outline outline-2"></div>
+                </div>
+                <div class="w-96 h-16 inline-flex justify-center items-center gap-2.5">
+                    <img class="w-36 h-12 shadow-[0px_0px_32.900001525878906px_0px_rgba(1,181,186,0.30)]"
+                        src="img/background3.jpg">
+                    <div
+                        class="w-52 h-14 justify-center text-white/60 text-2xl font-normal font-['SF_Compact_Rounded'] tracking-tight">
+                        Lab Admin Page</div>
+                </div>
+            </div>
+            <div class="w-[531px] h-14 relative">
+                <div data-mode="Dark" class="w-[531px] h-14 left-0 top-0 absolute">
+                    <div class="w-[583px] h-28 left-[-26px] top-[-26px] absolute">
+                        <div class="w-[683px] h-52 left-[-50px] top-[-50px] absolute bg-white">
+                            <div class="w-[531px] h-14 left-[76px] top-[76px] absolute bg-black rounded-[34px]"></div>
+                        </div>
+                        <div
+                            class="w-[531px] h-14 left-[26px] top-[31px] absolute bg-blend-hard-light bg-black/10 rounded-[34px] blur-[20px] backdrop-blur-2xl">
+                        </div>
+                    </div>
+                    <div class="w-[531px] h-14 left-0 top-0 absolute opacity-70 bg-white/5 rounded-[34px]"></div>
+                    <div class="w-[531px] h-14 left-0 top-0 absolute bg-black/0 rounded-[34px] outline outline-2"></div>
+                </div>
+                <div class="w-[531px] left-0 top-0 absolute inline-flex justify-center items-center gap-5">
+                    <div class="w-24 h-14 px-2 pt-1.5 pb-2 relative flex justify-center items-center gap-0.5">
+                        <div data-mode="Dark" data-state="Default"
+                            class="w-24 h-14 left-0 top-0 absolute shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] shadow-[0px_0px_15px_0px_rgba(118,235,251,0.28)]">
+                            <div
+                                class="w-24 h-14 left-0 top-0 absolute opacity-70 bg-white/5 rounded-full shadow-[0px_4px_30px_0px_rgba(0,0,0,0.05)]">
+                            </div>
+                            <div
+                                class="w-24 h-14 left-0 top-0 absolute bg-blend-screen bg-gradient-to-bl from-cyan-400/50 to-cyan-700/50 rounded-[296px]">
+                            </div>
+                        </div>
+                        <div class="text-center justify-center text-white text-xl font-['SF_Pro'] leading-5">Home</div>
+                    </div>
+                    <div class="w-32 h-14 px-2 pt-1.5 pb-2 flex justify-center items-center gap-0.5">
+                        <div class="text-center justify-center text-cyan-200 text-xl font-['SF_Pro'] leading-5">Members
+                        </div>
+                    </div>
+                    <div class="w-28 h-14 px-2 pt-1.5 pb-2 flex justify-center items-center gap-0.5">
+                        <div class="text-center justify-center text-cyan-200 text-xl font-['SF_Pro'] leading-5">Projects
+                        </div>
+                    </div>
+                    <div class="w-32 h-14 px-2 pt-1.5 pb-2 flex justify-center items-center gap-0.5">
+                        <div class="text-center justify-center text-cyan-200 text-xl font-['SF_Pro'] leading-5">News
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="left-[138px] top-[264px] absolute inline-flex justify-center items-center gap-4">
+            <div
+                class="w-96 px-5 py-5 bg-black/30 rounded-xl outline outline-1 outline-white/10 backdrop-blur-[6.35px] inline-flex flex-col justify-start items-start gap-2.5">
+                <div class="self-stretch inline-flex justify-center items-center gap-2.5">
+                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-1">
+                        <div
+                            class="self-stretch h-3.5 justify-center text-white/75 text-sm font-normal font-['SF_Compact_Rounded']">
+                            Total Members</div>
+                        <div class="self-stretch flex flex-col justify-start items-start gap-0.5">
+                            <div
+                                class="self-stretch h-9 justify-center text-white text-3xl font-bold font-['SF_Compact_Rounded']">
+                                11</div>
+                            <div
+                                class="self-stretch h-3.5 justify-center text-white/50 text-sm font-normal font-['SF_Compact_Rounded']">
+                                +N/A this year</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 bg-cyan-300"></div>
+                </div>
+            </div>
+            <div
+                class="w-96 px-5 py-5 bg-black/30 rounded-xl outline outline-1 outline-white/10 backdrop-blur-[6.35px] inline-flex flex-col justify-start items-start gap-2.5">
+                <div class="self-stretch inline-flex justify-center items-center gap-2.5">
+                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-1">
+                        <div
+                            class="self-stretch h-3.5 justify-center text-white/75 text-sm font-normal font-['SF_Compact_Rounded']">
+                            Projects Published</div>
+                        <div class="self-stretch flex flex-col justify-start items-start gap-0.5">
+                            <div
+                                class="self-stretch h-9 justify-center text-white text-3xl font-bold font-['SF_Compact_Rounded']">
+                                N/A</div>
+                            <div
+                                class="self-stretch h-3.5 justify-center text-white/50 text-sm font-normal font-['SF_Compact_Rounded']">
+                                N/A in progress.</div>
+                        </div>
+                    </div>
+                    <div class="w-5 h-6 bg-cyan-300"></div>
+                </div>
+            </div>
+            <div
+                class="w-96 px-5 py-5 bg-black/30 rounded-xl outline outline-1 outline-white/10 backdrop-blur-[6.35px] inline-flex flex-col justify-start items-start gap-2.5">
+                <div class="self-stretch inline-flex justify-center items-center gap-2.5">
+                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-1">
+                        <div
+                            class="self-stretch h-3.5 justify-center text-white/75 text-sm font-normal font-['SF_Compact_Rounded']">
+                            Activity’s done this month</div>
+                        <div class="self-stretch flex flex-col justify-start items-start gap-0.5">
+                            <div
+                                class="self-stretch h-9 justify-center text-white text-3xl font-bold font-['SF_Compact_Rounded']">
+                                N/A</div>
+                            <div
+                                class="self-stretch h-3.5 justify-center text-white/50 text-sm font-normal font-['SF_Compact_Rounded']">
+                                N/A Pending.</div>
+                        </div>
+                    </div>
+                    <div class="w-6 h-6 bg-cyan-300"></div>
+                </div>
+            </div>
+        </div>
+        <div class="w-[934px] left-[138px] top-[152px] absolute inline-flex flex-col justify-start items-start">
+            <div
+                class="self-stretch h-20 justify-center text-slate-100 text-4xl font-bold font-['Poppins'] [text-shadow:_0px_5px_10px_rgb(0_224_255_/_0.40)]">
+                Admin Dashboard</div>
+            <div class="w-[947px] h-12 justify-start text-slate-400 text-sm font-normal font-['Inter']">The home page
+                serves as a quick view of the performance graph for the Projects that are published by the Lab and
+                Volunteers that has joined the lab. Each subpage serves to manage the data that will be displayed in the
+                main website. Call this the backend site for the main one.</div>
+        </div>
+        <div class="left-[138px] top-[398px] absolute inline-flex justify-center items-start gap-9">
+            <div
+                class="w-[565px] h-96 px-3.5 py-5 bg-black/30 rounded-xl outline outline-1 outline-white/10 backdrop-blur-[6.35px] inline-flex flex-col justify-start items-center gap-16">
+                <div class="w-[523px] inline-flex justify-start items-center gap-40">
+                    <div class="w-64 h-8 justify-center text-white text-xl font-bold font-['SF_Compact_Rounded']">
+                        Projects Graph</div>
+                    <div
+                        class="w-24 h-6 px-1 py-px bg-zinc-300/0 rounded outline outline-1 outline-offset-[-1px] outline-white/40 flex justify-center items-center gap-2.5">
+                        <div
+                            class="text-center justify-center text-white text-sm font-normal font-['SF_Compact_Rounded']">
+                            + Add Project</div>
+                    </div>
+                </div>
+                <div class="w-[535px] flex flex-col justify-center items-center gap-[3px]">
+                    <div class="self-stretch h-36 relative">
+                        <div
+                            class="w-[535px] h-0 left-0 top-0 absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[36.50px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[73px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[109.50px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[146px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[489px] h-24 left-[23px] top-0 absolute outline outline-2 outline-offset-[-1px] outline-white">
+                        </div>
+                        <div
+                            class="w-[491px] h-36 left-[22px] top-0 absolute bg-gradient-to-b from-white/50 to-neutral-500/0 outline outline-2 outline-offset-[-1px]">
+                        </div>
+                    </div>
+                    <div class="self-stretch inline-flex justify-center items-center gap-2.5">
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Jan</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Feb</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Mar</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Apr</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            May</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Jun</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Jul</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Aug</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Sep</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Oct</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Nov</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            Dec</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="w-[565px] h-96 px-3.5 py-5 bg-black/30 rounded-xl outline outline-1 outline-white/10 backdrop-blur-[6.35px] inline-flex flex-col justify-start items-center gap-16">
+                <div class="w-[523px] inline-flex justify-center items-center gap-44">
+                    <div class="w-64 h-8 justify-center text-white text-xl font-bold font-['SF_Compact_Rounded']">
+                        Volunteers Joined Graph</div>
+                    <div
+                        class="w-20 h-7 px-1 py-px bg-zinc-300/0 rounded outline outline-1 outline-offset-[-1px] outline-white/40 flex justify-center items-center gap-2.5">
+                        <div
+                            class="text-center justify-center text-white text-xs font-normal font-['SF_Compact_Rounded']">
+                            Manage <br />Volunteers</div>
+                    </div>
+                </div>
+                <div class="w-[535px] flex flex-col justify-center items-center gap-[3px]">
+                    <div class="self-stretch h-36 relative">
+                        <div
+                            class="w-[535px] h-0 left-0 top-0 absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[36.50px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[73px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[109.50px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[535px] h-0 left-0 top-[146px] absolute outline outline-1 outline-offset-[-0.50px] outline-white/10">
+                        </div>
+                        <div
+                            class="w-[489px] h-24 left-[23px] top-0 absolute outline outline-2 outline-offset-[-1px] outline-white">
+                        </div>
+                        <div
+                            class="w-[491px] h-36 left-[22px] top-0 absolute bg-gradient-to-b from-white/50 to-neutral-500/0 outline outline-2 outline-offset-[-1px]">
+                        </div>
+                    </div>
+                    <div class="self-stretch inline-flex justify-center items-center gap-6">
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2017</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2018</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2019</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2020</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2021</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2022</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2023</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2024</div>
+                        <div
+                            class="w-9 text-center justify-center text-white/50 text-base font-['SF_Compact'] leading-6">
+                            2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
