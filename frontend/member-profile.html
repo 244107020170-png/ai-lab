@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Member Profile | AILab</title>
+  <title>Members | AILab</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,7 +14,24 @@
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(180deg, #DFF0F9 25%, #E5F4FF 75%);
       overflow-x: hidden;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all .8s ease;
+    }
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  /* ACTIVE TAB STYLE */ 
+  .tab-active {
+    color: #0ea5e9 !important; /* sky-500 */
+    border-bottom: 3px solid #0ea5e9;
+    font-weight: 700;
+  }
   </style>
 </head>
 
@@ -26,123 +43,94 @@
     <img src="img/logorm.png" class="w-40" alt="logo">
 
     <ul class="hidden md:flex space-x-8 text-lg font-medium">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="research.html">Research</a></li>
-      <li><a href="activity.html">Activity</a></li>
-      <li><a href="members.html" class="bg-orange-500 text-white px-4 py-1 rounded-full shadow">Members</a></li>
-      <li><a href="facility.html">Facility</a></li>
-      <li><a href="contact.html">Contact</a></li>
+      <li><a href="index.html" class="nav-link">Home</a></li>
+      <li><a href="about.html" class="nav-link">About</a></li>
+      <li><a href="research.html" class="nav-link">Research</a></li>
+      <li><a href="activity.html" class="nav-link">Activity</a></li>
+      <li><a href="members.html" class="nav-link bg-orange-500 text-white px-4 py-1 rounded-full shadow">Members</a></li>
+      <li><a href="facility.html" class="nav-link">Facility</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- GLOW BG -->
-<div class="absolute w-[600px] h-[600px] bg-cyan-400/20 rounded-full blur-[120px] top-[200px] left-[900px] pointer-events-none"></div>
-<div class="absolute w-[600px] h-[600px] bg-cyan-400/20 rounded-full blur-[120px] top-[1000px] left-[-150px] pointer-events-none"></div>
+<!-- GLOW BACKGROUND -->
+<div class="absolute w-[600px] h-[600px] bg-cyan-400/20 rounded-full blur-[120px] top-[300px] left-[900px] pointer-events-none"></div>
+<div class="absolute w-[600px] h-[600px] bg-cyan-400/20 rounded-full blur-[120px] top-[1300px] left-[-150px] pointer-events-none"></div>
 
-<!-- PROFILE HEADER (FIGMA STYLE) -->
-<section id="profileTab" class="block pt-40 max-w-6xl mx-auto px-6">
-  <div class="bg-white/40 backdrop-blur-md rounded-3xl shadow-lg p-10 flex flex-col md:flex-row gap-10 items-start">
-
-    <!-- FOTO -->
-    <img id="profileImg"
-         class="w-44 h-52 rounded-2xl shadow-lg object-cover"
-         src="">
-
-    <!-- TEKS -->
-    <div class="flex-1">
-
-      <!-- NAMA -->
-      <h1 id="profileName"
-          class="text-3xl md:text-4xl font-bold text-sky-700 font-['Krub'] mb-4 text-left">
-      </h1>
-
-      <!-- DESKRIPSI PANJANG -->
-      <p id="profileDesc"
-         class="text-lg text-black leading-relaxed font-['Poppins'] text-left mb-6">
-      </p>
-
-      <!-- ICON SOSMED -->
-      <div id="socialIcons" class="flex gap-4 mb-4"></div>
-
-      <!-- ROLE -->
-      <div id="profileRole" class="text-black/60 text-xl font-normal font-['Poppins']"></div>
-
-    </div>
-  </div>
+<!-- PAGE TITLE -->
+<section class="pt-40 text-center fade-up">
+  <h1 class="text-4xl md:text-5xl font-bold text-sky-700 font-['Krub']">
+    Team & Organizational Structure
+  </h1>
 </section>
 
-<!-- TABS -->
-<div class="max-w-6xl mx-auto px-6 mt-12">
-  <div class="flex gap-4 justify-center">
-    
-    <button onclick="openTab('profileTab')"
-      class="tab-btn bg-sky-600 text-white px-6 py-2 rounded-full">
-      Profile
-    </button>
+<!-- HEAD OF LAB -->
+<section class="max-w-4xl mx-auto mt-16 fade-up">
+  <h2 class="text-3xl font-bold text-sky-700 text-center mb-10">Head of Laboratory</h2>
 
-    <button onclick="openTab('backgroundTab')"
-      class="tab-btn bg-gray-300 text-black px-6 py-2 rounded-full">
-      Background
-    </button>
+  <div id="headContainer"></div>
+</section>
 
-    <button onclick="openTab('publicationTab')"
-      class="tab-btn bg-gray-300 text-black px-6 py-2 rounded-full">
-      Publications
-    </button>
+<!-- RESEARCHERS TITLE -->
+<section class="mt-28 fade-up">
+  <h2 class="text-4xl font-bold text-sky-700 text-center font-['Krub']">Researchers</h2>
+</section>
 
-  </div>
-</div>
-
-
-<!-- BACKGROUND TAB -->
-<section id="backgroundTab" class="hidden max-w-6xl mx-auto mt-10 px-6">
-
-  <h2 class="text-3xl font-bold text-sky-700 text-center mt-24 font-['Krub']">
-    Background
-  </h2>
-
-  <div class="w-full bg-white/60 rounded-3xl p-6 shadow-md">
-
-    <!-- HEADER TABLE -->
-    <div class="bg-sky-600 rounded-xl text-white text-xl font-bold grid grid-cols-4 py-3 text-center">
-      <div>Institute</div>
-      <div>Academic Title</div>
-      <div>Year</div>
-      <div>Degree</div>
-    </div>
-
-    <!-- LIST FROM BACKEND -->
-    <div id="backgroundList"
-         class="bg-slate-200/70 rounded-xl mt-2 p-4 space-y-3">
-    </div>
-
-  </div>
+<!-- MEMBERS GRID -->
+<section class="max-w-7xl mx-auto mt-14 px-6 fade-up">
+  <div id="researcherList" class="grid md:grid-cols-2 gap-16"></div>
 </section>
 
 <!-- PUBLICATION TAB -->
-<section id="publicationTab" class="hidden max-w-6xl mx-auto mt-10 px-6">
-
-  <h2 class="text-4xl font-bold text-sky-700 text-center mt-24 font-['Krub']">
-    Publications
-  </h2>
-
+<section id="publicationTab" class="max-w-6xl mx-auto mt-10 px-6">
+  <h2 class="text-3xl font-bold text-sky-700 text-center mb-6">Publications</h2>
   <div class="bg-white/60 rounded-3xl shadow-xl p-8">
     <div id="publicationList" class="space-y-4 text-lg text-black"></div>
   </div>
-
 </section>
 
+<!-- RESEARCH TAB -->
+<section id="researchTab" class="hidden max-w-6xl mx-auto mt-10 px-6">
+  <h2 class="text-3xl font-bold text-sky-700 text-center mb-6">Research</h2>
+  <div class="bg-white/60 rounded-3xl shadow-xl p-8">
+    (isi dari backend / static)
+  </div>
+</section>
 
+<!-- IP TAB -->
+<section id="ipTab" class="hidden max-w-6xl mx-auto mt-10 px-6">
+  <h2 class="text-3xl font-bold text-sky-700 text-center mb-6">Intellectual Property</h2>
+  <div class="bg-white/60 rounded-3xl shadow-xl p-8">
+    (data IP backend nanti masuk sini)
+  </div>
+</section>
+
+<!-- PPM TAB -->
+<section id="ppmTab" class="hidden max-w-6xl mx-auto mt-10 px-6">
+  <h2 class="text-3xl font-bold text-sky-700 text-center mb-6">PPM</h2>
+  <div class="bg-white/60 rounded-3xl shadow-xl p-8">
+    (backend content)
+  </div>
+</section>
+
+<!-- ACTIVITY TAB -->
+<section id="activityTab" class="hidden max-w-6xl mx-auto mt-10 px-6">
+  <h2 class="text-3xl font-bold text-sky-700 text-center mb-6">Activities</h2>
+  <div class="bg-white/60 rounded-3xl shadow-xl p-8">
+    (backend activity)
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer class="mt-32 bg-cyan-900 text-white py-8">
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
 
     <div>
-      <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4">
-      <p class="text-sm text-blue-100">AI Lab Polinema — a collaborative innovation hub advancing applied informatics.</p>
+      <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4" alt="logo white">
+      <p class="text-sm text-blue-100">
+        AI Lab Polinema — a collaborative innovation hub advancing applied informatics.
+      </p>
     </div>
 
     <div>
@@ -164,109 +152,96 @@
     </div>
 
   </div>
-
   <div class="text-center text-blue-100 text-sm border-t border-blue-200 mt-6 pt-4">
     © 2025 AI Lab Polinema. All rights reserved.
   </div>
 </footer>
 
 <script>
-  async function loadProfile() {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get("id");
+  // Fade-up animation (on-scroll)
+  const fadeEls = document.querySelectorAll(".fade-up");
+  const reveal = () => {
+    fadeEls.forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+        el.classList.add("show");
+      }
+    });
+  };
+  window.addEventListener("scroll", reveal);
+  reveal();
 
-    if (!id) {
-        alert("No member ID provided!");
-        return;
-    }
+  // openProfile → hanya kirim ID
+  function openProfile(id) {
+    window.location.href = `member-profile.html?id=${id}`;
+  }
 
+  async function loadMembers() {
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/members/${id}`);
-        if (!res.ok) throw new Error("Member not found");
+        const res = await fetch("http://127.0.0.1:8000/api/members");
+        const data = await res.json();
 
-        const m = await res.json();
+        const head = data.find(m => m.role === "Head of Laboratory");
+        let researchers = data.filter(m => m.role !== "Head of Laboratory");
 
-        // isi halaman
-        document.getElementById("profileName").textContent = m.full_name;
-        document.getElementById("profileImg").src = m.photo || "img/default.png";
-        document.getElementById("profileDesc").textContent = m.description || m.expertise || "";
-        document.getElementById("profileRole").textContent = m.role;
-
-        // social icons
-        const iconsContainer = document.getElementById("socialIcons");
-        iconsContainer.innerHTML = ""; // RESET biar tidak double
-
-        const icons = [
-            { url: m.linkedin, icon: "img/linkedin.png" },
-            { url: m.scholar, icon: "img/scholar.png" },
-            { url: m.researchgate, icon: "img/rlogo.png" },
-            { url: m.orcid, icon: "img/orcid.png" }
-        ];
-
-            // BACKGROUND (education)
-const bgList = document.getElementById("backgroundList");
-bgList.innerHTML = "";
-
-m.backgrounds.forEach(b => {
-    bgList.innerHTML += `
-      <div class="grid grid-cols-4 text-center items-center py-2">
-        <div>${b.institute}</div>
-        <div>${b.academic_title}</div>
-        <div>${b.year}</div>
-        <div>${b.degree}</div>
-      </div>
-    `;
-});
-
-// PUBLICATIONS
-const pubList = document.getElementById("publicationList");
-pubList.innerHTML = "";
-
-m.publications.forEach(p => {
-    pubList.innerHTML += `
-      <div class="p-4 bg-white/70 rounded-xl shadow">
-        <b>${p.title}</b>
-        <div class="text-sm text-gray-600">${p.publisher || ''} — ${p.year || ''}</div>
-        ${p.link ? `<a href="${p.link}" target="_blank" class="text-blue-600 underline">View</a>` : ''}
-      </div>
-    `;
-});
-
-        icons.forEach(i => {
-            if (i.url && i.url.trim() !== "") {
-                const a = document.createElement("a");
-                a.href = i.url;
-                a.target = "_blank";
-                a.innerHTML = `<img src="${i.icon}" class="w-9 h-9">`;
-                iconsContainer.appendChild(a);
-            }
+        // Sort: yang punya expertise dulu, kosong di bawah
+        researchers = researchers.sort((a, b) => {
+            const aHas = a.expertise && a.expertise.trim() !== "";
+            const bHas = b.expertise && b.expertise.trim() !== "";
+            return (aHas === bHas) ? 0 : aHas ? -1 : 1;
         });
 
-    } catch (e) {
-        console.error(e);
-        alert("Error loading profile");
+        // HEAD
+        if (head) {
+            document.querySelector("#headContainer").innerHTML = `
+                <div class="bg-white/40 backdrop-blur-sm p-10 rounded-3xl shadow-lg text-center hover:shadow-xl cursor-pointer transition"
+                    onclick="openProfile(${head.id})">
+
+                    <img src="${head.photo}" class="w-44 h-52 mx-auto rounded-2xl shadow-lg object-cover" />
+                    <h3 class="text-3xl font-bold text-sky-700 mt-6">${head.full_name}</h3>
+                    <p class="text-xl text-black mt-4 px-4">${head.expertise || ''}</p>
+                </div>
+            `;
+        }
+
+        // RESEARCHERS
+        const listContainer = document.querySelector("#researcherList");
+        listContainer.innerHTML = "";
+
+        researchers.forEach(m => {
+            listContainer.innerHTML += `
+                <div class="bg-white/50 p-8 rounded-3xl shadow-md text-center hover:shadow-xl cursor-pointer transition"
+                    onclick="openProfile(${m.id})">
+
+                    <img src="${m.photo}" class="w-44 h-52 mx-auto rounded-2xl shadow-md object-cover" />
+                    <h3 class="mt-6 text-2xl font-bold text-sky-700">${m.full_name}</h3>
+                    <p class="text-lg mt-4 px-4">${m.expertise || ''}</p>
+                </div>
+            `;
+        });
+
+    } catch (err) {
+        console.error("Error load members:", err);
     }
 }
 
-document.addEventListener("DOMContentLoaded", loadProfile);
+document.addEventListener("DOMContentLoaded", loadMembers);
 
 function openTab(tabName) {
-  const tabs = ["profileTab", "backgroundTab", "publicationTab"];
+  const tabs = ["publicationTab", "researchTab", "ipTab", "ppmTab", "activityTab"];
 
-  tabs.forEach(t => {
-      document.getElementById(t).classList.add("hidden");
-  });
+  // hide all
+  tabs.forEach(t => document.getElementById(t).classList.add("hidden"));
 
+  // show active
   document.getElementById(tabName).classList.remove("hidden");
 
-  // update tombol warna
-  const btns = document.querySelectorAll(".tab-btn");
-  btns.forEach(btn => btn.classList.remove("bg-sky-600", "text-white"));
-  event.target.classList.add("bg-sky-600", "text-white");
+  // update active style
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.classList.remove("tab-active");
+  });
+  event.target.classList.add("tab-active");
 }
-
 </script>
-
 
 </body>
 </html>
