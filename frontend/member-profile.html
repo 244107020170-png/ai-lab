@@ -185,7 +185,7 @@ async function loadProfile() {
             { url: m.researchgate, icon: "img/rlogo.png" },
             { url: m.orcid, icon: "img/orcid.png" }
         ].forEach(i => {
-            if (i.url && i.url.trim()) {
+            if (i.url && String(i.url).trim() !== "") {
                 socialIcons.innerHTML += `
                     <a href="${i.url}" target="_blank">
                         <img src="${i.icon}" class="w-9">
@@ -291,11 +291,10 @@ function openTab(name, button) {
 }
 
 // === INIT ===
-document.addEventListener("DOMContentLoaded", () => {
-    loadProfile().then(() => {
-        const first = document.querySelector(".tab-btn");
-        openTab("publicationTab", first);
-    });
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadProfile();
+    const first = document.querySelector(".tab-btn");
+    openTab("publicationTab", first);
 });
 </script>
 
