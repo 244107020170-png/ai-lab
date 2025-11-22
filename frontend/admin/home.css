@@ -1,22 +1,249 @@
 body {
-    font-family: 'SF Pro Display';
+    font-family: 'SF Pro Rounded';
     justify-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Brief Description Title*/
+.desc-title {
+    font-family: 'SF Pro Display';
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    text-align: left;
+    text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.40)
+
+}
+
+/* Brief Description */
+.desc-text {
+    font-family: 'SF Pro Display';
+    width: 1024px;
+    color: #AEBACB;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    word-wrap: break-word;
+    padding-top: 3px;
+}
+
+/* Shared box styling */
 .leBox {
     background: rgba(0, 0, 0, 0.34);
     border-radius: 11px;
     outline: 1px solid rgba(255, 255, 255, 0.11);
-    outline-offset: -1px;
     backdrop-filter: blur(6.35px);
+}
 
+
+
+/* Responsive row */
+.stats-row {
+    width: 100%;
+    max-width: 1200px; /* keeps original Figma width feel */
+    margin: 0 auto; /* centers the row */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: horizontal; /* makes it responsive */
+    padding-top: 25px; /* your original top spacing */
+}
+
+/* Individual box */
+.stat-box {
+    width: 376px;
+    padding: 19px 20px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     gap: 10px;
+}
 
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.25); /* optional but accurate */
+/* Inner layout */
+.stat-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.stat-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Text styles preserved */
+.stat-title {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-value {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Blue square icon */
+.stat-icon {
+    width: 26px;
+    height: 26px;
+    background: #76EBFB;
+}
+
+/* Responsive row for graphs */
+.graphs-row {
+    width: 100%;
+    max-width: 1200px;        /* keeps original spacing feel */
+    margin: 0 auto;           /* center horizontally */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 35px;
+
+    flex-wrap: nowrap;        /* same as you did with stats-row */
+    padding-top: 25px;       /* original top offset */
+}
+
+/* Graph box container */
+.graph-box {
+    width: 565px;
+    height: 360px;
+
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    align-items: center;
+}
+
+/* Inner content */
+.graph-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header line */
+.graph-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+/* Title */
+.graph-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Button */
+.graph-btn {
+    width: 98px;
+    height: 25px;
+
+    outline: 1px solid rgba(255,255,255,0.44);
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    color: white;
+}
+
+.graph-btn.small {
+    width: 78px;
+    height: 28px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Graph main area */
+.graph-area {
+    width: 100%;
+    height: 146px;
+    position: relative;
+}
+
+/* Graph Wrapper that wraps both graph and the text */
+.graph-wrap {
+    padding-top: 75px;
+}
+
+/* White outline */
+.graph-outline {
+    width: 489px;
+    height: 102px;
+    position: absolute;
+    left: 23px;
+    top: 0;
+    outline: 2px white solid;
+}
+
+.graph-outline.short {
+    height: 89px;
+}
+
+/* Glass gradient */
+.graph-gradient {
+    width: 491px;
+    height: 145px;
+    position: absolute;
+    left: 22px;
+    top: 0;
+
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.54),
+        rgba(115,115,115,0)
+    );
+}
+
+/* Month / year labels */
+.graph-labels {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+}
+
+.graph-labels.wide {
+    gap: 23px;
+}
+
+.footer {
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    
 }
