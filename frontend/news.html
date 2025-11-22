@@ -133,144 +133,156 @@
 
   <!-- SCRIPTS -->
   <script>
-    // --- sample data (replace with real backend data later) ---
-    const newsData = [
-      {
-        id: 1,
-        title: "Smartfarming - Agrilink Vocpro",
-        date: "October, 2024",
-        category: "research",
-        imageThumb: "img/newstop.png",
-        imageDetail: "img/newsdown.png",
-        excerpt: "Agrilink Vocpro is a smart mobile and website-based application specifically designed to support modern agricultural activities in greenhouse environments.",
-        quote: "Improving the efficiency and accuracy of modern agriculture in greenhouse environments through an IoT-based automated monitoring system."
-      },
-      // Duplicate items just to fill layout; change categories to test filtering:
-      { id: 2, title: "Smartfarming - Agrilink Vocpro", date: "October, 2024", category: "innovation", imageThumb: "img/newstop.png", imageDetail: "img/newsdown.png", excerpt: "Excerpt ...", quote: "Quote ..." },
-      { id: 3, title: "Smartfarming - Agrilink Vocpro", date: "October, 2024", category: "collaboration", imageThumb: "img/newstop.png", imageDetail: "img/newsdown.png", excerpt: "Excerpt ...", quote: "Quote ..." },
-      { id: 4, title: "Smartfarming - Agrilink Vocpro", date: "October, 2024", category: "award", imageThumb: "img/newstop.png", imageDetail: "img/newsdown.png", excerpt: "Excerpt ...", quote: "Quote ..." },
-      { id: 5, title: "Smartfarming - Agrilink Vocpro", date: "October, 2024", category: "research", imageThumb: "img/newstop.png", imageDetail: "img/newsdown.png", excerpt: "Excerpt ...", quote: "Quote ..." },
-      { id: 6, title: "Smartfarming - Agrilink Vocpro", date: "October, 2024", category: "innovation", imageThumb: "img/newstop.png", imageDetail: "img/newsdown.png", excerpt: "Excerpt ...", quote: "Quote ..." }
-    ];
+const apiBase = "http://127.0.0.1:8000/api";
 
-    // DOM refs
-    const gridEl = document.getElementById('newsGrid');
-    const tpl = document.getElementById('newsCardTemplate').content;
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const detailSection = document.getElementById('newsDetail');
-    const backBtn = document.getElementById('backBtn');
+const gridEl = document.getElementById('newsGrid');
+const tpl = document.getElementById('newsCardTemplate').content;
+const filterBtns = document.querySelectorAll('.filter-btn');
+const detailSection = document.getElementById('newsDetail');
+const backBtn = document.getElementById('backBtn');
 
-    // populate grid
-    function renderGrid(items = newsData) {
-      gridEl.innerHTML = '';
-      items.forEach(item => {
-        const node = tpl.cloneNode(true);
-        const article = node.querySelector('.news-card');
-        article.dataset.id = item.id;
-        article.dataset.category = item.category;
-        article.dataset.title = item.title;
-        article.dataset.image = item.imageDetail;
+/* ============================
+   FETCH DATA
+============================ */
+async function fetchNews(category = 'all') {
+  try {
+    const url = new URL(apiBase + '/news');
+    if (category !== "all") url.searchParams.set('category', category);
 
-        node.querySelector('.card-img').src = item.imageThumb;
-        node.querySelector('.card-img').alt = item.title;
-        node.querySelector('.card-title').textContent = item.title;
-        node.querySelector('.card-date').textContent = item.date;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Failed to fetch news");
 
-        // click handler to open detail
-        article.addEventListener('click', () => openDetail(item));
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return [];
+  }
+}
 
-        gridEl.appendChild(node);
-      });
-    }
+async function fetchOne(id) {
+  try {
+    const res = await fetch(apiBase + '/news/' + id);
+    if (!res.ok) throw new Error("Not found");
+    return await res.json();
+  } catch (e) {
+    console.error(e);
+    return null;
+  }
+}
 
-    // filter logic
-    function applyFilter(category) {
-      const cards = gridEl.querySelectorAll('.news-card');
-      cards.forEach(c => {
-        const cCat = c.dataset.category;
-        if (category === 'all' || category === cCat) {
-          c.classList.remove('hidden');
-          // micro fade for visual
-          c.style.opacity = 0;
-          c.style.transform = 'translateY(8px) scale(.995)';
-          setTimeout(()=>{ c.style.opacity = 1; c.style.transform = 'translateY(0) scale(1)'; }, 60);
-        } else {
-          c.classList.add('hidden');
-        }
-      });
-    }
+/* ============================
+   RENDER LIST
+============================ */
+function renderGrid(items = []) {
+  gridEl.innerHTML = "";
 
-    // make clicked filter active
-    function setActiveFilterBtn(btn) {
-      filterBtns.forEach(b=> b.classList.remove('active'));
-      btn.classList.add('active');
-    }
+  if (!items.length) {
+    gridEl.innerHTML = `<p class="text-center text-gray-600 col-span-full">No news available.</p>`;
+    return;
+  }
 
-    // open detail with fade in
-    function openDetail(item) {
-      // fill content
-      document.getElementById('breadcrumb').textContent = `News > ${capitalize(item.category)} > ${item.title}`;
-      document.getElementById('detailTitle').textContent = item.title;
-      document.getElementById('detailDate').textContent = item.date;
-      document.getElementById('detailImg').src = item.imageDetail;
-      document.getElementById('detailBody').textContent = item.excerpt;
-      document.getElementById('detailQuote').textContent = item.quote;
+  items.forEach(item => {
+    const card = tpl.cloneNode(true);
+    const el = card.querySelector('.news-card');
 
-      // show/hide
-      gridEl.parentElement.classList.add('hidden'); // hide main grid container area
-      detailSection.classList.remove('hidden');
-      // small timeout to trigger transition
-      setTimeout(()=> detailSection.classList.add('show'), 25);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    el.dataset.id = item.id;
 
-    // back
-    function backToGrid() {
-      detailSection.classList.remove('show');
-      setTimeout(()=>{
-        detailSection.classList.add('hidden');
-        gridEl.parentElement.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 300);
-    }
+    card.querySelector('.card-img').src = item.image_thumb || "img/newstop.png";
+    card.querySelector('.card-title').textContent = item.title;
+    card.querySelector('.card-date').textContent =
+      item.date ? new Date(item.date).toLocaleDateString() : "";
 
-    // helper
-    function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+    el.addEventListener('click', () => openDetail(item.id));
 
-    // init
-    document.addEventListener('DOMContentLoaded', () => {
-      renderGrid();
+    gridEl.appendChild(card);
+  });
+}
 
-      // default active
-      const allBtn = document.querySelector('[data-filter="all"]');
-      setActiveFilterBtn(allBtn);
+/* ============================
+   DETAIL VIEW
+============================ */
+async function openDetail(id) {
+  const item = await fetchOne(id);
+  if (!item) return alert("Failed to load detail");
 
-      // add events to filter buttons
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const cat = btn.dataset.filter;
-          setActiveFilterBtn(btn);
-          applyFilter(cat);
-        });
-      });
+  document.getElementById("breadcrumb").textContent =
+    `News > ${capitalize(item.category || "")} > ${item.title}`;
 
-      // back button
-      backBtn.addEventListener('click', backToGrid);
+  document.getElementById("detailTitle").textContent = item.title;
+  document.getElementById("detailDate").textContent =
+    item.date ? new Date(item.date).toLocaleDateString() : "";
 
-      // header reveal and on-scroll reveal for fade-up elements
-      const fadeUpEls = document.querySelectorAll('.fade-up');
-      const reveal = () => {
-        fadeUpEls.forEach(el =>{
-          if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('show');
-        });
-      };
-      window.addEventListener('scroll', reveal);
-      reveal();
+  document.getElementById("detailImg").src =
+    item.image_detail || item.image_thumb || "img/newsdown.png";
 
-      // navbar scroll effect
-      const navbar = document.querySelector('.navbar');
-      window.addEventListener('scroll', ()=> navbar.classList.toggle('scrolled', window.scrollY > 20));
+  document.getElementById("detailBody").innerHTML =
+    item.content || item.excerpt || "";
+
+  document.getElementById("detailQuote").textContent = item.quote || "";
+
+  gridEl.parentElement.classList.add("hidden");
+  detailSection.classList.remove("hidden");
+
+  setTimeout(() => detailSection.classList.add("show"), 25);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function backToGrid() {
+  detailSection.classList.remove("show");
+  setTimeout(() => {
+    detailSection.classList.add("hidden");
+    gridEl.parentElement.classList.remove("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, 300);
+}
+
+/* ============================
+   HELPERS
+============================ */
+function capitalize(s) {
+  if (!s) return "";
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+/* ============================
+   INIT
+============================ */
+document.addEventListener("DOMContentLoaded", async () => {
+  const allNews = await fetchNews("all");
+  renderGrid(allNews);
+
+  const allBtn = document.querySelector('[data-filter="all"]');
+  if (allBtn) allBtn.classList.add("active");
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener("click", async () => {
+      filterBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const cat = btn.dataset.filter || "all";
+      const items = await fetchNews(cat);
+      renderGrid(items);
     });
-  </script>
+  });
+
+  backBtn.addEventListener("click", backToGrid);
+
+  const fadeEls = document.querySelectorAll(".fade-up");
+  const reveal = () => {
+    fadeEls.forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+        el.classList.add("show");
+      }
+    });
+  };
+  window.addEventListener("scroll", reveal);
+  reveal();
+
+  const navbar = document.querySelector(".navbar");
+  window.addEventListener("scroll", () => {
+    navbar.classList.toggle("scrolled", window.scrollY > 20);
+  });
+});
+</script>
 </body>
 </html>
