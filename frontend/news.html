@@ -135,6 +135,12 @@
   <script>
 const apiBase = "http://127.0.0.1:8000/api";
 
+// jika datang dari index (dengan parameter ?id=)
+const params = new URLSearchParams(location.search);
+if (params.get("id")) {
+    openDetail(parseInt(params.get("id")));
+}
+
 const gridEl = document.getElementById('newsGrid');
 const tpl = document.getElementById('newsCardTemplate').content;
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -284,5 +290,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 });
 </script>
+
 </body>
 </html>

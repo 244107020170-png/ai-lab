@@ -257,69 +257,7 @@
     </div>
 
     <!-- CARDS GRID -->
-    <div class="grid md:grid-cols-3 gap-8">
-
-      <!-- CARD 1 -->
-      <div class="bg-slate-50 rounded-3xl shadow-lg overflow-hidden 
-                  transition transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-        <img src="img/res1.png" alt="" class=w-full h-56 object-cover">
-
-        <div class="p-6">
-          <h3 class="text-sky-900 font-bold text-xl mb-2">
-            Smartfarming – Agrilink Vocpro
-          </h3>
-
-          <p class="text-neutral-700 leading-6">
-            Agrilink Vocpro is a smart mobile and website-based application specifically
-            designed to support modern agricultural activities in greenhouse environments.
-            This application allows users, especially farmers, to easily and accurately
-            monitor critical data related to plant conditions and the greenhouse environment.
-          </p>
-        </div>
-      </div>
-
-      <!-- CARD 2 -->
-      <div class="bg-slate-50 rounded-3xl shadow-lg overflow-hidden
-                  transition transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-        <img src="img/res1.png" alt="" class="w-full h-56 object-cover">
-
-        <div class="p-6">
-          <h3 class="text-sky-900 font-bold text-xl mb-2">
-            Smartfarming – Agrilink Vocpro
-          </h3>
-
-          <p class="text-neutral-700 leading-6">
-            Agrilink Vocpro is a smart mobile and website-based application specifically
-            designed to support modern agricultural activities in greenhouse environments.
-            This application allows users, especially farmers, to easily and accurately
-            monitor critical data related to plant conditions and the greenhouse environment.
-          </p>
-        </div>
-      </div>
-
-      <!-- CARD 3 -->
-      <div class="bg-slate-50 rounded-3xl shadow-lg overflow-hidden
-                  transition transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-        <img src="img/res1.png" alt="" class="w-full h-56 object-cover">
-
-        <div class="p-6">
-          <h3 class="text-sky-900 font-bold text-xl mb-2">
-            Smartfarming – Agrilink Vocpro
-          </h3>
-
-          <p class="text-neutral-700 leading-6">
-            Agrilink Vocpro is a smart mobile and website-based application specifically
-            designed to support modern agricultural activities in greenhouse environments.
-            This application allows users, especially farmers, to easily and accurately
-            monitor critical data related to plant conditions and the greenhouse environment.
-          </p>
-        </div>
-      </div>
-
-    </div>
+    <div id="homeNews" class="grid md:grid-cols-3 gap-8"></div>
   </div>
 
 </section>
@@ -359,6 +297,19 @@
     © 2025 AI Lab Polinema. All rights reserved.
   </div>
 </footer>
+
+<template id="homeNewsTemplate">
+  <div class="news-card bg-slate-50 rounded-3xl shadow-lg overflow-hidden 
+              transition transform duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
+
+    <img class="card-img w-full h-56 object-cover" src="" alt="">
+
+    <div class="p-6">
+      <h3 class="card-title text-sky-900 font-bold text-xl mb-2"></h3>
+      <p class="card-excerpt text-neutral-700 leading-6 text-base"></p>
+    </div>
+  </div>
+</template>
 
 <!-- SCRIPT: fade-up on scroll -->
 <script>
@@ -445,6 +396,39 @@ async function loadLatestActivities() {
 }
 
 loadLatestActivities();
+
+async function loadHomeNews() {
+    const container = document.getElementById("homeNews");
+    const tpl = document.getElementById("homeNewsTemplate").content;
+
+    try {
+        const res = await fetch("http://127.0.0.1:8000/api/news/latest");
+        const data = await res.json();
+
+        container.innerHTML = "";
+
+        data.forEach(item => {
+            const node = tpl.cloneNode(true);
+
+            node.querySelector('.card-img').src = item.image_thumb || 'img/newstop.png';
+            node.querySelector('.card-title').textContent = item.title;
+            node.querySelector('.card-excerpt').textContent = item.excerpt?.slice(0,150) + "...";
+
+            // klik card → pindah ke news.html + open detail
+            node.querySelector('.news-card').addEventListener("click", () => {
+                window.location.href = `news.html?id=${item.id}`;
+            });
+
+            container.appendChild(node);
+        });
+
+    } catch (err) {
+        console.error("Failed to load latest news:", err);
+        container.innerHTML = "<p class='text-gray-600'>No recent highlights.</p>";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadHomeNews);
 </script>
 
 </body>
