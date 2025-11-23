@@ -29,14 +29,6 @@ body {
     padding-top: 3px;
 }
 
-/* Shared box styling */
-.leBox {
-    background: rgba(0, 0, 0, 0.34);
-    border-radius: 11px;
-    outline: 1px solid rgba(255, 255, 255, 0.11);
-    backdrop-filter: blur(6.35px);
-}
-
 /* Whole header */
 /* Container */
 .header-container {
@@ -57,7 +49,7 @@ body {
 
 /* Left header */
 .header-left {
-    border-radius: 40px;
+    border-radius: 90px !important;
     padding: 12px 22px;
     display: flex;
     align-items: center;
@@ -65,7 +57,9 @@ body {
 }
 .header-left img {
     width: 120px;
+    transition: 0.25s ease;
 }
+
 .header-left .logo-text {
     font-size: 22px;
     color: rgba(255,255,255,0.7);
@@ -74,7 +68,7 @@ body {
 
 /* Right header (Navbar) */
 .header-right {
-    border-radius: 40px;
+    border-radius: 90px !important;
     padding: 12px 22px;
     display: flex;
     align-items: center;
@@ -90,9 +84,6 @@ body {
     transition: 0.25s ease;
     font-size: 18px;
     font-family: 'SF Pro Rounded';
-}
-.nav-item:hover {
-    background: rgba(255,255,255,0.1);
 }
 
 /* Selected Navbar */
@@ -112,6 +103,18 @@ body {
 
 
 /* ./Whole header */
+
+/* Shared box styling */
+.leBox {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    transition: 0.25s ease;
+}
+
+
 
 /* Responsive row */
 .stats-row {
@@ -133,7 +136,17 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
 }
+
 
 /* Inner layout */
 .stat-inner {
@@ -176,7 +189,7 @@ body {
     align-items: center;
 }
 
-/* Blue square icon */
+/* Stats */
 .stat-icon {
     width: 26px;
     height: 26px;
@@ -238,8 +251,12 @@ body {
     width: 98px;
     height: 25px;
 
-    outline: 1px solid rgba(255,255,255,0.44);
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 5px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    transition: 0.25s ease;
 
     display: flex;
     justify-content: center;
@@ -247,6 +264,7 @@ body {
 
     font-size: 14px;
     color: white;
+    cursor: pointer;
 }
 
 .graph-btn.small {
@@ -259,36 +277,37 @@ body {
 /* Graph main area */
 .graph-area {
     width: 100%;
-    height: 200px;
+    height: 146px;
     position: relative;
+    display: flex;
+    justify-content: center;
 }
 
 /* Graph Wrapper that wraps both graph and the text */
 .graph-wrap {
-    padding-top: 10px;
+    padding-top: 64px;
 }
 
 /* White outline */
 .graph-outline {
     width: 489px;
-    height: 102px;
+    height: 146px;
     position: absolute;
-    left: 23px;
     top: 0;
     outline: 2px white solid;
-}
-
-.graph-outline.short {
-    height: 89px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Glass gradient */
 .graph-gradient {
-    width: 491px;
-    height: 175px;
+    width: 489px;
+    height: 146px;
     position: absolute;
-    left: 22px;
+    opacity: 65%;
     top: 0;
+    left: 50%;
+    transform: translateX(-50%);
 
     background: linear-gradient(
         180deg,
@@ -302,9 +321,10 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 18px;
     font-size: 16px;
     color: rgba(255,255,255,0.5);
+    padding-top: 3px;
 }
 
 .graph-labels.wide {

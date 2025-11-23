@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="home.css">
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="anims.css">
     <style>
         :root {
             --img-opacity: 0.25;
@@ -55,7 +54,7 @@
 
         <!-- LEFT BOX -->
         <div class="leBox header-left">
-            <img src="img/logo.png">
+            <a href="../index.html/"><img src="img/logo.png"></a>
             <div class="logo-text">Lab Admin Page</div>
         </div>
 
@@ -93,7 +92,7 @@
         <!--/.Brief Description-->
 
         <!-- Three Statistic Boxes -->
-        <div class="stats-row">
+        <div class="stats-row ">
         
             <div class="leBox stat-box">
                 <div class="stat-inner">
@@ -145,13 +144,14 @@
                 <div class="graph-inner">
                     <div class="graph-header">
                         <div class="graph-title">Projects Graph</div>
-                        <div class="graph-btn">+ Add Project</div>
+                        <div class="graph-btn">Add Project</div>
                     </div>
         
                     <div class="graph-wrap">
                         <div class="graph-area">
                             <div class="graph-outline"></div>
                             <div class="graph-gradient"></div>
+                            <img src="img/graph-lines.png">
                         </div>
                         
                         <div class="graph-labels">
@@ -182,8 +182,9 @@
         
                     <div class="graph-wrap">
                         <div class="graph-area">
-                            <div class="graph-outline short"></div>
+                            <div class="graph-outline"></div>
                             <div class="graph-gradient"></div>
+                            <img src="img/graph-lines.png">
                         </div>
                         
                         <div class="graph-labels wide">
@@ -205,7 +206,7 @@
         <!-- /.Graphs Container -->
 
                 <!-- Footer Section -->
-                <div class="footer">
+                <footer class="footer">
                     <div>
                         <span style="color: white; font-size: 24px;"">©</span>
                         <span style="color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
@@ -219,7 +220,7 @@
                             </a>
                         </span>
                     </div>
-                </div>
+                </footer>
     </div>
     <!-- /.Main Canvas -->
 
