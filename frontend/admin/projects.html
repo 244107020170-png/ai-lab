@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Management</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="anims.css">
+    <link rel="stylesheet" href="members.css">
+    <style>
+        :root {
+            --img-opacity: 0.25;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Background Layers */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background-image: url("img/background3.jpg");
+            background-size: cover;
+            background-position: center;
+            opacity: var(--img-opacity);
+            transform: translateZ(0);
+        }
+
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(#0F2027, #203A43, #2C5364);
+            z-index: -1;
+            mix-blend-mode: normal;
+        }
+
+        main {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 2rem;
+        }
+    </style>
+
+    <div class="header-container">
+
+        <!-- LEFT BOX -->
+        <div class="leBox header-left">
+            <a href="../index.html/"><img src="img/logo.png"></a>
+            <div class="logo-text">Lab Admin Page</div>
+        </div>
+
+        <div class="leBox header-right">
+            <a href="home.html" class="nav-item">Home</a>
+            <a href="members.html" class="nav-item">Members</a>
+            <a href="projects.html" class="nav-item selected-navbar">Projects</a>
+            <a href="news.html" class="nav-item">News</a>
+        </div>
+
+    </div>
+</head>
+
+<body>
+    <!-- Background: Image + Gradient -->
+    <div class="bg-layer" aria-hidden="true">
+        <div class="bg-image"></div>
+        <div class="bg-gradient"></div>
+    </div>
+</body>
+</html>

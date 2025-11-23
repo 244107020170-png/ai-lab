@@ -77,14 +77,17 @@ body {
 
 /* Navbar Items */
 .nav-item {
+    display: inline-block; /* so padding applies */
     padding: 8px 18px;
     border-radius: 30px;
     cursor: pointer;
-    color: #8EF1FF;
-    transition: 0.25s ease;
+    color: #8EF1FF !important;
     font-size: 18px;
     font-family: 'SF Pro Rounded';
+    transition: 0.25s ease;
+    text-decoration: none !important;
 }
+
 
 /* Selected Navbar */
 .selected-navbar {
@@ -113,8 +116,6 @@ body {
 
     transition: 0.25s ease;
 }
-
-
 
 /* Responsive row */
 .stats-row {

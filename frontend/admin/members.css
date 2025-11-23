@@ -1,0 +1,151 @@
+/* Search Box and Filter */
+.search-filter {
+    display: flex;
+    align-items: center;
+    gap: 20px;   /* or 24px for perfect spacing */
+    padding-top: 25px;
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+
+.search-box {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+    transition: 0.25s ease;
+
+    width: 272px;
+    height: 47px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 12px;
+}
+
+.search-text {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+
+    /* Reset weird properties */
+    display: block;
+    height: auto;
+}
+
+/* Filter Button (Uses leBox) */
+.filter-container {
+    position: relative;
+    width: 123px;
+}
+
+.filter-box {
+    width: 123px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+/* Dropdown List */
+.filter-dropdown {
+    position: absolute;
+    top: 52px;
+    width: 123px;
+    background: rgba(0, 0, 0, 0.7);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    border-radius: 11px;
+    backdrop-filter: blur(8px);
+    outline: 1px solid rgba(255, 255, 255, 0.12);
+    display: none;
+    flex-direction: column;
+    padding: 6px 0;
+    z-index: 20;
+}
+
+.filter-dropdown div {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+.filter-dropdown div:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#filter-label {    
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 14px;
+}
+
+/* Sort Button */
+.sort-container {
+    position: relative;
+    width: 123px;
+    padding-left: 22px;
+}
+
+.sort-box {
+    width: 123px;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    cursor: pointer;
+}
+
+/* Dropdown List */
+.sort-dropdown {
+    position: absolute;
+    top: 52px;
+    width: 123px;
+    background: rgba(0, 0, 0, 0.7);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    border-radius: 11px;
+    backdrop-filter: blur(8px);
+    outline: 1px solid rgba(255, 255, 255, 0.12);
+    display: none;
+    flex-direction: column;
+    padding: 6px 0;
+    z-index: 20;
+}
+
+.sort-dropdown div {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.sort-dropdown div:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+#sort-label {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 14px;
+}
+
+/* Member Containers */
+.member-container {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    transition: 0.25s ease;
+    width: 1164px;
+    height: 478px;
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,9 @@
         :root {
             --img-opacity: 0.25;
         }
-        html, body {
+
+        html,
+        body {
             height: 100%;
             margin: 0;
         }
@@ -22,6 +25,7 @@
             pointer-events: none;
             z-index: -2;
         }
+
         .bg-image {
             position: absolute;
             inset: 0;
@@ -31,6 +35,7 @@
             opacity: var(--img-opacity);
             transform: translateZ(0);
         }
+
         .bg-gradient {
             position: absolute;
             inset: 0;
@@ -49,7 +54,7 @@
             padding: 2rem;
         }
     </style>
-    
+
     <div class="header-container">
 
         <!-- LEFT BOX -->
@@ -60,15 +65,16 @@
 
         <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <div class="nav-item selected-navbar">Home</div>
-            <div class="nav-item">Members</div>
-            <div class="nav-item">Projects</div>
-            <div class="nav-item">News</div>
+            <a href="home.html" class="nav-item selected-navbar">Home</a>
+            <a href="members.html" class="nav-item">Members</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="news.html" class="nav-item">News</a>
         </div>
 
     </div>
 
 </head>
+
 <body>
 
     <!-- Background: Image + Gradient -->
@@ -85,15 +91,17 @@
         <div class="desc-title">
             Admin Dashboard</div>
         <div class="desc-text">
-            The home page serves as a quick view of the performance graph for the Projects that are published by the Lab and
-            Volunteers that has joined the lab. Each subpage serves to manage the data that will be displayed in the main
+            The home page serves as a quick view of the performance graph for the Projects that are published by the Lab
+            and
+            Volunteers that has joined the lab. Each subpage serves to manage the data that will be displayed in the
+            main
             website. Call this the backend site for the main one.</div>
 
         <!--/.Brief Description-->
 
         <!-- Three Statistic Boxes -->
         <div class="stats-row ">
-        
+
             <div class="leBox stat-box">
                 <div class="stat-inner">
                     <div class="stat-text">
@@ -106,7 +114,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <div class="leBox stat-box">
                 <div class="stat-inner">
                     <div class="stat-text">
@@ -119,7 +127,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <div class="leBox stat-box">
                 <div class="stat-inner">
                     <div class="stat-text">
@@ -127,10 +135,12 @@
                         <div class="stat-value">N/A</div>
                         <div class="stat-desc">N/A Pending.</div>
                     </div>
-                    <div class="stat-icon"></div>
+                    <div class="stat-icon">
+                        <img src="img/clipboard-pencil-logo.png" alt="">
+                    </div>
                 </div>
             </div>
-        
+
         </div>
 
         <!-- /.Three Statistic Boxes -->
@@ -138,7 +148,7 @@
 
         <!-- Graph Section Title + Description -->
         <div class="graphs-row">
-        
+
             <!-- Graph Box 1 -->
             <div class="leBox graph-box">
                 <div class="graph-inner">
@@ -146,14 +156,14 @@
                         <div class="graph-title">Projects Graph</div>
                         <div class="graph-btn">Add Project</div>
                     </div>
-        
+
                     <div class="graph-wrap">
                         <div class="graph-area">
                             <div class="graph-outline"></div>
                             <div class="graph-gradient"></div>
                             <img src="img/graph-lines.png">
                         </div>
-                        
+
                         <div class="graph-labels">
                             <div>Jan</div>
                             <div>Feb</div>
@@ -171,7 +181,7 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- Graph Box 2 -->
             <div class="leBox graph-box">
                 <div class="graph-inner">
@@ -179,14 +189,14 @@
                         <div class="graph-title">Volunteers Joined Graph</div>
                         <div class="graph-btn small">Manage Volunteers</div>
                     </div>
-        
+
                     <div class="graph-wrap">
                         <div class="graph-area">
                             <div class="graph-outline"></div>
                             <div class="graph-gradient"></div>
                             <img src="img/graph-lines.png">
                         </div>
-                        
+
                         <div class="graph-labels wide">
                             <div>2017</div>
                             <div>2018</div>
@@ -201,28 +211,29 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
         <!-- /.Graphs Container -->
 
-                <!-- Footer Section -->
-                <footer class="footer">
-                    <div>
-                        <span style="color: white; font-size: 24px;"">©</span>
-                        <span style="color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
-                    </div>
-                    
-                    <div>
-                        <span style="color: white; font-size: 24px;">Contact: </span>
-                        <span style="color: white; font-size: 24px; text-decoration: underline;">
-                            <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
-                                ailab@polinema.ac.id
-                            </a>
-                        </span>
-                    </div>
-                </footer>
+        <!-- Footer Section -->
+        <footer class="footer">
+            <div>
+                <span style="color: white; font-size: 24px;"">©</span>
+                        <span style=" color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
+            </div>
+
+            <div>
+                <span style="color: white; font-size: 24px;">Contact: </span>
+                <span style="color: white; font-size: 24px; text-decoration: underline;">
+                    <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
+                        ailab@polinema.ac.id
+                    </a>
+                </span>
+            </div>
+        </footer>
     </div>
     <!-- /.Main Canvas -->
 
 </body>
+
 </html>
