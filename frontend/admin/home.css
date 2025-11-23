@@ -37,7 +37,81 @@ body {
     backdrop-filter: blur(6.35px);
 }
 
+/* Whole header */
+/* Container */
+.header-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+    max-width: 1440px;
+
+    z-index: 999;
+}
+
+/* Left header */
+.header-left {
+    border-radius: 40px;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.header-left img {
+    width: 120px;
+}
+.header-left .logo-text {
+    font-size: 22px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'SF Pro Rounded';
+}
+
+/* Right header (Navbar) */
+.header-right {
+    border-radius: 40px;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Navbar Items */
+.nav-item {
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #8EF1FF;
+    transition: 0.25s ease;
+    font-size: 18px;
+    font-family: 'SF Pro Rounded';
+}
+.nav-item:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+/* Selected Navbar */
+.selected-navbar {
+    background: linear-gradient(246deg, #03D3F1 0%, #027A8B 100%) !important;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0px 4px 30px rgba(0,0,0,0.3);
+}
+
+/* Content Container */
+.content-container {
+    padding-top: 140px; /* adjust to your liking */
+}
+
+
+/* ./Whole header */
 
 /* Responsive row */
 .stats-row {
@@ -106,7 +180,6 @@ body {
 .stat-icon {
     width: 26px;
     height: 26px;
-    background: #76EBFB;
 }
 
 /* Responsive row for graphs */
@@ -178,7 +251,7 @@ body {
 
 .graph-btn.small {
     width: 78px;
-    height: 28px;
+    height: 35px;
     font-size: 12px;
     text-align: center;
 }
@@ -186,13 +259,13 @@ body {
 /* Graph main area */
 .graph-area {
     width: 100%;
-    height: 146px;
+    height: 200px;
     position: relative;
 }
 
 /* Graph Wrapper that wraps both graph and the text */
 .graph-wrap {
-    padding-top: 75px;
+    padding-top: 10px;
 }
 
 /* White outline */
@@ -212,7 +285,7 @@ body {
 /* Glass gradient */
 .graph-gradient {
     width: 491px;
-    height: 145px;
+    height: 175px;
     position: absolute;
     left: 22px;
     top: 0;
