@@ -60,12 +60,13 @@
 
         <!-- LEFT BOX -->
         <div class="leBox header-left">
-            <a href="../index.html/"><img src="img/logo.png"></a>
+            <a href="../"><img src="img/logo.png"></a>
             <div class="logo-text">Lab Admin Page</div>
         </div>
-
+        
+        <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <a href="home.html" class="nav-item">Home</a>
+            <a href="index.html" class="nav-item">Home</a>
             <a href="members.html" class="nav-item selected-navbar">Members</a>
             <a href="projects.html" class="nav-item">Projects</a>
             <a href="news.html" class="nav-item">News</a>
@@ -82,7 +83,7 @@
     </div>
 
     <!-- Main Container -->
-    <div>
+    <div class="main-container">
         <!--Brief Description-->
         <div class="desc-title">Members Management</div>
         <div class="desc-text">
@@ -154,32 +155,7 @@
     </div>
     <!-- /.Main Container -->
 
-    <!-- JS Script for Dropdown -->
-    <script>
-        function toggleFilter() {
-            document.getElementById("filter-dropdown").style.display =
-                document.getElementById("filter-dropdown").style.display === "flex"
-                    ? "none"
-                    : "flex";
-        }
-
-        function setFilter(value) {
-            document.getElementById("filter-label").innerText = value;
-            document.getElementById("filter-dropdown").style.display = "none";
-        }
-
-        function toggleSort() {
-            const dropdown = document.getElementById("sort-dropdown");
-            dropdown.style.display = (dropdown.style.display === "flex") ? "none" : "flex";
-        }
-
-        function setSort(value) {
-            document.getElementById("sort-label").innerText = value;
-            document.getElementById("sort-dropdown").style.display = "none";
-        }
-    </script>
-
-
+    <script src="members.js"></script>
 </body>
 
 </html>

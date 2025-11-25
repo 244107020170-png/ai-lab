@@ -44,6 +44,10 @@
     outline: 2px solid rgba(255, 255, 255, 0.4);
 }
 
+.search-text:focus::placeholder {
+    color: transparent;
+}
+
 /* Filter Box Hover Anim */
 .filter-box:hover {
     background: rgba(255,255,255,0.1);

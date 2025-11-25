@@ -6,6 +6,14 @@ body {
     align-items: center;
 }
 
+/* Main Container */
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+}
+
 /* Brief Description Title*/
 .desc-title {
     font-family: 'SF Pro Display';
