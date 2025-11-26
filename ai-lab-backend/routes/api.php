@@ -6,6 +6,9 @@ use App\Http\Controllers\PermitController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\ResearchController;
+use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +43,23 @@ Route::post('/admin/login', [AuthController::class, 'login']);
 Route::get('/activities', [ActivityController::class, 'index']);
 Route::get('/activities/{id}', [ActivityController::class, 'show']);
 Route::post('/activities', [ActivityController::class, 'store']);
+
+//Member
+Route::get('/members', [MemberController::class, 'index']);
+Route::get('/members/{id}', [MemberController::class, 'show']);
+
+// Kalau admin ingin input dari backend admin
+Route::post('/members/create', [MemberController::class, 'store']);
+
+//Research
+Route::get('/research/products', [ResearchController::class, 'products']);
+Route::get('/research/partners', [ResearchController::class, 'partners']);
+Route::post('/research/products/create', [ResearchController::class, 'store']);
+
+//News
+Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/latest', [NewsController::class, 'latest']);
+Route::get('/news/{id}', [NewsController::class, 'show']);
+
+// Optional protected route for admin create
+Route::post('/news', [NewsController::class, 'store']); // protect with auth/sanctum in production
