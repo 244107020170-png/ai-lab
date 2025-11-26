@@ -274,7 +274,7 @@
     Our Product
   </h2>
 
-  <div class="w-[1363px] h-[650px] px-16 py-20 bg-sky-700/20 rounded-[40px] outline outline-2 outline-offset-[-2px] outline-sky-700 mx-auto flex flex-col justify-start items-center gap-10">
+  <div class="w-[1363px] min-h-[650px] px-16 py-20 bg-sky-700/20 rounded-[40px] outline outline-2 outline-offset-[-2px] outline-sky-700 mx-auto flex flex-col justify-start items-center gap-10">
     <div id="productList" class="w-[1231px] flex justify-center items-start gap-24 flex-wrap content-start"></div>
   </div>
 </section>
@@ -363,13 +363,22 @@ async function loadResearchDynamic() {
     prodList.innerHTML = "";
 
     products.forEach(p => {
-        prodList.innerHTML += `
-            <div class="w-80 flex flex-col justify-start items-center gap-5 hover-jump">
-                <img src="${p.image}" class="w-72 h-24 object-contain">
-                <p class="text-center text-black text-base font-normal font-['Poppins']">${p.title}</p>
+    prodList.innerHTML += `
+        <div class="w-80 flex flex-col items-center gap-4 p-4 bg-white/40 rounded-3xl shadow hover-jump">
+
+            <!-- IMAGE WRAPPER (fixed & responsive) -->
+            <div class="w-full h-40 flex justify-center items-center bg-white rounded-xl overflow-hidden">
+                <img src="${p.image}" class="object-contain w-full h-full" onerror="this.src='img/noimg.png'">
             </div>
-        `;
-    });
+
+            <!-- TITLE -->
+            <p class="text-center text-black text-base font-semibold font-['Poppins']">
+                ${p.title}
+            </p>
+        </div>
+    `;
+});
+
 
 
     // ===== PARTNERS =====
