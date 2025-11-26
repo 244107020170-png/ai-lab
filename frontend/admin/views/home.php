@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="anims.css">
+    <link rel="stylesheet" href="views/css/home.css">
+    <link rel="stylesheet" href="views/css/anims.css">
     <style>
         :root {
             --img-opacity: 0.25;
@@ -29,7 +29,7 @@
         .bg-image {
             position: absolute;
             inset: 0;
-            background-image: url("img/background3.jpg");
+            background-image: url("views/img/background3.jpg");
             background-size: cover;
             background-position: center;
             opacity: var(--img-opacity);
@@ -59,14 +59,14 @@
 
         <!-- LEFT BOX -->
         <div class="leBox header-left">
-            <a href="../"><img src="img/logo.png"></a>
+            <a href="../"><img src="views/img/logo.png"></a>
             <div class="logo-text">Lab Admin Page</div>
         </div>
 
         <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <a href="index.html" class="nav-item selected-navbar">Home</a>
-            <a href="members.html" class="nav-item">Members</a>
+            <div " class="nav-item selected-navbar">Home</div>
+            <a href="index.php?action=members" class="nav-item">Members</a>
             <a href="projects.html" class="nav-item">Projects</a>
             <a href="news.html" class="nav-item">News</a>
         </div>
@@ -104,11 +104,11 @@
                 <div class="stat-inner">
                     <div class="stat-text">
                         <div class="stat-title">Total Members</div>
-                        <div class="stat-value">11</div>
-                        <div class="stat-desc">+N/A this year</div>
+                        <div class="stat-value"><?php echo $totalmembers ?></div>
+                        <div class="stat-desc">+<?php echo $members2025 ?> this year</div>
                     </div>
                     <div class="stat-icon">
-                        <img src="img/person-logo.png" alt="">
+                        <img src="views/img/person-logo.png" alt="">
                     </div>
                 </div>
             </div>
@@ -121,7 +121,7 @@
                         <div class="stat-desc">N/A in progress.</div>
                     </div>
                     <div class="stat-icon">
-                        <img src="img/projects-logo.png" alt="">
+                        <img src="views/img/projects-logo.png" alt="">
                     </div>
                 </div>
             </div>
@@ -134,7 +134,7 @@
                         <div class="stat-desc">N/A Pending.</div>
                     </div>
                     <div class="stat-icon">
-                        <img src="img/clipboard-pencil-logo.png" alt="">
+                        <img src="views/img/clipboard-pencil-logo.png" alt="">
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@
                         <div class="graph-area">
                             <div class="graph-outline"></div>
                             <div class="graph-gradient"></div>
-                            <img src="img/graph-lines.png">
+                            <img src="views/img/graph-lines.png">
                         </div>
 
                         <div class="graph-labels">
@@ -200,7 +200,7 @@
                         <div class="graph-area">
                             <div class="graph-outline"></div>
                             <div class="graph-gradient"></div>
-                            <img src="img/graph-lines.png">
+                            <img src="views/img/graph-lines.png">
                         </div>
 
                         <div class="graph-labels wide">

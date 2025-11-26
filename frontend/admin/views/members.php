@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Management</title>
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" href="anims.css">
-    <link rel="stylesheet" href="members.css">
+    <link rel="stylesheet" href="views/css/home.css">
+    <link rel="stylesheet" href="views/css/anims.css">
+    <link rel="stylesheet" href="views/css/members.css">
     <style>
         :root {
             --img-opacity: 0.25;
@@ -30,7 +30,7 @@
         .bg-image {
             position: absolute;
             inset: 0;
-            background-image: url("img/background3.jpg");
+            background-image: url("views/img/background3.jpg");
             background-size: cover;
             background-position: center;
             opacity: var(--img-opacity);
@@ -60,14 +60,14 @@
 
         <!-- LEFT BOX -->
         <div class="leBox header-left">
-            <a href="../"><img src="img/logo.png"></a>
+            <a href="../"><img src="views/img/logo.png"></a>
             <div class="logo-text">Lab Admin Page</div>
         </div>
         
         <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <a href="index.html" class="nav-item">Home</a>
-            <a href="members.html" class="nav-item selected-navbar">Members</a>
+            <a href="index.php?action=index"class="nav-item">Home</a>
+            <div class="nav-item selected-navbar">Members</div>
             <a href="projects.html" class="nav-item">Projects</a>
             <a href="news.html" class="nav-item">News</a>
         </div>
@@ -96,14 +96,14 @@
         <!-- Search Filter -->
         <div class="search-filter">
             <div class="leBox search-box">
-                <img src="img/maginifier-icon.png" alt="">
+                <img src="views/img/maginifier-icon.png" alt="">
                 <input type="text" placeholder="Search Members" class="search-text">
             </div>
 
             <div class="filter-container">
                 <div class="leBox filter-box" onclick="toggleFilter()">
                     <span id="filter-label">Filter</span>
-                    <img src="img/arrow-down.png" class="filter-arrow" alt="">
+                    <img src="views/img/arrow-down.png" class="filter-arrow" alt="">
                 </div>
 
                 <div class="filter-dropdown" id="filter-dropdown">
@@ -118,7 +118,7 @@
             <div class="sort-container">
                 <div class="leBox sort-box" onclick="toggleSort()">
                     <span id="sort-label">Asc</span>
-                    <img src="img/arrow-down.png" alt="">
+                    <img src="views/img/arrow-down.png" alt="">
                 </div>
 
                 <div class="sort-dropdown" id="sort-dropdown">
@@ -155,7 +155,7 @@
     </div>
     <!-- /.Main Container -->
 
-    <script src="members.js"></script>
+    <script src="js/members.js"></script>
 </body>
 
 </html>
