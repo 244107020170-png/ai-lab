@@ -184,6 +184,20 @@ function renderActivities() {
     });
 }
 
+document.querySelectorAll(".email-link").forEach(link => {
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // buka Gmail dulu
+        window.open("https://mail.google.com/mail/?view=cm&fs=1&to=ailab@polinema.ac.id", "_blank");
+
+        // fallback ke MAILTO (Outlook, Windows Mail)
+        setTimeout(() => {
+            window.location.href = "mailto:ailab@polinema.ac.id";
+        }, 300);
+    });
+});
+
 // ============= RENDER PAGINATION =============
 function renderPagination() {
     const totalPages = Math.ceil(activities.length / perPage);

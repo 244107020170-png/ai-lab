@@ -296,6 +296,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     const first = document.querySelector(".tab-btn");
     openTab("publicationTab", first);
 });
+
+document.querySelectorAll(".email-link").forEach(link => {
+    link.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // buka Gmail dulu
+        window.open("https://mail.google.com/mail/?view=cm&fs=1&to=ailab@polinema.ac.id", "_blank");
+
+        // fallback ke MAILTO (Outlook, Windows Mail)
+        setTimeout(() => {
+            window.location.href = "mailto:ailab@polinema.ac.id";
+        }, 300);
+    });
+});
 </script>
 
 </body>
