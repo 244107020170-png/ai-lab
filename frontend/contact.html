@@ -200,7 +200,7 @@
     </p>
 
     <!-- BUTTON -->
-    <a href="https://maps.app.goo.gl/JkrYFQFsuwCcxGHK6"
+    <a href="https://maps.app.goo.gl/JkrYFQFsuwCcxGHK6" target="_blank" rel="noopener">
        target="_blank"
        class="bg-sky-600 hover:bg-sky-700 text-white font-semibold text-lg px-10 py-3 rounded-full shadow transition flex items-center gap-2">
       📍 Open in Google Maps
@@ -378,70 +378,85 @@
 
 <!-- SCRIPTS -->
 <script>
-  /* Fade-up animation */
-  const faders = document.querySelectorAll(".fade-up");
-  function reveal() {
-    faders.forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-        el.classList.add("show");
-      }
-    });
-  }
-  window.addEventListener("scroll", reveal);
-  reveal();
+/* ============================
+      FADE-UP ANIMATION
+=============================== */
+const faders = document.querySelectorAll(".fade-up");
 
-  /* Navbar scroll effect */
-  const navbar = document.querySelector(".navbar");
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 20) navbar.classList.add("scrolled");
-    else navbar.classList.remove("scrolled");
+function reveal() {
+  faders.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add("show");
+    }
   });
+}
+window.addEventListener("scroll", reveal);
+reveal();
 
-  /* Active navbar link */
-  const navLinks = document.querySelectorAll(".nav-link");
-  const current = window.location.pathname.split("/").pop();
-  navLinks.forEach(a => {
-    if (a.getAttribute("href") === current) a.classList.add("nav-active");
+/* ============================
+      NAVBAR SCROLL EFFECT
+=============================== */
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 20) navbar.classList.add("scrolled");
+  else navbar.classList.remove("scrolled");
+});
+
+/* ============================
+      ACTIVE NAVBAR LINK
+=============================== */
+const navLinks = document.querySelectorAll(".nav-link");
+const current = window.location.pathname.split("/").pop();
+
+navLinks.forEach(a => {
+  if (a.getAttribute("href") === current) a.classList.add("nav-active");
+});
+
+/* ============================
+      CONTACT SLIDESHOW
+=============================== */
+let slideIndex = 0;
+const slides = document.querySelectorAll("#contactSlides .slide");
+
+function showSlides() {
+  slides.forEach((s, i) => {
+    s.style.opacity = (i === slideIndex ? "1" : "0");
   });
+  slideIndex = (slideIndex + 1) % slides.length;
+}
+setInterval(showSlides, 3000);
 
-  /* CONTACT SLIDESHOW */
-  let slideIndex = 0;
-  const slides = document.querySelectorAll("#contactSlides .slide");
-
-  function showSlides() {
-    slides.forEach((s, i) => s.style.opacity = (i === slideIndex ? "1" : "0"));
-    slideIndex = (slideIndex + 1) % slides.length;
-  }
-  setInterval(showSlides, 3000);
-
-  function submitForm() {
-    // nanti isi request ke backend di sini
-    // fetch('/submit', { method: 'POST', body: ... })
-
-    // tampilkan popup dulu
-    document.getElementById("formPopup").classList.remove("hidden");
-  }
-
-  function closePopup() {
-    document.getElementById("formPopup").classList.add("hidden");
-  }
-  function submitForm() {
-  // Tampilkan popup
+/* ============================
+      FORM POPUP HANDLER
+=============================== */
+function submitForm() {
   document.getElementById("formPopup").classList.remove("hidden");
 }
 
 function closePopup() {
-  // Tutup popup
   document.getElementById("formPopup").classList.add("hidden");
 
   // Reset semua input
   document.querySelectorAll("input, textarea").forEach(el => el.value = "");
 }
 
-<a class="email-link text-blue-600 underline cursor-pointer">
-    ailab@polinema.ac.id
-</a>
+/* ============================
+      EMAIL LINK HANDLER
+=============================== */
+document.querySelectorAll(".email-link").forEach(link => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
 
+    // Buka Gmail
+    window.open("https://mail.google.com/mail/?view=cm&fs=1&to=ailab@polinema.ac.id", "_blank");
+
+    // Fallback mailto
+    setTimeout(() => {
+      window.location.href = "mailto:ailab@polinema.ac.id";
+    }, 300);
+  });
+});
 </script>
 
 </body>
