@@ -2,46 +2,113 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Upload Research Product</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Research Products | AILab</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-    body { font-family: Arial; padding: 20px; max-width: 500px; margin: auto; }
-    label { font-weight: bold; margin-top: 10px; display: block; }
-    input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
-    button { margin-top: 15px; padding: 10px; background: #0066cc; color: white; border: none; cursor: pointer; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #DFF0F9 25%, #E5F4FF 75%);
+    }
   </style>
 </head>
-<body>
 
-  <h2>Upload Research Product</h2>
+<body class="py-16">
 
-  <form id="uploadForm" enctype="multipart/form-data">
-    <label>Title</label>
-    <input type="text" name="title" required>
+  <div class="max-w-3xl mx-auto bg-white/60 backdrop-blur-md p-10 rounded-3xl shadow-lg">
 
-    <label>Description</label>
-    <textarea name="description"></textarea>
+    <h2 class="text-3xl font-bold text-sky-700 mb-6 text-center">Upload Research Product</h2>
 
-    <label>Image</label>
-    <input type="file" name="image" accept="image/*" required>
+    <!-- FORM -->
+    <form id="uploadForm" class="space-y-5">
 
-    <button type="submit">Upload</button>
-  </form>
+      <div>
+        <label for="title" class="font-semibold text-sky-900">Title</label>
+        <input id="title" type="text" name="title" placeholder="Enter product title" required
+               class="w-full mt-2 px-4 py-2 rounded-xl border border-sky-300 focus:ring-sky-400 focus:ring-2 outline-none">
+      </div>
 
-  <p id="response" style="margin-top:20px;"></p>
+      <div>
+        <label for="description" class="font-semibold text-sky-900">Description</label>
+        <textarea id="description" name="description" placeholder="Write description"
+                  class="w-full mt-2 px-4 py-2 rounded-xl border border-sky-300 focus:ring-sky-400 focus:ring-2 outline-none"></textarea>
+      </div>
+
+      <div>
+        <label for="image" class="font-semibold text-sky-900">Image</label>
+        <input id="image" type="file" name="image" required accept="image/*"
+               class="w-full mt-2 px-4 py-2 rounded-xl border border-sky-300 bg-white">
+      </div>
+
+      <!-- PREVIEW -->
+      <div id="previewContainer" class="hidden">
+        <p class="text-sky-800 font-semibold pt-3">Preview:</p>
+        <img id="previewImage" class="w-full h-60 object-contain mt-3 bg-white rounded-xl shadow">
+      </div>
+
+      <!-- BUTTON -->
+      <button type="submit"
+              class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-2xl shadow mt-3">
+        Upload Product
+      </button>
+    </form>
+  </div>
+
+  <!-- POPUP -->
+  <div id="popup"
+       class="fixed inset-0 hidden bg-black/50 flex items-center justify-center backdrop-blur-sm">
+    <div id="popupBox"
+         class="bg-white px-10 py-8 rounded-3xl shadow-xl text-center max-w-md">
+      <h3 id="popupMessage" class="text-xl font-semibold text-sky-800 mb-4"></h3>
+      <button onclick="closePopup()"
+              class="px-6 py-2 bg-sky-600 hover:bg-sky-700 text-white rounded-xl font-semibold">
+        OK
+      </button>
+    </div>
+  </div>
 
 <script>
+/* PREVIEW */
+document.getElementById("image").addEventListener("change", function(){
+    const file = this.files[0];
+    if (file){
+        document.getElementById("previewContainer").classList.remove("hidden");
+        document.getElementById("previewImage").src = URL.createObjectURL(file);
+    }
+});
+
+/* POPUP */
+function showPopup(message){
+    document.getElementById("popupMessage").innerText = message;
+    document.getElementById("popup").classList.remove("hidden");
+}
+function closePopup(){
+    document.getElementById("popup").classList.add("hidden");
+}
+
+/* SUBMIT FORM */
 document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
 
-    const res = await fetch("http://127.0.0.1:8000/api/research/products/create", {
+    const res = await fetch("http://127.0.0.1:8000/api/research/products", {
         method: "POST",
         body: formData
     });
 
     const json = await res.json();
-    document.getElementById("response").innerText = JSON.stringify(json, null, 2);
+
+    if (res.ok) {
+        showPopup("Product uploaded successfully!");
+        e.target.reset();
+        document.getElementById("previewContainer").classList.add("hidden");
+    } else {
+        showPopup("Upload failed: " + (json.message || "Unknown error"));
+    }
 });
 </script>
 
