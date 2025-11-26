@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin — Project Management | AI Lab</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --glass-bg: rgba(6,10,14,0.42);
+      --glass-outline: rgba(255,255,255,0.06);
+      --accent: #06b6d4;
+      --muted: rgba(255,255,255,0.6);
+    }
+
+    html,body { height:100%; }
+    body{
+      font-family: 'Poppins', sans-serif;
+      margin:0;
+      min-height:100%;
+      color: #EAF6F9;
+      background: linear-gradient(180deg,#021821 0%, #04262f 60%, #062a33 100%);
+      overflow-y:auto;
+    }
+
+    /* Aurora + star layer:
+       using your uploaded image as a subtle texture overlay */
+    .aurora-bg{
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(0,180,200,0.06) 0%, transparent 18%),
+        radial-gradient(circle at 80% 80%, rgba(10,150,180,0.06) 0%, transparent 22%),
+        url("/mnt/data/8da448e6-1bc3-43b7-a134-7c04a6886a78.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center top;
+      mix-blend-mode: overlay;
+      filter: blur(6px) saturate(120%);
+      opacity: 0.9;
+      z-index: 0;
+      animation: aurora-move 14s linear infinite alternate;
+      pointer-events:none;
+    }
+
+    @keyframes aurora-move {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-12px) scale(1.02); }
+    }
+
+    /* Glass panel */
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--glass-outline);
+      backdrop-filter: blur(8px) saturate(120%);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    }
+
+    /* Navbar Figma-style (rounded, glow on active) */
+    .admin-nav {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 120px);
+      max-width: 1150px;
+      z-index: 30;
+      padding: 10px 18px;
+    }
+    .nav-pill {
+      border-radius: 999px;
+      padding: 10px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap:10px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* little fade-up reveal used in many elements */
+    .fade-up { opacity: 0; transform: translateY(22px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+    .fade-up.show { opacity: 1; transform: translateY(0); }
+
+    /* small float for callouts */
+    .float-slow { animation: float-slow 6s ease-in-out infinite; }
+    @keyframes float-slow { 0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+
+    /* Table visuals */
+    .table-row + .divider { height:1px; background: rgba(255,255,255,0.06); margin: 10px 0; border-radius: 2px; }
+
+    /* Pagination small styles */
+    .page-dot { width:10px; height:10px; border-radius:999px; background: rgba(255,255,255,0.18); display:inline-block; }
+
+    /* Utility for status dot */
+    .status-dot { width:10px; height:10px; border-radius:999px; display:inline-block; box-shadow: 0 0 10px rgba(0,0,0,0.6); }
+
+    /* responsive adjustments */
+    @media (max-width: 980px){
+      .admin-nav { width: calc(100% - 40px); left: 20px; transform: none; }
+      .content-wrap { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Aurora background -->
+  <div class="aurora-bg"></div>
+
+  <!-- NAVBAR (figma admin style B) -->
+  <header class="admin-nav">
+    <div class="glass nav-pill justify-between items-center w-full px-6">
+      <div class="flex items-center gap-6">
+        <!-- replace logo src with your own if needed -->
+        <img src="/mnt/data/8da448e6-1bc3-43b7-a134-7c04a6886a78.png" alt="logo" class="w-36 h-auto rounded-sm shadow-[0_0_32px_rgba(1,181,186,0.18)] object-contain">
+        <div class="text-slate-100 text-lg font-semibold">Lab Admin Page</div>
+      </div>
+
+      <nav class="flex items-center gap-3">
+        <a href="/admin" class="px-4 py-2 rounded-full text-sky-200 text-sm hover:text-white">Home</a>
+        <a href="/admin/members" class="px-4 py-2 rounded-full text-sky-200 text-sm hover:text-white">Members</a>
+
+        <!-- Active Projects pill -->
+        <a href="/admin/projects"
+           class="relative inline-flex items-center px-5 py-2 rounded-full text-white text-sm"
+           style="box-shadow: 0 8px 30px rgba(0,173,200,0.12);">
+          <span class="absolute inset-0 rounded-full bg-gradient-to-bl from-cyan-400/30 to-cyan-700/20 blur-sm"></span>
+          <span class="relative z-10">Projects</span>
+        </a>
+
+        <a href="/admin/news" class="px-4 py-2 rounded-full text-sky-200 text-sm hover:text-white">News</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="pt-36 pb-20 content-wrap max-w-7xl mx-auto relative z-10 px-8">
+
+    <!-- Title & description -->
+    <section class="mb-8 fade-up" id="heroText">
+      <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight drop-shadow-[0_6px_20px_rgba(0,220,255,0.14)]">Project Management</h1>
+      <p class="mt-3 text-slate-300 max-w-3xl">
+        Manage the projects that will be shown in the website. Edit participants, status, and attach project documents or PDFs.
+      </p>
+    </section>
+
+    <!-- Controls (search + filter + add) -->
+    <section class="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+      <div class="col-span-1 md:col-span-2 flex gap-3">
+        <div class="flex items-center gap-3 bg-black/30 glass rounded-xl px-4 py-3 w-full">
+          <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"/></svg>
+          <input id="searchInput" type="text" placeholder="Search projects..." class="bg-transparent outline-none w-full text-slate-200" />
+        </div>
+
+        <div class="w-48 flex items-center bg-black/30 glass px-4 py-3 rounded-xl justify-between">
+          <div class="text-slate-200">Filter</div>
+          <select id="filterSelect" class="bg-transparent outline-none text-slate-200">
+            <option value="all">All</option>
+            <option value="published">Published</option>
+            <option value="wip">Work in Progress</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button id="addBtn" class="bg-transparent border border-white/10 hover:bg-cyan-600/10 text-white px-4 py-2 rounded-md glass">
+          + Add Project
+        </button>
+      </div>
+    </section>
+
+    <!-- Table / Card -->
+    <section class="glass rounded-2xl p-6 fade-up float-slow">
+      <div class="flex items-center justify-between mb-4 px-4">
+        <div class="text-white text-lg font-semibold">Projects List</div>
+        <div class="text-sm text-slate-300">Showing <span id="countShown">9</span> projects</div>
+      </div>
+
+      <!-- Table header -->
+      <div class="hidden md:flex items-center px-6 pb-2 text-slate-300 text-sm">
+        <div class="w-32">ID</div>
+        <div class="w-[52%]">Title</div>
+        <div class="w-36">Status</div>
+        <div class="w-12 text-center">•••</div>
+      </div>
+
+      <div id="projectsContainer" class="flex flex-col gap-2 mt-2 px-2">
+        <!-- Example static rows; replace with backend loop to render real projects -->
+        <!-- Template row (duplicated) -->
+        <div class="table-row px-4 py-3 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between bg-gradient-to-b from-black/20 to-black/10">
+          <div class="w-32 text-slate-100 font-medium">PJ001</div>
+          <div class="w-full md:w-[52%] text-slate-100">Agriculture Data-Based System</div>
+          <div class="w-36 flex items-center gap-3">
+            <span class="status-dot" style="background:#22c55e; box-shadow:0 0 10px #22c55e66"></span>
+            <div class="text-slate-200">Published</div>
+          </div>
+          <div class="w-12 text-slate-400 text-center">...</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- copy/paste above row for more rows in static preview -->
+        <div class="table-row px-4 py-3 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent">
+          <div class="w-32 text-slate-100 font-medium">PJ002</div>
+          <div class="w-full md:w-[52%] text-slate-100">Automated Cyber Security Maturity Assessment (AMATI)</div>
+          <div class="w-36 flex items-center gap-3">
+            <span class="status-dot" style="background:#22c55e; box-shadow:0 0 10px #22c55e66"></span>
+            <div class="text-slate-200">Published</div>
+          </div>
+          <div class="w-12 text-slate-400 text-center">...</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="table-row px-4 py-3 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent">
+          <div class="w-32 text-slate-100 font-medium">PJ005</div>
+          <div class="w-full md:w-[52%] text-slate-100">The First Ever Dinosaur Revival</div>
+          <div class="w-36 flex items-center gap-3">
+            <span class="status-dot" style="background:#f59e0b; box-shadow:0 0 10px #f59e0b66"></span>
+            <div class="text-slate-200">Work in Progress</div>
+          </div>
+          <div class="w-12 text-slate-400 text-center">...</div>
+        </div>
+
+        <!-- Add more rows as needed or render dynamically from server -->
+      </div>
+
+      <!-- Pagination -->
+      <div class="mt-6 flex items-center justify-center gap-3">
+        <button id="prevPage" class="p-2 bg-white/5 rounded-xl">&lt;</button>
+        <div class="flex items-center gap-2">
+          <div class="page-dot"></div>
+          <div class="page-dot"></div>
+          <div class="page-dot" style="background: linear-gradient(90deg,#06b6d4,#0ea5a3)"></div>
+          <div class="page-dot"></div>
+        </div>
+        <button id="nextPage" class="p-2 bg-white/5 rounded-xl">&gt;</button>
+      </div>
+    </section>
+
+    <!-- Footer (simple) -->
+    <footer class="mt-12 flex justify-between items-center text-slate-200">
+      <div class="text-lg">© 2025 AI Lab Polinema</div>
+      <div>Contact: <a href="mailto:ailab@polinema.ac.id" class="underline">ailab@polinema.ac.id</a></div>
+    </footer>
+  </main>
+
+  <!-- Tiny JS for interactions & reveal -->
+  <script>
+    // Reveal fade-up elements on scroll
+    function reveal() {
+      document.querySelectorAll('.fade-up').forEach(el=>{
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 80) el.classList.add('show');
+      });
+    }
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', ()=> { reveal(); });
+
+    // Example search + filter (client-side stub; replace with backend search/filter)
+    const searchInput = document.getElementById('searchInput');
+    const filterSelect = document.getElementById('filterSelect');
+    const projectsContainer = document.getElementById('projectsContainer');
+
+    function simpleFilter() {
+      const q = (searchInput.value||'').toLowerCase().trim();
+      const f = (filterSelect.value||'all');
+      const rows = Array.from(projectsContainer.querySelectorAll('.table-row'));
+
+      rows.forEach(row=>{
+        const title = row.children[1].textContent.toLowerCase();
+        const status = row.children[2].textContent.toLowerCase();
+        const matchesQ = !q || title.includes(q) || row.children[0].textContent.toLowerCase().includes(q);
+        const matchesF = (f === 'all') || status.includes(f);
+        row.style.display = (matchesQ && matchesF) ? '' : 'none';
+      });
+
+      // update shown counter
+      const shown = rows.filter(r=> r.style.display !== 'none').length;
+      document.getElementById('countShown').textContent = shown;
+    }
+
+    searchInput.addEventListener('input', simpleFilter);
+    filterSelect.addEventListener('change', simpleFilter);
+
+    // Add project button (open modal or route)
+    document.getElementById('addBtn').addEventListener('click', () => {
+      // For now go to create route — replace with modal if you prefer
+      window.location.href = '/admin/projects/create';
+    });
+
+    // Pagination controls (UI-only for now)
+    document.getElementById('prevPage').addEventListener('click', ()=> { /* hook to backend */ });
+    document.getElementById('nextPage').addEventListener('click', ()=> { /* hook to backend */ });
+  </script>
+</body>
+</html>
