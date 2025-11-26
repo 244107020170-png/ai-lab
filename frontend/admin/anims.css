@@ -1,0 +1,73 @@
+.nav-item:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+
+    /* 1.05 means 105% size (5% bigger). 1.1 would be 10% bigger. */
+    transform: scale(1.05); 
+    
+    /* Optional: Ensures the hovered box sits on top of neighbors if they overlap */
+    z-index: 10;
+}
+
+.header-left img:hover {
+    /* 1.05 means 105% size (5% bigger). 1.1 would be 10% bigger. */
+    transform: scale(1.05); 
+}
+
+.stat-box:hover {
+    background: rgba(78, 78, 78, 0.34);
+    outline: 1px solid rgba(255, 255, 255, 0.589);
+    
+
+    /* 1.05 means 105% size (5% bigger). 1.1 would be 10% bigger. */
+    transform: scale(1.05); 
+    
+    /* Optional: Ensures the hovered box sits on top of neighbors if they overlap */
+    z-index: 10;
+}
+
+.graph-btn:hover {
+    background: rgba(78, 78, 78, 0.34);
+    outline: 1px solid rgba(255, 255, 255, 0.589);
+    
+
+    /* 1.05 means 105% size (5% bigger). 1.1 would be 10% bigger. */
+    transform: scale(1.05); 
+    
+    /* Optional: Ensures the hovered box sits on top of neighbors if they overlap */
+    z-index: 10;
+}
+
+/* Search box focused */
+.search-box:focus-within {
+    background: rgba(0, 0, 0, 0.541);
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+}
+
+.search-text:focus::placeholder {
+    color: transparent;
+}
+
+/* Filter Box Hover Anim */
+.filter-box:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+
+    /* 1.05 means 105% size (5% bigger). 1.1 would be 10% bigger. */
+    transform: scale(1.05); 
+    
+    /* Optional: Ensures the hovered box sits on top of neighbors if they overlap */
+    z-index: 10;
+}
+
+/* Sort Box Hover Anim */
+.sort-box:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+
+    /* 1.05 means 105% size (5% bigger). 1.1 would be 10% bigger. */
+    transform: scale(1.05); 
+    
+    /* Optional: Ensures the hovered box sits on top of neighbors if they overlap */
+    z-index: 10;
+}

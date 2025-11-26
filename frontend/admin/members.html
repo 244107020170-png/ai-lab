@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Management</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="anims.css">
+    <link rel="stylesheet" href="members.css">
+    <style>
+        :root {
+            --img-opacity: 0.25;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        /* Background Layers */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background-image: url("img/background3.jpg");
+            background-size: cover;
+            background-position: center;
+            opacity: var(--img-opacity);
+            transform: translateZ(0);
+        }
+
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(#0F2027, #203A43, #2C5364);
+            z-index: -1;
+            mix-blend-mode: normal;
+        }
+
+        main {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 2rem;
+        }
+    </style>
+
+    <div class="header-container">
+
+        <!-- LEFT BOX -->
+        <div class="leBox header-left">
+            <a href="../"><img src="img/logo.png"></a>
+            <div class="logo-text">Lab Admin Page</div>
+        </div>
+        
+        <!-- RIGHT BOX (NAVBAR) -->
+        <div class="leBox header-right">
+            <a href="index.html" class="nav-item">Home</a>
+            <a href="members.html" class="nav-item selected-navbar">Members</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="news.html" class="nav-item">News</a>
+        </div>
+
+    </div>
+</head>
+
+<body>
+    <!-- Background: Image + Gradient -->
+    <div class="bg-layer" aria-hidden="true">
+        <div class="bg-image"></div>
+        <div class="bg-gradient"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!--Brief Description-->
+        <div class="desc-title">Members Management</div>
+        <div class="desc-text">
+            Manage members and their role, contact, name, etc. This will include the students who became a volunteer.
+            You can edit the statuses in the more menu.
+        </div>
+
+        <!--/.Brief Description-->
+
+        <!-- Search Filter -->
+        <div class="search-filter">
+            <div class="leBox search-box">
+                <img src="img/maginifier-icon.png" alt="">
+                <input type="text" placeholder="Search Members" class="search-text">
+            </div>
+
+            <div class="filter-container">
+                <div class="leBox filter-box" onclick="toggleFilter()">
+                    <span id="filter-label">Filter</span>
+                    <img src="img/arrow-down.png" class="filter-arrow" alt="">
+                </div>
+
+                <div class="filter-dropdown" id="filter-dropdown">
+                    <div onclick="setFilter('Name')">Name</div>
+                    <div onclick="setFilter('ID')">ID</div>
+                    <div onclick="setFilter('Position')">Position</div>
+                    <div onclick="setFilter('Status')">Status</div>
+                </div>
+            </div>
+
+            <!-- NEW SORT BOX -->
+            <div class="sort-container">
+                <div class="leBox sort-box" onclick="toggleSort()">
+                    <span id="sort-label">Asc</span>
+                    <img src="img/arrow-down.png" alt="">
+                </div>
+
+                <div class="sort-dropdown" id="sort-dropdown">
+                    <div onclick="setSort('Asc')">Asc</div>
+                    <div onclick="setSort('Desc')">Desc</div>
+                </div>
+            </div>
+        </div>
+        <!-- /.Search Filter -->
+
+        <!-- Members Lists -->
+        <div class="leBox member-container">
+
+        </div>
+        <!-- /.Members Lists -->
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            <div>
+                <span style="color: white; font-size: 24px;"">©</span>
+                        <span style=" color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
+            </div>
+
+            <div>
+                <span style="color: white; font-size: 24px;">Contact: </span>
+                <span style="color: white; font-size: 24px; text-decoration: underline;">
+                    <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
+                        ailab@polinema.ac.id
+                    </a>
+                </span>
+            </div>
+        </footer>
+        <!-- /.Footer Section -->
+    </div>
+    <!-- /.Main Container -->
+
+    <script src="members.js"></script>
+</body>
+
+</html>

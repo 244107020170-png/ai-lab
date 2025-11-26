@@ -1,22 +1,351 @@
 body {
-    font-family: 'SF Pro Display';
+    font-family: 'SF Pro Rounded';
     justify-items: center;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Main Container */
+.main-container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Brief Description Title*/
+.desc-title {
+    font-family: 'SF Pro Display';
+    font-size: 36px;
+    font-weight: 700;
+    color: white;
+    text-align: left;
+    text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.40)
+
+}
+
+/* Brief Description */
+.desc-text {
+    font-family: 'SF Pro Display';
+    width: 1024px;
+    color: #AEBACB;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: left;
+    word-wrap: break-word;
+    padding-top: 3px;
+}
+
+/* Whole header */
+/* Container */
+.header-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+    max-width: 1440px;
+
+    z-index: 999;
+}
+
+/* Left header */
+.header-left {
+    border-radius: 90px !important;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.header-left img {
+    width: 120px;
+    transition: 0.25s ease;
+}
+
+.header-left .logo-text {
+    font-size: 22px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'SF Pro Rounded';
+}
+
+/* Right header (Navbar) */
+.header-right {
+    border-radius: 90px !important;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Navbar Items */
+.nav-item {
+    display: inline-block; /* so padding applies */
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #8EF1FF !important;
+    font-size: 18px;
+    font-family: 'SF Pro Rounded';
+    transition: 0.25s ease;
+    text-decoration: none !important;
+}
+
+
+/* Selected Navbar */
+.selected-navbar {
+    background: linear-gradient(246deg, #03D3F1 0%, #027A8B 100%) !important;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0px 4px 30px rgba(0,0,0,0.3);
+}
+
+/* Content Container */
+.content-container {
+    padding-top: 140px; /* adjust to your liking */
+}
+
+
+/* ./Whole header */
+
+/* Shared box styling */
 .leBox {
     background: rgba(0, 0, 0, 0.34);
     border-radius: 11px;
     outline: 1px solid rgba(255, 255, 255, 0.11);
-    outline-offset: -1px;
     backdrop-filter: blur(6.35px);
 
+    transition: 0.25s ease;
+}
+
+/* Responsive row */
+.stats-row {
+    width: 100%;
+    max-width: 1200px; /* keeps original Figma width feel */
+    margin: 0 auto; /* centers the row */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 18px;
+    flex-wrap: horizontal; /* makes it responsive */
+    padding-top: 25px; /* your original top spacing */
+}
+
+/* Individual box */
+.stat-box {
+    width: 376px;
+    padding: 19px 20px;
     display: flex;
     flex-direction: column;
-    padding: 20px;
     gap: 10px;
 
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.25); /* optional but accurate */
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+/* Inner layout */
+.stat-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.stat-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Text styles preserved */
+.stat-title {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-value {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.stat-desc {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Stats */
+.stat-icon {
+    width: 26px;
+    height: 26px;
+}
+
+/* Responsive row for graphs */
+.graphs-row {
+    width: 100%;
+    max-width: 1200px;        /* keeps original spacing feel */
+    margin: 0 auto;           /* center horizontally */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 35px;
+
+    flex-wrap: nowrap;        /* same as you did with stats-row */
+    padding-top: 25px;       /* original top offset */
+}
+
+/* Graph box container */
+.graph-box {
+    width: 565px;
+    height: 360px;
+
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
+    align-items: center;
+}
+
+/* Inner content */
+.graph-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Header line */
+.graph-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+/* Title */
+.graph-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Button */
+.graph-btn {
+    width: 98px;
+    height: 25px;
+
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 5px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    transition: 0.25s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+}
+
+.graph-btn.small {
+    width: 78px;
+    height: 35px;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Graph main area */
+.graph-area {
+    width: 100%;
+    height: 146px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+/* Graph Wrapper that wraps both graph and the text */
+.graph-wrap {
+    padding-top: 64px;
+}
+
+/* White outline */
+.graph-outline {
+    width: 489px;
+    height: 146px;
+    position: absolute;
+    top: 0;
+    outline: 2px white solid;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Glass gradient */
+.graph-gradient {
+    width: 489px;
+    height: 146px;
+    position: absolute;
+    opacity: 65%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.54),
+        rgba(115,115,115,0)
+    );
+}
+
+/* Month / year labels */
+.graph-labels {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    padding-top: 3px;
+}
+
+.graph-labels.wide {
+    gap: 23px;
+}
+
+.footer {
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    
 }
