@@ -117,8 +117,8 @@
                 <div class="stat-inner">
                     <div class="stat-text">
                         <div class="stat-title">Projects Published</div>
-                        <div class="stat-value">N/A</div>
-                        <div class="stat-desc">N/A in progress.</div>
+                        <div class="stat-value"><?php echo $projectspublished ?></div>
+                        <div class="stat-desc"><?php echo $projectsinprogress ?> in progress.</div>
                     </div>
                     <div class="stat-icon">
                         <img src="views/img/projects-logo.png" alt="">
