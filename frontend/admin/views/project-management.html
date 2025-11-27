@@ -79,6 +79,23 @@
       gap:10px;
       backdrop-filter: blur(10px);
     }
+    .nav-active {
+  position: relative;
+  color: white !important;
+  font-weight: 500;
+}
+
+.nav-active::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: linear-gradient(to bottom right, rgba(0,220,255,0.6), rgba(0,120,150,0.6));
+  backdrop-filter: blur(10px);
+  z-index: -1;
+  box-shadow: 0 0 30px rgba(0,200,255,0.3);
+}
+
 
     /* little fade-up reveal used in many elements */
     .fade-up { opacity: 0; transform: translateY(22px); transition: all .6s cubic-bezier(.2,.9,.2,1); }
@@ -114,7 +131,7 @@
     <div class="glass nav-pill justify-between items-center w-full px-6">
       <div class="flex items-center gap-6">
         <!-- replace logo src with your own if needed -->
-        <img src="img/.png" alt="logo" class="w-36 h-auto rounded-sm shadow-[0_0_32px_rgba(1,181,186,0.18)] object-contain">
+        <img src="img/logo.png" alt="logo" class="w-36 h-auto rounded-sm shadow-[0_0_32px_rgba(1,181,186,0.18)] object-contain">
         <div class="text-slate-100 text-lg font-semibold">Lab Admin Page</div>
       </div>
 
@@ -123,12 +140,8 @@
         <a href="/admin/members" class="px-4 py-2 rounded-full text-sky-200 text-sm hover:text-white">Members</a>
 
         <!-- Active Projects pill -->
-        <a href="/admin/projects"
-           class="relative inline-flex items-center px-5 py-2 rounded-full text-white text-sm"
-           style="box-shadow: 0 8px 30px rgba(0,173,200,0.12);">
-          <span class="absolute inset-0 rounded-full bg-gradient-to-bl from-cyan-400/30 to-cyan-700/20 blur-sm"></span>
-          <span class="relative z-10">Projects</span>
-        </a>
+        <a href="/admin/projects" class="px-5 py-2 rounded-full nav-active">Projects</a>
+
 
         <a href="/admin/news" class="px-4 py-2 rounded-full text-sky-200 text-sm hover:text-white">News</a>
       </nav>
@@ -186,46 +199,8 @@
         <div class="w-12 text-center">•••</div>
       </div>
 
-      <div id="projectsContainer" class="flex flex-col gap-2 mt-2 px-2">
-        <!-- Example static rows; replace with backend loop to render real projects -->
-        <!-- Template row (duplicated) -->
-        <div class="table-row px-4 py-3 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between bg-gradient-to-b from-black/20 to-black/10">
-          <div class="w-32 text-slate-100 font-medium">PJ001</div>
-          <div class="w-full md:w-[52%] text-slate-100">Agriculture Data-Based System</div>
-          <div class="w-36 flex items-center gap-3">
-            <span class="status-dot" style="background:#22c55e; box-shadow:0 0 10px #22c55e66"></span>
-            <div class="text-slate-200">Published</div>
-          </div>
-          <div class="w-12 text-slate-400 text-center">...</div>
-        </div>
+      <div id="projectsContainer" class="flex flex-col gap-2 mt-2 px-2"></div>
 
-        <div class="divider"></div>
-
-        <!-- copy/paste above row for more rows in static preview -->
-        <div class="table-row px-4 py-3 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent">
-          <div class="w-32 text-slate-100 font-medium">PJ002</div>
-          <div class="w-full md:w-[52%] text-slate-100">Automated Cyber Security Maturity Assessment (AMATI)</div>
-          <div class="w-36 flex items-center gap-3">
-            <span class="status-dot" style="background:#22c55e; box-shadow:0 0 10px #22c55e66"></span>
-            <div class="text-slate-200">Published</div>
-          </div>
-          <div class="w-12 text-slate-400 text-center">...</div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="table-row px-4 py-3 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between bg-transparent">
-          <div class="w-32 text-slate-100 font-medium">PJ005</div>
-          <div class="w-full md:w-[52%] text-slate-100">The First Ever Dinosaur Revival</div>
-          <div class="w-36 flex items-center gap-3">
-            <span class="status-dot" style="background:#f59e0b; box-shadow:0 0 10px #f59e0b66"></span>
-            <div class="text-slate-200">Work in Progress</div>
-          </div>
-          <div class="w-12 text-slate-400 text-center">...</div>
-        </div>
-
-        <!-- Add more rows as needed or render dynamically from server -->
-      </div>
 
       <!-- Pagination -->
       <div class="mt-6 flex items-center justify-center gap-3">
@@ -249,51 +224,76 @@
 
   <!-- Tiny JS for interactions & reveal -->
   <script>
-    // Reveal fade-up elements on scroll
-    function reveal() {
-      document.querySelectorAll('.fade-up').forEach(el=>{
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 80) el.classList.add('show');
-      });
-    }
-    window.addEventListener('scroll', reveal);
-    window.addEventListener('load', ()=> { reveal(); });
+    async function loadProjects() {
+    const res = await fetch("http://localhost:8000/api/projects");
+    const projects = await res.json();
 
-    // Example search + filter (client-side stub; replace with backend search/filter)
-    const searchInput = document.getElementById('searchInput');
-    const filterSelect = document.getElementById('filterSelect');
-    const projectsContainer = document.getElementById('projectsContainer');
+    const container = document.getElementById("projectsContainer");
+    container.innerHTML = "";
 
-    function simpleFilter() {
-      const q = (searchInput.value||'').toLowerCase().trim();
-      const f = (filterSelect.value||'all');
-      const rows = Array.from(projectsContainer.querySelectorAll('.table-row'));
+    const statusColors = {
+        "published": "#22c55e",
+        "progress": "#f59e0b",
+        "cancelled": "#ef4444"
+    };
 
-      rows.forEach(row=>{
-        const title = row.children[1].textContent.toLowerCase();
-        const status = row.children[2].textContent.toLowerCase();
-        const matchesQ = !q || title.includes(q) || row.children[0].textContent.toLowerCase().includes(q);
-        const matchesF = (f === 'all') || status.includes(f);
-        row.style.display = (matchesQ && matchesF) ? '' : 'none';
-      });
+    projects.forEach(p => {
+        container.innerHTML += `
+            <div class="table-row grid grid-cols-[8rem_1fr_12rem_3rem] items-center 
+                px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 transition">
 
-      // update shown counter
-      const shown = rows.filter(r=> r.style.display !== 'none').length;
-      document.getElementById('countShown').textContent = shown;
-    }
+                <div class="font-medium">${p.code}</div>
 
-    searchInput.addEventListener('input', simpleFilter);
-    filterSelect.addEventListener('change', simpleFilter);
+                <div>${p.title}</div>
 
-    // Add project button (open modal or route)
-    document.getElementById('addBtn').addEventListener('click', () => {
-      // For now go to create route — replace with modal if you prefer
-      window.location.href = '/admin/projects/create';
+                <div class="flex items-center gap-2">
+                    <span class="status-dot" style="background:${statusColors[p.status]};"></span>
+                    ${p.status}
+                </div>
+
+                <div class="relative text-center text-white/60 cursor-pointer more-btn">⋯
+                    <div class="absolute right-0 mt-2 w-28 bg-black/70 text-white p-2 rounded-lg hidden menu-popup">
+                        <button onclick="editProject(${p.id})" class="block w-full text-left px-2 py-1 hover:bg-white/10">Edit</button>
+                        <button onclick="deleteProject(${p.id})" class="block w-full text-left px-2 py-1 hover:bg-red-500/20">Delete</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="divider"></div>
+        `;
     });
 
-    // Pagination controls (UI-only for now)
-    document.getElementById('prevPage').addEventListener('click', ()=> { /* hook to backend */ });
-    document.getElementById('nextPage').addEventListener('click', ()=> { /* hook to backend */ });
+    initMenus();
+}
+
+loadProjects();
+
+function initMenus() {
+    document.querySelectorAll('.more-btn').forEach(btn => {
+        btn.onclick = () => {
+            const menu = btn.querySelector('.menu-popup');
+            menu.classList.toggle('hidden');
+        };
+    });
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.more-btn')) {
+            document.querySelectorAll('.menu-popup').forEach(m => m.classList.add('hidden'));
+        }
+    });
+}
+async function deleteProject(id) {
+    if (!confirm("Delete this project?")) return;
+
+    await fetch(`http://localhost:8000/api/projects/${id}`, { method: "DELETE" });
+
+    loadProjects();
+}
+function editProject(id) {
+    window.location.href = `edit-project.html?id=${id}`;
+}
+
   </script>
 </body>
 </html>
