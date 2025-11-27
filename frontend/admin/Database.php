@@ -8,9 +8,9 @@ class Database
 
             $host = "localhost";
             $port = "5432";
-            $db = "ai-lab-db";
+            $db = "ai_lab_db";
             $user = trim("postgres");
-            $password = "1234";
+            $password = "nasywa1010";
             $connStr = "host=$host port=$port dbname=$db user=$user password=$password";
             self::$conn = pg_connect($connStr);
             if (!self::$conn) {
