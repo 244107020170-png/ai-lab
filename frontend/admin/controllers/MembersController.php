@@ -37,6 +37,6 @@ class MembersController
     public function delete($id)
     {
         $this->model->delete($id);
-        header("Location: index.php");
+        header("Location: index.php?action=members");
     }
 }

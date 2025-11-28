@@ -19,11 +19,18 @@ class Members
         return pg_fetch_assoc($res);
     }
     public function create($data)
-    {
-        $sql = "INSERT INTO members (full_name, role, photo, expertise, description, linkedin, scholar, researchgate, orcid created_at, updated_at) 
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NOW(), NULL)";
-        return pg_query_params($this->conn, $sql, $data);
-    }
+{
+    $sql = "INSERT INTO members (
+                full_name, role, photo, expertise, description, 
+                linkedin, scholar, researchgate, orcid, 
+                created_at, updated_at
+            ) 
+            VALUES (
+                $1,$2,$3,$4,$5,$6,$7,$8,$9,NOW(),NULL
+            )";
+
+    return pg_query_params($this->conn, $sql, $data);
+}
     public function getByYear($year)
     {
         // EXTRACT(YEAR FROM column) gets just the year part of the timestamp

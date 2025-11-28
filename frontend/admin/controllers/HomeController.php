@@ -1,32 +1,32 @@
 <?php
 require_once __DIR__ . '/../models/members.php';
-require_once __DIR__ . '/../models/projects.php';
+require_once __DIR__ . '/../models/Activities.php';
 
 class HomeController {
 
     private $members;
-    private $projects;
+    private $activities;
 
     public function __construct() {
         $this->members = new Members();
-        $this->projects = new Projects(); // pastikan nama class benar
+        $this->activities = new Activities();
     }
 
     public function index() {
-        // members
+
+        // Members
         $members = $this->members->getAll();
         $totalmembers = count($members);
         $members2025 = count($this->members->getByYear(2025));
 
-        // projects/activity
-        $projectspublished = count($this->projects->getByStatus('Published'));
-        $projectsinprogress = count($this->projects->getByStatus('Work In Progress'));
+        // Activities
+        $projectspublished  = $this->activities->countAll(null, 'approved');
+        $projectsinprogress = $this->activities->countAll(null, 'pending');
 
-        // kirim ke view
         extract([
-            "totalmembers" => $totalmembers,
-            "members2025" => $members2025,
-            "projectspublished" => $projectspublished,
+            "totalmembers"       => $totalmembers,
+            "members2025"        => $members2025,
+            "projectspublished"  => $projectspublished,
             "projectsinprogress" => $projectsinprogress
         ]);
 
