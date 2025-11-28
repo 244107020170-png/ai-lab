@@ -55,7 +55,11 @@
         }
     </style>
 
-    <div class="header-container">
+</head>
+
+<body>
+
+<div class="header-container">
 
         <!-- LEFT BOX -->
         <div class="leBox header-left">
@@ -65,16 +69,12 @@
 
         <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <div " class="nav-item selected-navbar">Home</div>
+            <div class="nav-item selected-navbar">Home</div>
             <a href="index.php?action=members" class="nav-item">Members</a>
-            <a href="projects.html" class="nav-item">Projects</a>
-            <a href="news.html" class="nav-item">News</a>
+            <a href="index.php?action=projects" class="nav-item">Projects</a>
+            <a href="index.php?action=news" class="nav-item">News</a>
         </div>
     </div>
-
-</head>
-
-<body>
 
     <!-- Background: Image + Gradient -->
     <div class="bg-layer" aria-hidden="true">
