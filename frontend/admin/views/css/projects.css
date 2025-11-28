@@ -41,7 +41,6 @@ h1{font-size:36px;margin:8px 0 4px}
 .dots-btn{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer}
 .dots-menu{display:none;position:absolute;right:8px;top:24px;background:#06232a;padding:8px;border-radius:8px}
 .dots-menu a{display:block;color:#dff6f6;text-decoration:none;padding:6px 10px;border-radius:6px}
-.actions:hover .dots-menu{display:block}
 
 /* pagination */
 .pagination{display:flex;justify-content:center;padding:10px;margin-top:10px}
@@ -70,3 +69,36 @@ h1{font-size:36px;margin:8px 0 4px}
 /* toast */
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;background:#1b4e3e;color:#eafff5;padding:10px 18px;border-radius:12px;display:none;box-shadow:0 6px 20px rgba(0,0,0,0.6)}
 .toast.show{display:block}
+
+.suggest-box {
+    position: absolute;
+    background: #0f2c39;
+    border:1px solid rgba(255,255,255,.1);
+    width: 100%;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    display:none;
+    z-index:99;
+}
+
+.suggest-item {
+    padding: 10px;
+    cursor:pointer;
+}
+
+.suggest-item:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+* {
+    transition: .25s ease;
+}
+.search-container {
+    position: relative;
+}
+.controls select option {
+    background:#0e2b35;
+    color:#fff;
+}
+
