@@ -148,177 +148,194 @@
   </main>
 
   <script>
-    // ========== CONFIG ==========
-    const API_BASE = "http://localhost:8000"; // <-- ganti jika beda
-    const API_ENDPOINT = API_BASE + "/api/activities";
-    const rowsPerPage = 5; // client-side page size
+  const API_BASE = "http://127.0.0.1:8000";
+  const API_ENDPOINT = API_BASE + "/api/activities";
+  const rowsPerPage = 5;
 
-    // helpers
-    const statusColors = {
-      published: "#22c55e",
-      progress: "#f59e0b",
-      cancelled: "#ef4444"
-    };
+  let projects = [];
+  let currentPage = 1;
 
-    // load & render
-    let projects = []; // holds fetched data
-    let currentPage = 1;
+  const statusColors = { 
+    published: "#22c55e",
+    progress: "#f59e0b",
+    cancelled: "#ef4444"
+  };
 
-    async function loadProjects() {
-      try {
-        const res = await fetch(API_ENDPOINT);
-        if (!res.ok) throw new Error("Failed to fetch projects");
-        projects = await res.json();
-      } catch (e) {
-        console.error(e);
-        projects = [];
-      }
+  const qs = s => document.querySelector(s);
+  const qsa = s => Array.from(document.querySelectorAll(s));
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    console.log("DOM ready → loading projects…");
+
+    // Wire events
+    qs('#searchInput').addEventListener('input', () => {
+      currentPage = 1;
       renderList();
       renderPagination();
+    });
+
+    qs('#filterSelect').addEventListener('change', () => {
+      currentPage = 1;
+      renderList();
+      renderPagination();
+    });
+
+    qs('#addBtn').addEventListener('click', () => {
+      window.location.href = "/admin/projects/create.html";
+    });
+
+    // Load data
+    loadProjects();
+  });
+
+  async function loadProjects() {
+    try {
+      const res = await fetch(API_ENDPOINT);
+      if (!res.ok) throw new Error("API returned " + res.status);
+
+      projects = await res.json();
+      console.log("Loaded projects:", projects);
+
+    } catch (err) {
+      console.error("Failed to fetch projects:", err);
+      projects = [];
     }
 
-    // render visible rows with search/filter + pagination
-    function applyFilters(items) {
-      const q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
-      const f = document.getElementById('filterSelect').value;
+    renderList();
+    renderPagination();
+  }
 
-      return items.filter(p => {
-        const matchQ = !q || p.title.toLowerCase().includes(q) || (p.code && p.code.toLowerCase().includes(q));
-        const matchF = (f === 'all') || (p.status === f);
-        return matchQ && matchF;
-      });
+
+  function applyFilters(items) {
+    const q = qs('#searchInput').value.toLowerCase().trim();
+    const f = qs('#filterSelect').value;
+
+    return items.filter(p => {
+      const matchQ =
+        !q ||
+        (p.title || "").toLowerCase().includes(q) ||
+        (p.code || "").toLowerCase().includes(q);
+
+      const matchF = f === "all" || p.status === f;
+
+      return matchQ && matchF;
+    });
+  }
+
+
+  function renderList() {
+    const container = qs('#projectsContainer');
+    container.innerHTML = "";
+
+    const filtered = applyFilters(projects);
+    qs('#countShown').textContent = filtered.length;
+
+    const start = (currentPage - 1) * rowsPerPage;
+    const pageItems = filtered.slice(start, start + rowsPerPage);
+
+    if (pageItems.length === 0) {
+      container.innerHTML = `<div class="p-6 text-center text-slate-300">No projects found.</div>`;
+      return;
     }
 
-    function renderList() {
-      const container = document.getElementById('projectsContainer');
-      container.innerHTML = "";
+    pageItems.forEach(p => {
+      const row = document.createElement("div");
+      row.className =
+        "table-row grid grid-cols-[8rem_1fr_12rem_3rem] items-center px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 transition";
 
-      const filtered = applyFilters(projects);
-      const total = filtered.length;
-      document.getElementById('countShown').textContent = total;
-
-      // pagination slice
-      const start = (currentPage-1)*rowsPerPage;
-      const pageItems = filtered.slice(start, start + rowsPerPage);
-
-      if (pageItems.length === 0) {
-        container.innerHTML = `<div class="p-6 text-center text-slate-300">No projects found.</div>`;
-        return;
-      }
-
-      pageItems.forEach(p => {
-        const row = document.createElement('div');
-        row.className = 'table-row grid grid-cols-[8rem_1fr_12rem_3rem] items-center px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 transition';
-
-        row.innerHTML = `
-          <div class="font-medium">${escapeHtml(p.code || '')}</div>
-          <div>${escapeHtml(p.title || '')}</div>
-          <div class="flex items-center gap-2">
-            <span class="status-dot" style="background:${statusColors[p.status] || '#999'}"></span>
-            <span class="status-text">${escapeHtml(p.status)}</span>
-          </div>
-          <div class="text-center text-white/60">
-            <div class="more-btn inline-block cursor-pointer">⋯
-              <div class="menu-popup hidden">
-                <button onclick="onEdit(${p.id})">Edit</button>
-                <button onclick="onDelete(${p.id})" style="color: #ff8a8a;">Delete</button>
-              </div>
+      row.innerHTML = `
+        <div class="font-medium">${escapeHtml(p.id)}</div>
+        <div>${escapeHtml(p.title)}</div>
+        <div class="flex items-center gap-2">
+          <span class="status-dot" style="background:${statusColors[p.status]}"></span>
+          <span>${escapeHtml(p.status)}</span>
+        </div>
+        <div class="text-center text-white/60">
+          <div class="more-btn inline-block cursor-pointer">⋯
+            <div class="menu-popup hidden">
+              <button onclick="onEdit(${p.id})">Edit</button>
+              <button onclick="onDelete(${p.id})" style="color:#ff8a8a">Delete</button>
             </div>
           </div>
-        `;
-        container.appendChild(row);
-        const divider = document.createElement('div'); divider.className = 'divider';
-        container.appendChild(divider);
-      });
+        </div>
+      `;
 
-      initMenus(); // attach menu events
-    }
-
-    function renderPagination() {
-      const pag = document.getElementById('pagination');
-      pag.innerHTML = '';
-      const filtered = applyFilters(projects);
-      const totalPages = Math.max(1, Math.ceil(filtered.length / rowsPerPage));
-
-      // prev
-      const prev = document.createElement('button');
-      prev.className = 'p-2 bg-white/5 rounded-xl';
-      prev.textContent = '<';
-      prev.disabled = currentPage === 1;
-      prev.onclick = () => { currentPage = Math.max(1, currentPage-1); renderList(); renderPagination(); };
-      pag.appendChild(prev);
-
-      // pages (show up to 5 pages window)
-      const startPage = Math.max(1, currentPage - 2);
-      const endPage = Math.min(totalPages, startPage + 4);
-      for (let i = startPage; i <= endPage; i++) {
-        const btn = document.createElement('button');
-        btn.className = 'px-3 py-1 rounded-md ' + (i===currentPage ? 'bg-gradient-to-r from-cyan-400 to-teal-400 text-black font-semibold' : 'bg-white/5 text-white/80');
-        btn.textContent = i;
-        btn.onclick = () => { currentPage = i; renderList(); renderPagination(); };
-        pag.appendChild(btn);
-      }
-
-      // next
-      const next = document.createElement('button');
-      next.className = 'p-2 bg-white/5 rounded-xl';
-      next.textContent = '>';
-      next.disabled = currentPage >= totalPages;
-      next.onclick = () => { currentPage = Math.min(totalPages, currentPage+1); renderList(); renderPagination(); };
-      pag.appendChild(next);
-    }
-
-    // menus: show/hide per-row
-    function initMenus() {
-      document.querySelectorAll('.more-btn').forEach(m => {
-        m.onclick = (ev) => {
-          ev.stopPropagation();
-          const popup = m.querySelector('.menu-popup');
-          // hide others
-          document.querySelectorAll('.menu-popup').forEach(pp => { if (pp !== popup) pp.classList.add('hidden'); });
-          popup.classList.toggle('hidden');
-        };
-      });
-      document.addEventListener('click', () => {
-        document.querySelectorAll('.menu-popup').forEach(pp => pp.classList.add('hidden'));
-      }, { once:false });
-    }
-
-    // actions
-    function onEdit(id) {
-      // go to edit page -- you can implement a modal instead
-      window.location.href = `/admin/projects/edit.html?id=${id}`;
-    }
-
-    async function onDelete(id) {
-      if (!confirm('Delete this project?')) return;
-      try {
-        const res = await fetch(`${API_ENDPOINT}/${id}`, { method: 'DELETE' });
-        if (!res.ok) throw new Error('Failed to delete');
-        await loadProjects();
-      } catch (e) {
-        alert('Delete failed');
-        console.error(e);
-      }
-    }
-
-    // small helper for escaping
-    function escapeHtml(unsafe) {
-      return String(unsafe || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    }
-
-    // search & filter events
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('searchInput').addEventListener('input', () => { currentPage = 1; renderList(); renderPagination(); });
-      document.getElementById('filterSelect').addEventListener('change', ()=> { currentPage = 1; renderList(); renderPagination(); });
-
-      document.getElementById('addBtn').addEventListener('click', ()=> {
-        window.location.href = '/admin/projects/create.html';
-      });
-
-      // initial load
-      loadProjects();
+      container.appendChild(row);
     });
-  </script>
+
+    initMenus();
+  }
+
+
+  function renderPagination() {
+    const pag = qs('#pagination');
+    pag.innerHTML = "";
+
+    const filtered = applyFilters(projects);
+    const totalPages = Math.ceil(filtered.length / rowsPerPage) || 1;
+
+    const prev = document.createElement("button");
+    prev.textContent = "<";
+    prev.disabled = currentPage === 1;
+    prev.className = "p-2 bg-white/5 rounded-xl";
+    prev.onclick = () => {
+      currentPage--;
+      renderList();
+      renderPagination();
+    };
+    pag.appendChild(prev);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      btn.className =
+        "px-3 py-1 rounded-md " +
+        (i === currentPage
+          ? "bg-gradient-to-r from-cyan-400 to-teal-400 text-black font-semibold"
+          : "bg-white/5 text-white/80");
+
+      btn.onclick = () => {
+        currentPage = i;
+        renderList();
+        renderPagination();
+      };
+
+      pag.appendChild(btn);
+    }
+
+    const next = document.createElement("button");
+    next.textContent = ">";
+    next.disabled = currentPage >= totalPages;
+    next.className = "p-2 bg-white/5 rounded-xl";
+    next.onclick = () => {
+      currentPage++;
+      renderList();
+      renderPagination();
+    };
+    pag.appendChild(next);
+  }
+
+
+  window.onEdit = id => {
+    window.location.href = `/admin/projects/edit.html?id=${id}`;
+  };
+
+  window.onDelete = async id => {
+    if (!confirm("Delete this project?")) return;
+
+    await fetch(`${API_ENDPOINT}/${id}`, { method: "DELETE" });
+    loadProjects();
+  };
+
+
+  function escapeHtml(str) {
+    return String(str || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+</script>
+
 </body>
 </html>
