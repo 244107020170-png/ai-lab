@@ -101,4 +101,16 @@ h1{font-size:36px;margin:8px 0 4px}
     background:#0e2b35;
     color:#fff;
 }
+.search-container {
+    position: relative;
+    width: 260px;
+}
+
+#search-input {
+    width: 100%;
+}
+select option {
+    background: #0e2b35;
+    color: #fff;
+}
 
