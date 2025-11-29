@@ -29,7 +29,7 @@ class Activities {
             $sql .= " WHERE " . implode(' AND ', $where);
         }
 
-        $sql .= " ORDER BY created_at DESC LIMIT $" . (count($params)+1) . " OFFSET $" . (count($params)+2);
+        $sql .= " ORDER BY id ASC LIMIT $" . (count($params)+1) . " OFFSET $" . (count($params)+2);
         $params[] = $limit;
         $params[] = $offset;
 

@@ -10,37 +10,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
    //  DELETE PROJECT (AJAX)
   document.querySelectorAll(".delete-btn").forEach(btn => {
-    btn.addEventListener("click", function (e) {
+    btn.addEventListener("click", (e) => {
       e.preventDefault();
-      e.stopPropagation();
 
-      const id = this.dataset.id;
-      if (!id) return;
-
+      const id = btn.dataset.id;
       if (!confirm("Are you sure you want to delete this project?")) return;
 
       fetch("index.php?action=projects&op=delete", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "id=" + encodeURIComponent(id)
+        body: "id=" + id
       })
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          showToast("Successfully Deleted!");
-          const row = document.querySelector(`#row-${id}`);
-          if (row) row.remove();
+          document.getElementById("row-" + id).remove();
+          showToast("Project deleted successfully");
         } else {
-          alert(data.message || "Delete failed.");
+          showToast("Delete failed");
         }
       })
       .catch(err => {
         console.error(err);
-        alert("Delete failed (network error).");
+        showToast("Error deleting");
       });
     });
   });
 
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.innerText = msg;
+  t.classList.add("show");
+  setTimeout(()=> t.classList.remove("show"), 2500);
+}
 
     // DOT MENU (…) TOGGLE
   document.querySelectorAll(".dots-btn").forEach(btn => {
