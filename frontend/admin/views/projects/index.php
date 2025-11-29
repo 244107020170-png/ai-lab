@@ -125,28 +125,29 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 <script src="views/js/projects.js"></script>
 
 <script>
-// --- DOT MENU (three-dots) ---
-document.addEventListener("click", function(e){
+// DOTS MENU OPEN/CLOSE + DELETE HANDLER
+document.addEventListener("click", function (e) {
 
-    // open dots menu
+    // --- OPEN DOTS MENU ---
     if (e.target.classList.contains("dots-btn")) {
         e.stopPropagation();
 
-        // close others
-        document.querySelectorAll(".dots-menu")
-            .forEach(m => m.classList.remove("show"));
+        document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
 
         const id = e.target.dataset.id;
         const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
         if (menu) menu.classList.add("show");
+
         return;
     }
 
-    // DELETE
+    // --- DELETE ---
     if (e.target.classList.contains("delete-btn")) {
         e.preventDefault();
+        e.stopPropagation(); 
 
         const id = e.target.dataset.id;
+
         if (!confirm("Are you sure you want to delete this project?")) return;
 
         fetch("index.php?action=projects&op=delete", {
@@ -162,28 +163,25 @@ document.addEventListener("click", function(e){
                 row.classList.add("row-fade-out");
                 setTimeout(() => row.remove(), 350);
 
-                if (typeof showToast === "function") {
-                    showToast("Deleted successfully");
-                }
+                showToast("Deleted successfully");
 
             } else {
                 showToast("Delete failed");
             }
         })
         .catch(err => {
-            console.error(err);
+            console.error("DELETE ERROR:", err);
             showToast("Error deleting");
         });
 
         return;
     }
 
-    // click outside → close menu
-    document.querySelectorAll(".dots-menu")
-        .forEach(m => m.classList.remove("show"));
+    // --- CLICK OUTSIDE → CLOSE MENU ---
+    document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
 });
 
-// --- ROW APPEAR ANIMATION ---
+// APPEAR ANIMATION
 document.addEventListener("DOMContentLoaded", () => {
     const rows = document.querySelectorAll(".table-row");
     rows.forEach((row, index) => {
