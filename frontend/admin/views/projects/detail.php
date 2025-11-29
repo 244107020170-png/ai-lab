@@ -63,10 +63,21 @@ $mode = $activity ? 'edit' : 'create';
       <input type="date" name="published_at" value="<?php echo !empty($activity['published_at']) ? date('Y-m-d', strtotime($activity['published_at'])) : ''; ?>">
 
       <label>Status</label>
-      <select name="status">
-    <option value="published" <?= ($activity['status']=='published' ? 'selected' : '') ?>>Published</option>
-    <option value="progress"  <?= ($activity['status']=='progress'  ? 'selected' : '') ?>>Progressing</option>
-    <option value="cancelled" <?= ($activity['status']=='cancelled' ? 'selected' : '') ?>>Cancelled</option>
+      <select name="status" class="form-control">
+    <option value="published" 
+        <?= ($activity['status'] ?? '') === 'published' ? 'selected' : '' ?>>
+        Published
+    </option>
+
+    <option value="progress" 
+        <?= ($activity['status'] ?? '') === 'progress' ? 'selected' : '' ?>>
+        Progressing
+    </option>
+
+    <option value="cancelled" 
+        <?= ($activity['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>
+        Cancelled
+    </option>
 </select>
 
 
