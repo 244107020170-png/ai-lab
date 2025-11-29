@@ -89,20 +89,24 @@ class ProjectsController {
     }
 
     private function sanitizePost() {
-        $status = trim($_POST['status'] ?? '');
-if ($status === '') $status = 'progress'; // default safe
+    $status = trim($_POST['status'] ?? '');
 
-return [
-    'title' => trim($_POST['title'] ?? ''),
-    'label' => trim($_POST['label'] ?? ''),
-    'short_description' => trim($_POST['short_description'] ?? ''),
-    'full_description' => trim($_POST['full_description'] ?? ''),
-    'published_at' => !empty($_POST['published_at']) ? $_POST['published_at'] : null,
-    'status' => $status,
-    'document_link' => trim($_POST['document_link'] ?? '')
-];
-
+    // validasi status untuk match database
+    $valid = ['published','progress','cancelled'];
+    if (!in_array($status, $valid)) {
+        $status = 'progress';
     }
+
+    return [
+        'title'            => trim($_POST['title'] ?? ''),
+        'label'            => trim($_POST['label'] ?? ''),
+        'short_description'=> trim($_POST['short_description'] ?? ''),
+        'full_description' => trim($_POST['full_description'] ?? ''),
+        'published_at'     => !empty($_POST['published_at']) ? $_POST['published_at'] : null,
+        'status'           => $status,
+        'document_link'    => trim($_POST['document_link'] ?? '')
+    ];
+}
 
     private function handleUploads() {
         $result = ['thumbnail' => null, 'banner' => null];

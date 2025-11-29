@@ -64,10 +64,11 @@ $mode = $activity ? 'edit' : 'create';
 
       <label>Status</label>
       <select name="status">
-    <option value="approved" <?= ($activity['status']=='approved' ? 'selected' : '') ?>>Published</option>
-    <option value="progress" <?= ($activity['status']=='progress' ? 'selected' : '') ?>>Progressing</option>
-    <option value="rejected" <?= ($activity['status']=='rejected' ? 'selected' : '') ?>>Cancelled</option>
-      </select>
+    <option value="published" <?= ($activity['status']=='published' ? 'selected' : '') ?>>Published</option>
+    <option value="progress"  <?= ($activity['status']=='progress'  ? 'selected' : '') ?>>Progressing</option>
+    <option value="cancelled" <?= ($activity['status']=='cancelled' ? 'selected' : '') ?>>Cancelled</option>
+</select>
+
 
       <label>Project Document Link</label>
       <input type="url" name="document_link" value="<?php echo htmlspecialchars($activity['document_link'] ?? ''); ?>">

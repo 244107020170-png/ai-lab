@@ -2,22 +2,22 @@
 // STATUS MAPPING (FINAL)
 function statusUI($db) {
     $map = [
-        "approved" => "Published",
-        "progress" => "Progressing",
-        "pending"  => "Progressing",
-        "rejected" => "Cancelled"
+        "published" => "Published",
+        "progress"  => "Progressing",
+        "cancelled" => "Cancelled"
     ];
     return $map[$db] ?? ucfirst($db);
 }
+
 function statusColor($db) {
     $map = [
-        "approved" => "green",
-        "progress" => "yellow",
-        "pending"  => "yellow",
-        "rejected" => "red"
+        "published" => "green",
+        "progress"  => "yellow",
+        "cancelled" => "red"
     ];
     return $map[$db] ?? "grey";
 }
+
 
 // variables passed from controller or fallback
 $q = $_GET['q'] ?? ($q ?? '');
@@ -62,10 +62,10 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
       </div>
 
       <select name="status" id="statusSelect">
-        <option value="">All status</option>
-        <option value="approved" <?php if($status==='approved') echo 'selected'; ?>>Published</option>
-        <option value="progress" <?php if($status==='progress') echo 'selected'; ?>>Progressing</option>
-        <option value="rejected" <?php if($status==='rejected') echo 'selected'; ?>>Cancelled</option>
+    <option value="">All status</option>
+<option value="published" <?= ($status=='published' ? 'selected' : '') ?>>Published</option>
+<option value="progress"  <?= ($status=='progress'  ? 'selected' : '') ?>>Progressing</option>
+<option value="cancelled" <?= ($status=='cancelled' ? 'selected' : '') ?>>Cancelled</option>
       </select>
     </form>
 
