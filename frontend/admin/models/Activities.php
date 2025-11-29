@@ -8,7 +8,7 @@ class Activities {
         $this->db = Database::getConnection();
     }
 
-    // GET ALL (search + filter + pagination)
+    // GET ALL
     public function getAll($search = null, $status = null, $limit = 10, $offset = 0) {
         $params = [];
         $where = [];
@@ -33,13 +33,11 @@ class Activities {
         $params[] = $limit;
         $params[] = $offset;
 
-        $res = @pg_query_params($this->db, $sql, $params);
-        if (!$res) return [];
-
+        $res = pg_query_params($this->db, $sql, $params);
         return pg_fetch_all($res) ?: [];
     }
 
-    // COUNT FOR PAGINATION
+    // COUNT
     public function countAll($search = null, $status = null) {
         $params = [];
         $where = [];
@@ -60,27 +58,29 @@ class Activities {
             $sql .= " WHERE " . implode(' AND ', $where);
         }
 
-        $res = @pg_query_params($this->db, $sql, $params);
-        if (!$res) return 0;
-
+        $res = pg_query_params($this->db, $sql, $params);
         $row = pg_fetch_assoc($res);
         return intval($row['cnt']);
     }
 
     // GET BY ID
     public function getById($id) {
-        $res = pg_query_params($this->db, "SELECT * FROM activities WHERE id = $1 LIMIT 1", [$id]);
-        if (!$res) return null;
+        $res = pg_query_params($this->db, "SELECT * FROM activities WHERE id = $1", [$id]);
         return pg_fetch_assoc($res);
     }
 
     // INSERT
     public function insert($data) {
+
+        // auto fix label
+        if (empty($data['label'])) {
+            $data['label'] = $data['status'];
+        }
+
         $sql = "INSERT INTO activities 
                 (title, label, short_description, full_description, published_at, 
                  thumbnail_image, banner_image, status, document_link, created_at, updated_at)
-                VALUES 
-                ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW(),NOW())
+                VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,NOW(),NOW())
                 RETURNING id";
 
         $params = [
@@ -91,18 +91,16 @@ class Activities {
             $data['published_at'] ?? null,
             $data['thumbnail_image'] ?? null,
             $data['banner_image'] ?? null,
-            $data['status'] ?? 'pending',
+            $data['status'] ?? 'progress',
             $data['document_link'] ?? null
         ];
 
         $res = pg_query_params($this->db, $sql, $params);
-        if (!$res) return false;
-
         $row = pg_fetch_assoc($res);
-        return $row['id'] ?? false;
+        return $row['id'];
     }
 
-    // UPDATE (FINAL FIXED VERSION)
+    // UPDATE (final fixed)
     public function update($id, $data) {
 
         $set = [];
@@ -117,18 +115,17 @@ class Activities {
 
         foreach ($columns as $col) {
 
-            // auto-fix LABEL to avoid NULL
-            if ($col === 'label') {
-                if (empty($data['label'])) {
-                    $data['label'] = $data['status'];
-                }
+            // fix label NULL → same as status
+            if ($col === 'label' && empty($data['label'])) {
+                $data['label'] = $data['status'];
             }
 
-            // convert empty string → NULL
+            // empty string to NULL
             if (isset($data[$col]) && $data[$col] === '') {
                 $data[$col] = null;
             }
 
+            // only update if exists
             if (array_key_exists($col, $data)) {
                 $set[] = "$col = $" . $i;
                 $params[] = $data[$col];
@@ -143,13 +140,11 @@ class Activities {
                ", updated_at = NOW() WHERE id = $" . $i;
 
         $res = pg_query_params($this->db, $sql, $params);
-
         return $res !== false;
     }
 
     // DELETE
     public function delete($id) {
-        $res = pg_query_params($this->db, "DELETE FROM activities WHERE id = $1", [$id]);
-        return $res !== false;
+        return pg_query_params($this->db, "DELETE FROM activities WHERE id = $1", [$id]) !== false;
     }
 }
