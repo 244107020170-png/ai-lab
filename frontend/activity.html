@@ -119,12 +119,9 @@ async function loadActivities() {
   container.innerHTML = "Loading...";
 
   try {
-    const res = await fetch("http://127.0.0.1:8000/api/activities", {
-      method: "GET",
-      headers: { "Accept": "application/json" }
-    });
-
+    const res = await fetch("http://127.0.0.1:8000/api/activities");
     const items = await res.json();
+
     container.innerHTML = "";
 
     if (!items.length) {
@@ -133,16 +130,19 @@ async function loadActivities() {
     }
 
     items.forEach(item => {
-      const thumb = item.thumbnail_image ?? "img/default.jpg";
+      const thumb = item.thumbnail_image 
+                    ? item.thumbnail_image 
+                    : "img/activitymage.png";
 
       container.innerHTML += `
-        <a href="activity-detail.html?id=${item.id}"
-           class="block bg-white rounded-xl shadow p-4 hover:-translate-y-1 transition-all">
-           
-            <img src="${thumb}" class="w-full h-48 object-cover rounded-lg">
-            <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
-            <p class="text-gray-700 mt-2">${item.short_description ?? ""}</p>
-        </a>
+        <div class="bg-white shadow rounded-xl p-4">
+          <img src="${thumb}" 
+               class="w-full h-48 object-cover rounded-lg" 
+               onerror="this.src='img/activitymage.png'">
+
+          <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
+          <p class="text-gray-700 mt-2">${item.short_description || ""}</p>
+        </div>
       `;
     });
 
