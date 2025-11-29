@@ -60,14 +60,29 @@ $mode = $activity ? 'edit' : 'create';
       <input type="text" value="<?php echo htmlspecialchars($activity['created_at'] ?? ''); ?>" readonly>
 
       <label>Published At</label>
-      <input type="date" name="published_at" value="<?php echo !empty($activity['published_at']) ? date('Y-m-d', strtotime($activity['published_at'])) : ''; ?>">
+      <input type="date" name="published_at"
+       value="<?php echo (!empty($activity['published_at'] ?? null))
+            ? date('Y-m-d', strtotime($activity['published_at']))
+            : ''; ?>">
 
       <label>Status</label>
-      <select name="status">
-        <option value="approved" <?php if(($activity['status'] ?? '') === 'approved') echo 'selected'; ?>>Published</option>
-        <option value="pending" <?php if(($activity['status'] ?? '') === 'pending') echo 'selected'; ?>>Progressing</option>
-        <option value="rejected" <?php if(($activity['status'] ?? '') === 'rejected') echo 'selected'; ?>>Cancelled</option>
-      </select>
+      <select name="status" class="form-control">
+    <option value="published"
+        <?= (($activity['status'] ?? '') === 'published') ? 'selected' : '' ?>>
+        Published
+    </option>
+
+    <option value="progress"
+        <?= (($activity['status'] ?? '') === 'progress') ? 'selected' : '' ?>>
+        Progressing
+    </option>
+
+    <option value="cancelled"
+        <?= (($activity['status'] ?? '') === 'cancelled') ? 'selected' : '' ?>>
+        Cancelled
+    </option>
+</select>
+
 
       <label>Project Document Link</label>
       <input type="url" name="document_link" value="<?php echo htmlspecialchars($activity['document_link'] ?? ''); ?>">

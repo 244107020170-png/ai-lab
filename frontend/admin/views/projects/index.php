@@ -2,34 +2,32 @@
 // STATUS MAPPING (FINAL)
 function statusUI($db) {
     $map = [
-        "approved" => "Published",
-        "progress" => "Progressing",
-        "pending"  => "Progressing",
-        "rejected" => "Cancelled"
+        "published" => "Published",
+        "progress"  => "Progressing",
+        "cancelled" => "Cancelled"
     ];
     return $map[$db] ?? ucfirst($db);
 }
 
 function statusColor($db) {
     $map = [
-        "approved" => "green",
-        "progress" => "yellow",
-        "pending"  => "yellow",
-        "rejected" => "red"
+        "published" => "green",
+        "progress"  => "yellow",
+        "cancelled" => "red"
     ];
     return $map[$db] ?? "grey";
 }
 
-// VARIABLES
+
+// variables passed from controller or fallback
 $q = $_GET['q'] ?? ($q ?? '');
 $status = $_GET['status'] ?? ($status ?? '');
 $page = intval($_GET['page'] ?? ($page ?? 1));
 $limit = 10;
 $total = $total ?? 0;
 $rows = $rows ?? [];
-$pages = ceil($total / $limit);
+$pages = ($total>0) ? ceil($total / $limit) : 1;
 ?>
-
 <!doctype html>
 <html>
 <head>
@@ -54,31 +52,26 @@ $pages = ceil($total / $limit);
   <p class="lead">Manage the projects that will be shown in the website.</p>
 
   <div class="controls">
-
-    <!-- FILTER -->
-    <form method="get" action="index.php">
+    <!-- SEARCH + FILTER IN ONE FORM -->
+    <form id="searchForm" method="get" action="index.php" style="display:flex;gap:12px;align-items:center;">
       <input type="hidden" name="action" value="projects">
 
-      <select name="status">
-        <option value="">All status</option>
-        <option value="approved" <?php if($status==='approved') echo 'selected'; ?>>Published</option>
-        <option value="progress" <?php if($status==='progress') echo 'selected'; ?>>Progressing</option>
-        <option value="rejected" <?php if($status==='rejected') echo 'selected'; ?>>Cancelled</option>
-      </select>
-
-      <button type="submit">Apply Filter</button>
-    </form>
-
-    <!-- REALTIME SEARCH -->
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search title...">
+      <div class="search-container" style="flex:1;max-width:560px;">
+        <input type="text" id="search-input" name="q" placeholder="Search title..." value="<?php echo htmlspecialchars($q); ?>">
         <div id="suggest-box" class="suggest-box"></div>
-    </div>
+      </div>
+
+      <select name="status" id="statusSelect">
+    <option value="">All status</option>
+<option value="published" <?= ($status=='published' ? 'selected' : '') ?>>Published</option>
+<option value="progress"  <?= ($status=='progress'  ? 'selected' : '') ?>>Progressing</option>
+<option value="cancelled" <?= ($status=='cancelled' ? 'selected' : '') ?>>Cancelled</option>
+      </select>
+    </form>
 
     <div class="right-controls">
       <a class="btn add" href="index.php?action=projects&op=create">+ Add Projects</a>
     </div>
-
   </div>
 
   <div class="table-card">
@@ -94,18 +87,13 @@ $pages = ceil($total / $limit);
         <div class="no-data">No projects found.</div>
       <?php else: foreach($rows as $r): ?>
         
-        <!-- ROW NEEDS ID FOR DELETE -->
         <div class="table-row" id="row-<?php echo $r['id']; ?>">
-
           <div class="col id">PJ<?php echo str_pad($r['id'], 3, '0', STR_PAD_LEFT); ?></div>
-
           <div class="col title"><?php echo htmlspecialchars($r['title']); ?></div>
-
           <div class="col status">
             <span class="dot <?php echo statusColor($r['status']); ?>"></span>
             <span class="label"><?php echo statusUI($r['status']); ?></span>
           </div>
-
           <div class="col actions">
             <button class="dots-btn" data-id="<?php echo $r['id']; ?>">…</button>
             <div class="dots-menu" data-id="<?php echo $r['id']; ?>">
@@ -113,9 +101,7 @@ $pages = ceil($total / $limit);
               <a href="#" class="delete-btn" data-id="<?php echo $r['id']; ?>">Delete</a>
             </div>
           </div>
-
         </div>
-
       <?php endforeach; endif; ?>
     </div>
 
@@ -123,7 +109,7 @@ $pages = ceil($total / $limit);
     <div class="pagination">
       <?php if($pages > 1): for($p=1;$p<=$pages;$p++): ?>
         <a class="page <?php if($p==$page) echo 'active'; ?>"
-           href="index.php?action=projects&status=<?php echo urlencode($status); ?>&page=<?php echo $p; ?>">
+           href="index.php?action=projects&q=<?php echo urlencode($q); ?>&status=<?php echo urlencode($status); ?>&page=<?php echo $p; ?>">
            <?php echo $p; ?>
         </a>
       <?php endfor; endif; ?>
@@ -137,5 +123,73 @@ $pages = ceil($total / $limit);
 <div id="toast" class="toast"></div>
 
 <script src="views/js/projects.js"></script>
+
+<script>
+// DOTS MENU OPEN/CLOSE + DELETE HANDLER
+document.addEventListener("click", function (e) {
+
+    // --- OPEN DOTS MENU ---
+    if (e.target.classList.contains("dots-btn")) {
+        e.stopPropagation();
+
+        document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
+
+        const id = e.target.dataset.id;
+        const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
+        if (menu) menu.classList.add("show");
+
+        return;
+    }
+
+    // --- DELETE ---
+    if (e.target.classList.contains("delete-btn")) {
+        e.preventDefault();
+        e.stopPropagation(); 
+
+        const id = e.target.dataset.id;
+
+        if (!confirm("Are you sure you want to delete this project?")) return;
+
+        fetch("index.php?action=projects&op=delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "id=" + id
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+
+                const row = document.getElementById("row-" + id);
+                row.classList.add("row-fade-out");
+                setTimeout(() => row.remove(), 350);
+
+                showToast("Deleted successfully");
+
+            } else {
+                showToast("Delete failed");
+            }
+        })
+        .catch(err => {
+            console.error("DELETE ERROR:", err);
+            showToast("Error deleting");
+        });
+
+        return;
+    }
+
+    // --- CLICK OUTSIDE → CLOSE MENU ---
+    document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
+});
+
+// APPEAR ANIMATION
+document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll(".table-row");
+    rows.forEach((row, index) => {
+        setTimeout(() => row.classList.add("row-appear"), index * 60);
+    });
+});
+</script>
+
+
 </body>
 </html>

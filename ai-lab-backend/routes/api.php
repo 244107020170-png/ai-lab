@@ -54,7 +54,6 @@ Route::post('/members/create', [MemberController::class, 'store']);
 //Research
 Route::get('/research/products', [ResearchController::class, 'products']);
 Route::get('/research/partners', [ResearchController::class, 'partners']);
-Route::post('/research/products/create', [ResearchController::class, 'store']);
 
 //News
 Route::get('/news', [NewsController::class, 'index']);
@@ -63,3 +62,4 @@ Route::get('/news/{id}', [NewsController::class, 'show']);
 
 // Optional protected route for admin create
 Route::post('/news', [NewsController::class, 'store']); // protect with auth/sanctum in production
+

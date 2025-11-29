@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Actvity | AILab</title>  
+  <title>Activity | AILab</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -14,36 +15,31 @@
       overflow-x: hidden;
     }
 
-    /*Fade Up*/
+    .navbar {
+      transition: 0.4s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    }
+
+    /* fade up animation */
     .fade-up {
       opacity: 0;
-      transform: translateY(40px);
-      transition: all .8s ease;
+      transform: translateY(30px);
+      transition: all .7s ease;
     }
     .fade-up.show {
       opacity: 1;
       transform: translateY(0);
     }
-
-    /* Sticky Navbar Effect */
-    .navbar {
-      transition: 0.4s ease;
-    }
-    .navbar.scrolled {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-    }
-    .disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR SAME -->
+<!-- NAVBAR -->
 <nav class="navbar fixed top-0 w-full z-50 bg-transparent">
   <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
     <img src="img/logorm.png" class="w-40" alt="logo">
@@ -60,25 +56,22 @@
   </div>
 </nav>
 
-<!-- BG -->
-<div class="absolute w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[120px] top-[200px] left-[900px]"></div>
-
 <!-- TITLE -->
 <section class="pt-40 text-center fade-up">
   <h1 class="text-5xl font-bold text-sky-700 font-['Inter']">Lab Activity</h1>
 </section>
 
-<!-- ACTIVITY GRID -->
-<section class="max-w-7xl mx-auto mt-14 px-10 fade-up">
+<!-- GRID -->
+<section class="max-w-7xl mx-auto mt-16 px-10 fade-up">
 
-  <div id="activityList" class="grid md:grid-cols-3 gap-12"></div>
+  <!-- WRAPPER FIX -->
+  <div id="activityList" class="grid md:grid-cols-3 gap-10 relative z-20">
+    <!-- Cards injected here -->
+  </div>
 
 </section>
 
-<!-- PAGINATION DINAMIS -->
-<div id="pagination" class="flex justify-center mt-16 fade-up"></div>
-
-<!-- FOOTER SAME -->
+<!-- FOOTER -->
 <footer class="mt-32 bg-cyan-900 text-white py-8">
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
 
@@ -114,147 +107,51 @@
 </footer>
 
 <script>
-  // Fade scroll
-  const fadeElements = document.querySelectorAll(".fade-up");
-  const reveal = () => {
-    fadeElements.forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-        el.classList.add("show");
-      }
-    });
-  };
-  window.addEventListener("scroll", reveal);
-  reveal();
-
-  // Navbar scroll effect
-  const navbar = document.querySelector(".navbar");
-  window.addEventListener("scroll", () => {
-    navbar.classList.toggle("scrolled", window.scrollY > 20);
+/* Fade animation on load */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".fade-up").forEach(el => {
+    setTimeout(() => el.classList.add("show"), 200);
   });
-
-  // ============= CONFIG =============
-let activities = [];         // data dari API
-let currentPage = 1;         // halaman aktif
-const perPage = 9;           // 9 card per halaman
-
-// ============= FETCH DATA =============
-async function loadActivities() {
-    try {
-        const res = await fetch("http://127.0.0.1:8000/api/activities");
-        const data = await res.json();
-
-        activities = data; // simpan ke array global
-        renderActivities();     // tampilkan halaman pertama
-        renderPagination();     // buat pagination
-    } catch (err) {
-        console.error("Failed to load activities:", err);
-    }
-}
-
-// ============= RENDER CARD =============
-function renderActivities() {
-    const container = document.getElementById("activityList");
-    container.innerHTML = "";
-
-    // Hitung item berdasarkan page
-    const start = (currentPage - 1) * perPage;
-    const end = start + perPage;
-    const pageItems = activities.slice(start, end);
-
-    // Generate card dinamis
-    pageItems.forEach(item => {
-        const img = item.thumbnail_image ?? "img/activitymage.png";
-        const date = item.published_at ?? "—";
-        const short = item.short_description ?? "Short description";
-
-        container.innerHTML += `
-            <div class="bg-white rounded-3xl shadow-md p-4 hover:-translate-y-1 transition">
-                <img src="${img}" class="w-full h-36 object-cover rounded-3xl" />
-                
-                <h3 class="text-xl text-sky-900 font-bold mt-4">${item.title}</h3>
-                <p class="text-gray-600">${short}</p>
-                <p class="text-gray-600">Published Date: ${date}</p>
-
-                <a href="activity-detail.html?id=${item.id}"
-                   class="mt-4 inline-block bg-orange-500 text-white text-xs px-4 py-1 rounded-lg shadow hover:bg-orange-600 transition">
-                    Read More
-                </a>
-            </div>
-        `;
-    });
-}
-
-document.querySelectorAll(".email-link").forEach(link => {
-    link.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        // buka Gmail dulu
-        window.open("https://mail.google.com/mail/?view=cm&fs=1&to=ailab@polinema.ac.id", "_blank");
-
-        // fallback ke MAILTO (Outlook, Windows Mail)
-        setTimeout(() => {
-            window.location.href = "mailto:ailab@polinema.ac.id";
-        }, 300);
-    });
 });
 
-// ============= RENDER PAGINATION =============
-function renderPagination() {
-    const totalPages = Math.ceil(activities.length / perPage);
-    const container = document.getElementById("pagination");
+async function loadActivities() {
+  const container = document.getElementById("activityList");
+  container.innerHTML = `<p class="col-span-3 text-center text-sky-700">Loading activities...</p>`;
 
-    container.innerHTML = ""; 
-    const wrapper = document.createElement("div");
-    wrapper.className = "flex items-center gap-3";
+  try {
+    const res = await fetch("http://127.0.0.1:8000/api/activities");
+    const data = await res.json();
 
-    // Prev Button
-    const btnPrev = document.createElement("button");
-    btnPrev.innerHTML = `<img src="img/actleft.png" class="w-5 h-5" />`;
-    btnPrev.className = "w-8 h-8 flex items-center justify-center bg-amber-200 rounded-full hover:bg-amber-300 transition";
-    btnPrev.onclick = () => goToPage(currentPage - 1);
-    if (currentPage === 1) btnPrev.classList.add("opacity-40", "pointer-events-none");
-    wrapper.appendChild(btnPrev);
+    container.innerHTML = "";
 
-    // Page Number Buttons
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement("button");
-        pageBtn.textContent = i;
-
-        if (i === currentPage) {
-            pageBtn.className = "bg-orange-500 text-white px-3 py-1 rounded-full";
-        } else {
-            pageBtn.className = "text-gray-700 hover:text-orange-500";
-            pageBtn.onclick = () => goToPage(i);
-        }
-
-        wrapper.appendChild(pageBtn);
+    if (!data.length) {
+      container.innerHTML = `<p class="col-span-3 text-center text-gray-600">No published activities.</p>`;
+      return;
     }
 
-    // Next Button
-    const btnNext = document.createElement("button");
-    btnNext.innerHTML = `<img src="img/actright.png" class="w-5 h-5" />`;
-    btnNext.className = "w-8 h-8 flex items-center justify-center bg-orange-500 rounded-full hover:bg-orange-600 transition";
-    btnNext.onclick = () => goToPage(currentPage + 1);
-    const totalPagesCalc = Math.ceil(activities.length / perPage);
-    if (currentPage === totalPagesCalc) btnNext.classList.add("opacity-40", "pointer-events-none");
-    wrapper.appendChild(btnNext);
+    data.forEach(item => {
+      const thumb = item.thumbnail_image || "img/activitymage.png";
 
-    container.appendChild(wrapper);
+      container.innerHTML += `
+        <a href="activity-detail.html?id=${item.id}" 
+           class="block bg-white shadow-md hover:shadow-xl rounded-xl overflow-hidden transition">
+          <img src="${thumb}" class="w-full h-48 object-cover">
+          <div class="p-4">
+            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">${item.label || "published"}</span>
+            <h3 class="text-xl font-semibold mt-3">${item.title}</h3>
+            <p class="text-gray-600 mt-1">${item.short_description || ""}</p>
+          </div>
+        </a>
+      `;
+    });
+
+  } catch (err) {
+    container.innerHTML = `<p class="col-span-3 text-red-600 text-center">Failed to load activities.</p>`;
+    console.error(err);
+  }
 }
 
-// ============= CHANGE PAGE =============
-function goToPage(page) {
-    const totalPages = Math.ceil(activities.length / perPage);
-
-    if (page < 1 || page > totalPages) return;
-
-    currentPage = page;
-    renderActivities();
-    renderPagination();
-}
-
-// Jalankan saat halaman di-load
-loadActivities();
+document.addEventListener("DOMContentLoaded", loadActivities);
 </script>
 
 </body>

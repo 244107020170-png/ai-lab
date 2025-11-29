@@ -14,5 +14,7 @@ class Activity extends Model
         'published_at',
         'thumbnail_image',
         'banner_image',
+        'document_link',
+        'status'
     ];
 }
