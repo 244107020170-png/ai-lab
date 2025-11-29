@@ -64,9 +64,9 @@ $mode = $activity ? 'edit' : 'create';
 
       <label>Status</label>
       <select name="status">
-        <option value="approved" <?php if(($activity['status'] ?? '') === 'approved') echo 'selected'; ?>>Published</option>
-        <option value="pending" <?php if(($activity['status'] ?? '') === 'pending') echo 'selected'; ?>>Progressing</option>
-        <option value="rejected" <?php if(($activity['status'] ?? '') === 'rejected') echo 'selected'; ?>>Cancelled</option>
+    <option value="approved" <?= ($activity['status']=='approved' ? 'selected' : '') ?>>Published</option>
+    <option value="progress" <?= ($activity['status']=='progress' ? 'selected' : '') ?>>Progressing</option>
+    <option value="rejected" <?= ($activity['status']=='rejected' ? 'selected' : '') ?>>Cancelled</option>
       </select>
 
       <label>Project Document Link</label>

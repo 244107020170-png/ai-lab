@@ -103,11 +103,12 @@ class Activities {
         $params = [];
         $i = 1;
         foreach (['title','label','short_description','full_description','published_at','thumbnail_image','banner_image','status','document_link'] as $col) {
-            if (isset($data[$col])) {
-                $set[] = "$col = $" . $i++;
-                $params[] = $data[$col];
-            }
-        }
+
+    if (array_key_exists($col, $data) && $data[$col] !== '') {
+        $set[] = "$col = $" . $i++;
+        $params[] = $data[$col];
+    }
+}
         if (empty($set)) return false;
         $params[] = $id;
         $sql = "UPDATE activities SET " . implode(", ", $set) . ", updated_at = NOW() WHERE id = $" . $i;
