@@ -64,14 +64,20 @@
 <div class="absolute w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[120px] top-[200px] left-[900px] -z-10"></div>
 
 <!-- TITLE -->
-<section class="pt-40 text-center fade-up">
+<section class="pt-40 text-center fade-up relative z-20">
   <h1 class="text-5xl font-bold text-sky-700 font-['Inter']">Lab Activity</h1>
 </section>
 
 <!-- ACTIVITY GRID -->
-<section class="max-w-7xl mx-auto mt-14 px-10 fade-up">
+<section class="max-w-7xl mx-auto mt-14 px-10 fade-up relative z-20">
 
-  <div id="activityList" class="grid md:grid-cols-3 gap-8 pt-20"></div>
+  <div id="activityList" class="relative z-20 grid md:grid-cols-3 gap-8 pt-6"></div>
+
+  <div class="bg-white shadow rounded-xl p-4 border border-blue-600">
+  <img src="https://via.placeholder.com/300" class="w-full h-48 object-cover rounded-lg">
+  <h3 class="text-xl font-semibold mt-4">TEST CARD</h3>
+  <p class="text-gray-700 mt-2">Ini hanya untuk test layer.</p>
+</div>
 
 </section>
 
@@ -119,8 +125,13 @@ async function loadActivities() {
   container.innerHTML = "Loading...";
 
   try {
+    console.log("FETCHING...");
+
     const res = await fetch("http://127.0.0.1:8000/api/activities");
+    console.log("STATUS:", res.status);
+
     const items = await res.json();
+    console.log("DATA:", items);
 
     container.innerHTML = "";
 
@@ -135,19 +146,18 @@ async function loadActivities() {
                     : "img/activitymage.png";
 
       container.innerHTML += `
-        <div class="bg-white shadow rounded-xl p-4">
-          <img src="${thumb}" 
-               class="w-full h-48 object-cover rounded-lg" 
-               onerror="this.src='img/activitymage.png'">
-
-          <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
-          <p class="text-gray-700 mt-2">${item.short_description || ""}</p>
-        </div>
-      `;
+  <div class="bg-white shadow rounded-xl p-4 border border-red-500">
+    <img src="${thumb}" 
+         class="w-full h-48 object-cover rounded-lg"
+         onerror="this.src='img/activitymage.png'">
+    <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
+    <p class="text-gray-700 mt-2">${item.short_description || ""}</p>
+  </div>
+`;
     });
 
   } catch (err) {
-    console.error(err);
+    console.error("FETCH ERROR:", err);
     container.innerHTML = "Failed to load activities.";
   }
 }
