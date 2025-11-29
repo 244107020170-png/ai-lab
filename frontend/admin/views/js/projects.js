@@ -8,64 +8,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   });
 
-   //  DELETE PROJECT (AJAX)
-  document.querySelectorAll(".delete-btn").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      const id = btn.dataset.id;
-      if (!confirm("Are you sure you want to delete this project?")) return;
-
-      fetch("index.php?action=projects&op=delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: "id=" + id
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          document.getElementById("row-" + id).remove();
-          showToast("Project deleted successfully");
-        } else {
-          showToast("Delete failed");
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        showToast("Error deleting");
-      });
-    });
-  });
-
 function showToast(msg){
   const t = document.getElementById("toast");
   t.innerText = msg;
   t.classList.add("show");
   setTimeout(()=> t.classList.remove("show"), 2500);
 }
-
-    // DOT MENU (…) TOGGLE
-  document.querySelectorAll(".dots-btn").forEach(btn => {
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      // hide all menus
-      document.querySelectorAll(".dots-menu").forEach(m => m.style.display = "none");
-      const id = this.dataset.id;
-      const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
-      if (menu) menu.style.display = "block";
-    });
-  });
-
-  // close menus when clicking outside
-  document.addEventListener("click", () => {
-    document.querySelectorAll(".dots-menu").forEach(m => m.style.display = "none");
-  });
-
-  // prevent menu close when clicking inside menu (if you have .action-btn inside menu)
-  document.querySelectorAll(".dots-menu").forEach(menu => {
-    menu.addEventListener("click", (e) => e.stopPropagation());
-  });
-
 
     // TOAST
   window.showToast = function (msg) {

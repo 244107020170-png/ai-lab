@@ -123,5 +123,75 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 <div id="toast" class="toast"></div>
 
 <script src="views/js/projects.js"></script>
+
+<script>
+// --- DOT MENU (three-dots) ---
+document.addEventListener("click", function(e){
+
+    // open dots menu
+    if (e.target.classList.contains("dots-btn")) {
+        e.stopPropagation();
+
+        // close others
+        document.querySelectorAll(".dots-menu")
+            .forEach(m => m.classList.remove("show"));
+
+        const id = e.target.dataset.id;
+        const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
+        if (menu) menu.classList.add("show");
+        return;
+    }
+
+    // DELETE
+    if (e.target.classList.contains("delete-btn")) {
+        e.preventDefault();
+
+        const id = e.target.dataset.id;
+        if (!confirm("Are you sure you want to delete this project?")) return;
+
+        fetch("index.php?action=projects&op=delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "id=" + id
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+
+                const row = document.getElementById("row-" + id);
+                row.classList.add("row-fade-out");
+                setTimeout(() => row.remove(), 350);
+
+                if (typeof showToast === "function") {
+                    showToast("Deleted successfully");
+                }
+
+            } else {
+                showToast("Delete failed");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            showToast("Error deleting");
+        });
+
+        return;
+    }
+
+    // click outside → close menu
+    document.querySelectorAll(".dots-menu")
+        .forEach(m => m.classList.remove("show"));
+});
+
+// --- ROW APPEAR ANIMATION ---
+document.addEventListener("DOMContentLoaded", () => {
+    const rows = document.querySelectorAll(".table-row");
+    rows.forEach((row, index) => {
+        setTimeout(() => row.classList.add("row-appear"), index * 60);
+    });
+});
+</script>
+
+
 </body>
 </html>
