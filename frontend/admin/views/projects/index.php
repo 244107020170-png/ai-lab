@@ -86,6 +86,7 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
       <?php if(empty($rows)): ?>
         <div class="no-data">No projects found.</div>
       <?php else: foreach($rows as $r): ?>
+        
         <div class="table-row" id="row-<?php echo $r['id']; ?>">
           <div class="col id">PJ<?php echo str_pad($r['id'], 3, '0', STR_PAD_LEFT); ?></div>
           <div class="col title"><?php echo htmlspecialchars($r['title']); ?></div>

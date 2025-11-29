@@ -71,7 +71,7 @@
 <!-- ACTIVITY GRID -->
 <section class="max-w-7xl mx-auto mt-14 px-10 fade-up">
 
-  <div id="activityList" class="grid md:grid-cols-3 gap-12"></div>
+  <div id="activityList" class="grid md:grid-cols-3 gap-8 pt-20"></div>
 
 </section>
 
@@ -114,147 +114,42 @@
 </footer>
 
 <script>
-  // Fade scroll
-  const fadeElements = document.querySelectorAll(".fade-up");
-  const reveal = () => {
-    fadeElements.forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-        el.classList.add("show");
-      }
-    });
-  };
-  window.addEventListener("scroll", reveal);
-  reveal();
-
-  // Navbar scroll effect
-  const navbar = document.querySelector(".navbar");
-  window.addEventListener("scroll", () => {
-    navbar.classList.toggle("scrolled", window.scrollY > 20);
-  });
-
-  // ============= CONFIG =============
-let activities = [];         // data dari API
-let currentPage = 1;         // halaman aktif
-const perPage = 9;           // 9 card per halaman
-
-// ============= FETCH DATA =============
 async function loadActivities() {
-    try {
-        const res = await fetch("http://127.0.0.1:8000/api/activities");
-        const data = await res.json();
+  const container = document.getElementById("activityList");
+  container.innerHTML = "Loading...";
 
-        activities = data; // simpan ke array global
-        renderActivities();     // tampilkan halaman pertama
-        renderPagination();     // buat pagination
-    } catch (err) {
-        console.error("Failed to load activities:", err);
-    }
-}
+  try {
+    const res = await fetch("http://127.0.0.1:8000/api/activities");
+    const items = await res.json();
 
-// ============= RENDER CARD =============
-function renderActivities() {
-    const container = document.getElementById("activityList");
     container.innerHTML = "";
 
-    // Hitung item berdasarkan page
-    const start = (currentPage - 1) * perPage;
-    const end = start + perPage;
-    const pageItems = activities.slice(start, end);
-
-    // Generate card dinamis
-    pageItems.forEach(item => {
-        const img = item.thumbnail_image ?? "img/activitymage.png";
-        const date = item.published_at ?? "—";
-        const short = item.short_description ?? "Short description";
-
-        container.innerHTML += `
-            <div class="bg-white rounded-3xl shadow-md p-4 hover:-translate-y-1 transition">
-                <img src="${img}" class="w-full h-36 object-cover rounded-3xl" />
-                
-                <h3 class="text-xl text-sky-900 font-bold mt-4">${item.title}</h3>
-                <p class="text-gray-600">${short}</p>
-                <p class="text-gray-600">Published Date: ${date}</p>
-
-                <a href="activity-detail.html?id=${item.id}"
-                   class="mt-4 inline-block bg-orange-500 text-white text-xs px-4 py-1 rounded-lg shadow hover:bg-orange-600 transition">
-                    Read More
-                </a>
-            </div>
-        `;
-    });
-}
-
-document.querySelectorAll(".email-link").forEach(link => {
-    link.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        // buka Gmail dulu
-        window.open("https://mail.google.com/mail/?view=cm&fs=1&to=ailab@polinema.ac.id", "_blank");
-
-        // fallback ke MAILTO (Outlook, Windows Mail)
-        setTimeout(() => {
-            window.location.href = "mailto:ailab@polinema.ac.id";
-        }, 300);
-    });
-});
-
-// ============= RENDER PAGINATION =============
-function renderPagination() {
-    const totalPages = Math.ceil(activities.length / perPage);
-    const container = document.getElementById("pagination");
-
-    container.innerHTML = ""; 
-    const wrapper = document.createElement("div");
-    wrapper.className = "flex items-center gap-3";
-
-    // Prev Button
-    const btnPrev = document.createElement("button");
-    btnPrev.innerHTML = `<img src="img/actleft.png" class="w-5 h-5" />`;
-    btnPrev.className = "w-8 h-8 flex items-center justify-center bg-amber-200 rounded-full hover:bg-amber-300 transition";
-    btnPrev.onclick = () => goToPage(currentPage - 1);
-    if (currentPage === 1) btnPrev.classList.add("opacity-40", "pointer-events-none");
-    wrapper.appendChild(btnPrev);
-
-    // Page Number Buttons
-    for (let i = 1; i <= totalPages; i++) {
-        const pageBtn = document.createElement("button");
-        pageBtn.textContent = i;
-
-        if (i === currentPage) {
-            pageBtn.className = "bg-orange-500 text-white px-3 py-1 rounded-full";
-        } else {
-            pageBtn.className = "text-gray-700 hover:text-orange-500";
-            pageBtn.onclick = () => goToPage(i);
-        }
-
-        wrapper.appendChild(pageBtn);
+    if (!items.length) {
+      container.innerHTML = "<p>No published activities.</p>";
+      return;
     }
 
-    // Next Button
-    const btnNext = document.createElement("button");
-    btnNext.innerHTML = `<img src="img/actright.png" class="w-5 h-5" />`;
-    btnNext.className = "w-8 h-8 flex items-center justify-center bg-orange-500 rounded-full hover:bg-orange-600 transition";
-    btnNext.onclick = () => goToPage(currentPage + 1);
-    const totalPagesCalc = Math.ceil(activities.length / perPage);
-    if (currentPage === totalPagesCalc) btnNext.classList.add("opacity-40", "pointer-events-none");
-    wrapper.appendChild(btnNext);
+    items.forEach(item => {
+      const thumb = item.thumbnail_image || "img/activitymage.png";
 
-    container.appendChild(wrapper);
+      container.innerHTML += `
+        <a href="activity-detail.html?id=${item.id}"
+           class="block bg-white rounded-xl shadow p-4 hover:-translate-y-1 transition-all">
+           
+            <img src="${thumb}" class="w-full h-48 object-cover rounded-lg" />
+            <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
+            <p class="text-gray-700 mt-2">${item.short_description || ""}</p>
+        </a>
+      `;
+    });
+
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = "Failed to load activities.";
+  }
 }
 
-// ============= CHANGE PAGE =============
-function goToPage(page) {
-    const totalPages = Math.ceil(activities.length / perPage);
-
-    if (page < 1 || page > totalPages) return;
-
-    currentPage = page;
-    renderActivities();
-    renderPagination();
-}
-
-// Jalankan saat halaman di-load
-loadActivities();
+document.addEventListener("DOMContentLoaded", loadActivities);
 </script>
 
 </body>
