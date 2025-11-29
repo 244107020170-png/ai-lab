@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Actvity | AILab</title>  
+  <title>Activity | AILab</title>  
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -14,7 +14,6 @@
       overflow-x: hidden;
     }
 
-    /*Fade Up*/
     .fade-up {
       opacity: 0;
       transform: translateY(40px);
@@ -25,7 +24,6 @@
       transform: translateY(0);
     }
 
-    /* Sticky Navbar Effect */
     .navbar {
       transition: 0.4s ease;
     }
@@ -34,17 +32,13 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 2px 12px rgba(0,0,0,0.1);
     }
-    .disabled {
-  opacity: 0.4;
-  pointer-events: none;
-}
   </style>
 </head>
 
 <body>
 
-<!-- NAVBAR SAME -->
-<nav class="navbar fixed top-0 w-full z-50 bg-transparent">
+<!-- NAVBAR -->
+<nav class="navbar fixed top-0 w-full z-[100] bg-transparent">
   <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
     <img src="img/logorm.png" class="w-40" alt="logo">
 
@@ -60,25 +54,22 @@
   </div>
 </nav>
 
-<!-- BG -->
-<div class="absolute w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[120px] top-[200px] left-[900px] -z-10"></div>
+<!-- BG (DI BELAKANG KONTEN) -->
+<div class="absolute w-[700px] h-[700px] bg-cyan-500/20 rounded-full blur-[120px] top-[200px] left-[900px] pointer-events-none -z-10"></div>
 
 <!-- TITLE -->
 <section class="pt-40 text-center fade-up relative z-20">
   <h1 class="text-5xl font-bold text-sky-700 font-['Inter']">Lab Activity</h1>
 </section>
 
-<!-- ACTIVITY GRID -->
-<section class="max-w-7xl mx-auto mt-14 px-10 fade-up relative z-20">
-  <div id="activityList"
-     class="relative z-20 grid md:grid-cols-3 gap-8 pt-6 min-h-[400px]">
-</div>
+<!-- ACTIVITY GRID (Wajib z-30 biar di depan background) -->
+<section class="max-w-7xl mx-auto mt-14 px-10 fade-up relative z-30">
+
+  <div id="activityList" class="grid md:grid-cols-3 gap-8 pt-10 min-h-[300px]"></div>
+
 </section>
 
-<!-- PAGINATION DINAMIS -->
-<div id="pagination" class="flex justify-center mt-16 fade-up"></div>
-
-<!-- FOOTER SAME -->
+<!-- FOOTER -->
 <footer class="mt-32 bg-cyan-900 text-white py-8">
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
 
@@ -116,21 +107,18 @@
 <script>
 async function loadActivities() {
   const container = document.getElementById("activityList");
-  container.innerHTML = "Loading...";
+  container.innerHTML = "<p class='col-span-3 text-center text-gray-600'>Loading...</p>";
 
   try {
     console.log("FETCHING...");
-
     const res = await fetch("http://127.0.0.1:8000/api/activities");
-    console.log("STATUS:", res.status);
-
     const items = await res.json();
     console.log("DATA:", items);
 
     container.innerHTML = "";
 
     if (!items.length) {
-      container.innerHTML = "<p>No published activities.</p>";
+      container.innerHTML = "<p class='col-span-3 text-center text-gray-500'>No published activities.</p>";
       return;
     }
 
@@ -140,19 +128,22 @@ async function loadActivities() {
                     : "img/activitymage.png";
 
       container.innerHTML += `
-  <div class="bg-white shadow rounded-xl p-4 border border-green-500">
-    <img src="${thumb}" 
-         class="w-full h-48 object-cover rounded-lg"
-         onerror="this.src='img/activitymage.png'">
-    <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
-    <p class="text-gray-700 mt-2">${item.short_description || ""}</p>
-  </div>
-`;
+      <a href="activity-detail.html?id=${item.id}"
+         class="bg-white shadow rounded-xl p-4 hover:-translate-y-1 transition-all cursor-pointer">
+
+        <img src="${thumb}" 
+            class="w-full h-48 object-cover rounded-lg"
+            onerror="this.src='img/activitymage.png'">
+
+        <h3 class="text-xl font-semibold mt-4">${item.title}</h3>
+        <p class="text-gray-700 mt-2">${item.short_description || ""}</p>
+      </a>
+      `;
     });
 
   } catch (err) {
     console.error("FETCH ERROR:", err);
-    container.innerHTML = "Failed to load activities.";
+    container.innerHTML = "<p class='col-span-3 text-center text-red-600'>Failed to load activities.</p>";
   }
 }
 
