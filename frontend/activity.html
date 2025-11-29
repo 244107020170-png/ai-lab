@@ -70,15 +70,9 @@
 
 <!-- ACTIVITY GRID -->
 <section class="max-w-7xl mx-auto mt-14 px-10 fade-up relative z-20">
-
-  <div id="activityList" class="relative z-20 grid md:grid-cols-3 gap-8 pt-6"></div>
-
-  <div class="bg-white shadow rounded-xl p-4 border border-blue-600">
-  <img src="https://via.placeholder.com/300" class="w-full h-48 object-cover rounded-lg">
-  <h3 class="text-xl font-semibold mt-4">TEST CARD</h3>
-  <p class="text-gray-700 mt-2">Ini hanya untuk test layer.</p>
+  <div id="activityList"
+     class="relative z-20 grid md:grid-cols-3 gap-8 pt-6 min-h-[400px]">
 </div>
-
 </section>
 
 <!-- PAGINATION DINAMIS -->
@@ -146,7 +140,7 @@ async function loadActivities() {
                     : "img/activitymage.png";
 
       container.innerHTML += `
-  <div class="bg-white shadow rounded-xl p-4 border border-red-500">
+  <div class="bg-white shadow rounded-xl p-4 border border-green-500">
     <img src="${thumb}" 
          class="w-full h-48 object-cover rounded-lg"
          onerror="this.src='img/activitymage.png'">
