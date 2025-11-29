@@ -63,10 +63,10 @@
             <a href="../"><img src="views/img/logo.png"></a>
             <div class="logo-text">Lab Admin Page</div>
         </div>
-        
+
         <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <a href="index.php?action=index"class="nav-item">Home</a>
+            <a href="index.php?action=index" class="nav-item">Home</a>
             <div class="nav-item selected-navbar">Members</div>
             <a href="projects.html" class="nav-item">Projects</a>
             <a href="news.html" class="nav-item">News</a>
@@ -131,7 +131,55 @@
 
         <!-- Members Lists -->
         <div class="leBox member-container">
+            <div class="member-inner">
+                <div class="member-header">
+                    <div class="member-title">Members List</div>
+                    <div class="member-btn">
+                        <a href="projects.html" style="display: block; color: white !important; text-decoration: none !important;">
+                            Add Members
+                        </a>
+                    </div>
+                </div>
 
+
+                <table class="member-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Expertise</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <?php foreach ($members as $m): ?>
+                            <td><?= $m['id'] ?></td>
+                            <td><?= $m['full_name'] ?></td>
+                            <td><?= $m['role'] ?></td>
+                            <td><?= $m['expertise'] ?></td>
+                            <td>...</td>
+                    </tr>
+                <?php endforeach; ?>
+                </table>
+
+
+
+                <div class="pagination">
+                    <?php if ($page > 1): ?>
+                        <a href="?action=members&page=<?= $page - 1 ?>" class="page-btn">&lt;</a>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <a href="?action=members&page=<?= $i ?>" class="page-btn <?= ($i == $page) ? 'active' : '' ?>">
+                            <?= $i ?>
+                        </a>
+                    <?php endfor; ?>
+
+                    <?php if ($page < $totalPages): ?>
+                        <a href="?action=members&page=<?= $page + 1 ?>" class="page-btn">&gt;</a>
+                    <?php endif; ?>
+                </div>
+
+            </div>
         </div>
         <!-- /.Members Lists -->
 
@@ -155,7 +203,7 @@
     </div>
     <!-- /.Main Container -->
 
-    <script src="js/members.js"></script>
+    <script src="views/js/members.js"></script>
 </body>
 
 </html>

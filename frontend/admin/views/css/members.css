@@ -140,14 +140,128 @@
     font-size: 14px;
 }
 
-/* Member Containers */
+/* --- MEMBER BOX (THE FIX) --- */
 .member-container {
+    width: 100%;
+    height: 478px;
+    padding: 24px 45px !important; 
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    /* 3. This ensures the padding doesn't stretch the box size */
+    box-sizing: border-box; 
+    
+    /* 4. Centering */
+    margin: 0 auto; 
+    
+    /* Background styles */
     background: rgba(0, 0, 0, 0.34);
     border-radius: 11px;
     outline: 1px solid rgba(255, 255, 255, 0.11);
     backdrop-filter: blur(6.35px);
+}
 
-    transition: 0.25s ease;
-    width: 1164px;
-    height: 478px;
+.member-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.member-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Pushes Title left, Button right */
+    align-items: center;
+    min-height: 30px; /* Forces height so button doesn't collapse */
+}
+
+.member-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+.member-btn {
+    width: 98px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 5px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    cursor: pointer;
+    z-index: 10; /* Ensures it sits on top */
+}
+
+.member-btn a {
+    text-decoration: none;
+    color: white !important;
+    font-size: 14px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 25px; /* Vertically centers text */
+    text-align: center;
+}
+
+.member-table {
+    color: white;
+}
+
+.member-table tr>th {
+    color: rgba(255, 255, 255, 0.75);
+    text-align: left;
+}
+
+.member-table tr {
+    gap: 5px;
+}
+.member-table tr>td {
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    /* Prevent it from getting squished */
+    flex-shrink: 0;
+
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.page-btn {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.page-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.page-btn.active {
+    background: #8EF1FF; /* Your theme color */
+    color: black;
+    font-weight: bold;
 }

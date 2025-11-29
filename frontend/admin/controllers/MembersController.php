@@ -8,7 +8,19 @@ class MembersController
         $this->model = new Members();
     }
     public function members() {
-        $members = $this->model->getAll();
+        // 1. Settings
+        $limit = 8; // How many rows per page
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        // 2. Get Data
+        $members = $this->model->getPaginated($limit, $offset);
+        $membersNameASC = $this->model->sortByNameASC($limit, $offset);
+        $membersNameDESC = $this->model->sortByNameDESC($limit, $offset);
+        $totalRows = $this->model->countAll();
+        $totalPages = ceil($totalRows / $limit);
+
+        // 3. Send to View
         include __DIR__ . '/../views/members.php';
     }
     public function form()

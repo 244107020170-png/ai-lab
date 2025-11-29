@@ -41,6 +41,35 @@ class Members
         $res = pg_query_params($this->conn, $sql, [$year]);
         return pg_fetch_all($res) ?: [];
     }
+
+    public function sortByNameASC($limit, $offset) {
+        $sql = "SELECT * FROM members ORDER BY full_name ASC LIMIT $1 OFFSET $2";
+        // FIX: Use pg_query_params and pass the variables in an array
+        $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
+        return pg_fetch_all($res) ?: [];
+    }
+
+    public function sortByNameDESC($limit, $offset) {
+        $sql = "SELECT * FROM members ORDER BY full_name DESC LIMIT $1 OFFSET $2";
+        // FIX: Use pg_query_params here too
+        $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
+        return pg_fetch_all($res) ?: [];
+    }
+
+    public function getPaginated($limit, $offset)
+    {
+        $sql = "SELECT * FROM members ORDER BY id ASC LIMIT $1 OFFSET $2";
+        $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
+        return pg_fetch_all($res) ?: [];
+    }
+
+    public function countAll()
+    {
+        $res = pg_query($this->conn, "SELECT COUNT(*) as total FROM members");
+        $row = pg_fetch_assoc($res);
+        return $row['total'];
+    }
+
     public function update($id, $data)
     {
         $sql = "UPDATE members SET 
