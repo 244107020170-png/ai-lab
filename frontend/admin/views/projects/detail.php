@@ -60,22 +60,25 @@ $mode = $activity ? 'edit' : 'create';
       <input type="text" value="<?php echo htmlspecialchars($activity['created_at'] ?? ''); ?>" readonly>
 
       <label>Published At</label>
-      <input type="date" name="published_at" value="<?php echo !empty($activity['published_at']) ? date('Y-m-d', strtotime($activity['published_at'])) : ''; ?>">
+      <input type="date" name="published_at"
+       value="<?php echo (!empty($activity['published_at'] ?? null))
+            ? date('Y-m-d', strtotime($activity['published_at']))
+            : ''; ?>">
 
       <label>Status</label>
       <select name="status" class="form-control">
-    <option value="published" 
-        <?= ($activity['status'] ?? '') === 'published' ? 'selected' : '' ?>>
+    <option value="published"
+        <?= (($activity['status'] ?? '') === 'published') ? 'selected' : '' ?>>
         Published
     </option>
 
-    <option value="progress" 
-        <?= ($activity['status'] ?? '') === 'progress' ? 'selected' : '' ?>>
+    <option value="progress"
+        <?= (($activity['status'] ?? '') === 'progress') ? 'selected' : '' ?>>
         Progressing
     </option>
 
-    <option value="cancelled" 
-        <?= ($activity['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>
+    <option value="cancelled"
+        <?= (($activity['status'] ?? '') === 'cancelled') ? 'selected' : '' ?>>
         Cancelled
     </option>
 </select>
