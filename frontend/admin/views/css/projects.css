@@ -27,7 +27,9 @@ h1{font-size:36px;margin:8px 0 4px}
 
 /* card + table */
 .table-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-top:12px;box-shadow:0 6px 40px rgba(0,0,0,0.5)}
-.table-body{display:flex;flex-direction:column}
+.table-body {
+    display:block;
+}
 .table-head {
     display: grid;
     grid-template-columns: 70px 120px 1fr 160px 80px;
