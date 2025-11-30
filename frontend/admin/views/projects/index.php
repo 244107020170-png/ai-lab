@@ -96,18 +96,13 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
     <?php foreach ($rows as $r): ?>
 
         <div class="table-row" id="row-<?php echo $r['id']; ?>">
-
             <div class="col no"><?php echo $no++; ?></div>
-
             <div class="col id">PJ<?php echo str_pad($r['id'], 3, '0', STR_PAD_LEFT); ?></div>
-
             <div class="col title"><?php echo htmlspecialchars($r['title']); ?></div>
-
             <div class="col status">
                 <span class="dot <?php echo statusColor($r['status']); ?>"></span>
                 <span class="label"><?php echo statusUI($r['status']); ?></span>
             </div>
-
             <div class="col actions">
                 <button class="dots-btn" data-id="<?php echo $r['id']; ?>">…</button>
                 <div class="dots-menu" data-id="<?php echo $r['id']; ?>">
