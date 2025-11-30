@@ -27,20 +27,34 @@ h1{font-size:36px;margin:8px 0 4px}
 
 /* card + table */
 .table-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-top:12px;box-shadow:0 6px 40px rgba(0,0,0,0.5)}
-.table-head{display:grid;grid-template-columns:120px 1fr 160px 80px;padding:12px 8px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:600}
 .table-body{display:flex;flex-direction:column}
-.table-row{display:grid;grid-template-columns:120px 1fr 160px 80px;padding:14px 8px;border-bottom:1px solid rgba(255,255,255,0.03);align-items:center}
 .col.id{color:#bcdadb}
 .col.title{font-weight:600}
 .col.status{display:flex;align-items:center;gap:8px}
+.col.actions{position: relative;}
 .dot{width:12px;height:12px;border-radius:50%;display:inline-block}
 .dot.green{background:#18c64b}
 .dot.yellow{background:#f6c23e}
 .dot.red{background:#ff5c5c}
 .actions{position:relative}
-.dots-btn{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer}
-.dots-menu{display:none;position:absolute;right:8px;top:24px;background:#06232a;padding:8px;border-radius:8px}
+.dots-btn{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer;position: relative;z-index: 10}
 .dots-menu a{display:block;color:#dff6f6;text-decoration:none;padding:6px 10px;border-radius:6px}
+.table-head {
+    display:grid;
+    grid-template-columns:70px 120px 1fr 160px 80px;
+    padding:12px 8px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    color:var(--muted);
+    font-weight:600;
+}
+
+.table-row {
+    display:grid;
+    grid-template-columns:70px 120px 1fr 160px 80px;
+    padding:14px 8px;
+    border-bottom:1px solid rgba(255,255,255,0.03);
+    align-items:center;
+}
 
 /* pagination */
 .pagination {
@@ -156,10 +170,6 @@ select option {
     background: #0e2b35;
     color: #fff;
 }
-.table-row {
-    transition: all .25s ease;
-}
-
 .table-row:hover {
     transform: translateX(6px);
     background: rgba(255,255,255,0.06);
@@ -186,15 +196,24 @@ select option {
     transition: all .35s ease;
 }
 .dots-menu {
-    display: none;
+    position: fixed;      /* menu bebas, tidak terikat row */
+    background: #06232a;
+    padding: 8px;
+    border-radius: 8px;
+
+    display: block;       /* biarkan block, hide pakai opacity */
     opacity: 0;
     transform: scale(0.9);
     transform-origin: top right;
-    transition: all .18s ease;
+    pointer-events: none;
+    transition: all .15s ease;
+
+    z-index: 99999;
 }
 
 .dots-menu.show {
     display: block;
     opacity: 1;
     transform: scale(1);
+    pointer-events: auto;
 }

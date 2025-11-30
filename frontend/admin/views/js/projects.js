@@ -25,14 +25,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- OPEN DOTS MENU ---
    if (e.target.closest(".dots-btn")) {
-        const id = e.target.closest(".dots-btn").dataset.id;
+    const btn = e.target.closest(".dots-btn");
+    const id  = btn.dataset.id;
+    const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
 
-        document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
-        document.querySelector(`.dots-menu[data-id="${id}"]`).classList.add("show");
+    // position near button
+    const rect = btn.getBoundingClientRect();
+    menu.style.top  = (rect.bottom + 6) + "px";
+    menu.style.left = (rect.right - 80) + "px";
 
-        e.stopPropagation();
-        return;
-    }
+    document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
+    menu.classList.add("show");
+    e.stopPropagation();
+    return;
+}
 
 
     // --- DELETE BUTTON (FIXED) ---

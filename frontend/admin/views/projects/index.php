@@ -75,7 +75,9 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
   </div>
 
   <div class="table-card">
+
     <div class="table-head">
+      <div class="col no-head">NO</div>
       <div class="col id">ID</div>
       <div class="col title">Title</div>
       <div class="col status">Status</div>
@@ -83,27 +85,48 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
     </div>
 
     <div class="table-body">
-      <?php if(empty($rows)): ?>
-        <div class="no-data">No projects found.</div>
-      <?php else: foreach($rows as $r): ?>
-        
-        <div class="table-row" id="row-<?php echo $r['id']; ?>">
-          <div class="col id">PJ<?php echo str_pad($r['id'], 3, '0', STR_PAD_LEFT); ?></div>
-          <div class="col title"><?php echo htmlspecialchars($r['title']); ?></div>
-          <div class="col status">
+<?php if(empty($rows)): ?>
+
+    <div class="no-data">No projects found.</div>
+
+<?php else: ?>
+
+    <?php
+    $no = ($page - 1) * $limit + 1;
+    foreach ($rows as $r):
+    ?>
+    <div class="table-row" id="row-<?php echo $r['id']; ?>">
+
+        <!-- NO -->
+        <div class="col no"><?php echo $no++; ?></div>
+
+        <!-- ID -->
+        <div class="col id">PJ<?php echo str_pad($r['id'], 3, '0', STR_PAD_LEFT); ?></div>
+
+        <!-- TITLE -->
+        <div class="col title"><?php echo htmlspecialchars($r['title']); ?></div>
+
+        <!-- STATUS -->
+        <div class="col status">
             <span class="dot <?php echo statusColor($r['status']); ?>"></span>
             <span class="label"><?php echo statusUI($r['status']); ?></span>
-          </div>
-          <div class="col actions">
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="col actions">
             <button class="dots-btn" data-id="<?php echo $r['id']; ?>">…</button>
             <div class="dots-menu" data-id="<?php echo $r['id']; ?>">
-              <a href="index.php?action=projects&op=edit&id=<?php echo $r['id']; ?>">Edit</a>
-              <a href="#" class="delete-btn" data-id="<?php echo $r['id']; ?>">Delete</a>
+                <a href="index.php?action=projects&op=edit&id=<?php echo $r['id']; ?>">Edit</a>
+                <a href="#" class="delete-btn" data-id="<?php echo $r['id']; ?>">Delete</a>
             </div>
-          </div>
         </div>
-      <?php endforeach; endif; ?>
+
     </div>
+    <?php endforeach; ?>
+
+<?php endif; ?>
+</div>
+
 
     <!-- pagination -->
     <div class="pagination">
