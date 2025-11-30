@@ -95,6 +95,7 @@ class ProjectsController {
     return;
 }
 
+
     private function sanitizePost() {
     $status = trim($_POST['status'] ?? '');
 

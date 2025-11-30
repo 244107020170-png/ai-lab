@@ -36,30 +36,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // --- DELETE BUTTON (FIXED) ---
-    if (e.target.closest(".delete-btn")) {
+    if (e.target.matches(".delete-btn")) {
+      e.preventDefault();
+      e.stopPropagation();
 
-        e.preventDefault();
-        e.stopPropagation();
+      const id = e.target.dataset.id;
 
-        const id = e.target.closest(".delete-btn").dataset.id;
+      if (!confirm("Are you sure you want to delete this project?")) return;
 
-        if (!confirm("Delete?")) return;
+      const body = new URLSearchParams();
+      body.append("id", id);
 
-        fetch("index.php?action=projects&op=delete", {
-            method : "POST",
-            headers : { "Content-Type": "application/x-www-form-urlencoded" },
-            body : "id=" + id
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.success) {
-                const row = document.getElementById("row-" + id);
-                row.classList.add("row-fade-out");
-                setTimeout(() => row.remove(), 350);
-            }
-        });
+      fetch("index.php?action=projects&op=delete", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
+        body: body.toString(),
+        credentials: "same-origin"
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const row = document.getElementById("row-" + id);
+          if (row) {
+            row.classList.add("row-fade-out");
+            setTimeout(() => row.remove(), 350);
+          }
 
-        return;
+          showToast("Deleted successfully");
+        } else {
+          showToast("Delete failed");
+        }
+      })
+      .catch(err => {
+        console.error("DELETE ERROR:", err);
+        showToast("Error deleting");
+      });
+
+      return;
     }
 
 
