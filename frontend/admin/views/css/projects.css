@@ -39,8 +39,6 @@ h1{font-size:36px;margin:8px 0 4px}
 .dot.red{background:#ff5c5c}
 .actions{position:relative}
 .dots-btn{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer}
-.dots-menu{display:none;position:absolute;right:8px;top:24px;background:#06232a;padding:8px;border-radius:8px}
-.dots-menu a{display:block;color:#dff6f6;text-decoration:none;padding:6px 10px;border-radius:6px}
 
 /* pagination */
 .pagination {
@@ -187,10 +185,17 @@ select option {
 }
 .dots-menu {
     display: none;
+    position: absolute;
+    right: 8px;
+    top: 24px;
+    background: #06232a;
+    padding: 8px;
+    border-radius: 8px;
     opacity: 0;
     transform: scale(0.9);
     transform-origin: top right;
     transition: all .18s ease;
+    z-index: 999;
 }
 
 .dots-menu.show {
