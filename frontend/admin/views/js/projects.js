@@ -27,13 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
    if (e.target.closest(".dots-btn")) {
     const btn = e.target.closest(".dots-btn");
     const id  = btn.dataset.id;
+
     const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
-
-    const rect = btn.getBoundingClientRect();
-
-    menu.style.position = "fixed";
-    menu.style.top  = (rect.bottom + 6) + "px";
-    menu.style.left = (rect.left - 60) + "px";  // adjust left offset
 
     document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
     menu.classList.add("show");
@@ -41,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.stopPropagation();
     return;
 }
+
 
 
 
