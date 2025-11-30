@@ -148,28 +148,24 @@ h1{
 }
 
 /* — CLEAN FIX — only ONE version — */
-.dots-menu{
-  position:absolute;
-  right:0;
-  top:28px;
-
-  background:#06232a;
-  padding:8px;
-  border-radius:8px;
-
-  display:block;
-  opacity:0;
-  transform:scale(0.9);
-  pointer-events:none;
-
-  transition:all .18s ease;
-  z-index:999;
+.dots-menu {
+    display: none;
+    position: absolute;
+    right: 8px;
+    top: 24px;
+    background: #06232a;
+    padding: 8px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: all .18s ease;
+    z-index: 999;
 }
 
-.dots-menu.show{
-  opacity:1;
-  transform:scale(1);
-  pointer-events:auto;
+.dots-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .dots-menu a{
