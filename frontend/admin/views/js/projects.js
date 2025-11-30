@@ -24,58 +24,42 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", (e) => {
 
     // --- OPEN DOTS MENU ---
-    const dotsBtn = e.target.closest(".dots-btn");
-    if (dotsBtn) {
-      e.stopPropagation();
+   if (e.target.closest(".dots-btn")) {
+        const id = e.target.closest(".dots-btn").dataset.id;
 
-      document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
+        document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
+        document.querySelector(`.dots-menu[data-id="${id}"]`).classList.add("show");
 
-      const id = dotsBtn.dataset.id;
-      const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
-      if (menu) menu.classList.add("show");
-
-      return;
+        e.stopPropagation();
+        return;
     }
 
 
     // --- DELETE BUTTON (FIXED) ---
-    if (e.target.matches(".delete-btn")) {
-      e.preventDefault();
-      e.stopPropagation();
+    if (e.target.closest(".delete-btn")) {
 
-      const id = e.target.dataset.id;
+        e.preventDefault();
+        e.stopPropagation();
 
-      if (!confirm("Are you sure you want to delete this project?")) return;
+        const id = e.target.closest(".delete-btn").dataset.id;
 
-      const body = new URLSearchParams();
-      body.append("id", id);
+        if (!confirm("Delete?")) return;
 
-      fetch("index.php?action=projects&op=delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" },
-        body: body.toString(),
-        credentials: "same-origin"
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          const row = document.getElementById("row-" + id);
-          if (row) {
-            row.classList.add("row-fade-out");
-            setTimeout(() => row.remove(), 350);
-          }
+        fetch("index.php?action=projects&op=delete", {
+            method : "POST",
+            headers : { "Content-Type": "application/x-www-form-urlencoded" },
+            body : "id=" + id
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                const row = document.getElementById("row-" + id);
+                row.classList.add("row-fade-out");
+                setTimeout(() => row.remove(), 350);
+            }
+        });
 
-          showToast("Deleted successfully");
-        } else {
-          showToast("Delete failed");
-        }
-      })
-      .catch(err => {
-        console.error("DELETE ERROR:", err);
-        showToast("Error deleting");
-      });
-
-      return;
+        return;
     }
 
 
