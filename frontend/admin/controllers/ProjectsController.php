@@ -76,17 +76,28 @@ class ProjectsController {
     }
 
     public function delete() {
-        $id = intval($_POST['id'] ?? 0);
-        if ($id && $this->model->delete($id)) {
-            // respond for AJAX
-            header('Content-Type: application/json');
-            echo json_encode(['success' => true, 'message' => 'Successfully Deleted!']);
-            exit;
-        }
-        header('Content-Type: application/json');
+    header('Content-Type: application/json; charset=utf-8');
+
+    // make sure no accidental output from elsewhere
+    if (ob_get_level()) ob_end_clean();
+
+    $id = intval($_POST['id'] ?? 0);
+    if (!$id) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Missing id']);
+        exit;
+    }
+
+    $ok = $this->model->delete($id);
+    if ($ok) {
+        echo json_encode(['success' => true, 'message' => 'Successfully Deleted!']);
+        exit;
+    } else {
+        http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'Delete failed']);
         exit;
     }
+}
 
     private function sanitizePost() {
     $status = trim($_POST['status'] ?? '');
