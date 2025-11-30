@@ -29,16 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const id  = btn.dataset.id;
     const menu = document.querySelector(`.dots-menu[data-id="${id}"]`);
 
-    // position near button
     const rect = btn.getBoundingClientRect();
+
+    menu.style.position = "fixed";
     menu.style.top  = (rect.bottom + 6) + "px";
-    menu.style.left = (rect.right - 80) + "px";
+    menu.style.left = (rect.left - 60) + "px";  // adjust left offset
 
     document.querySelectorAll(".dots-menu").forEach(m => m.classList.remove("show"));
     menu.classList.add("show");
+
     e.stopPropagation();
     return;
 }
+
 
 
     // --- DELETE BUTTON (FIXED) ---

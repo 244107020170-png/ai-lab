@@ -150,17 +150,16 @@ h1{
 /* — CLEAN FIX — only ONE version — */
 .dots-menu {
     display: none;
-    position: absolute;
-    right: 8px;
-    top: 24px;
+    position: fixed;   /* FIXED - BUKAN absolute */
     background: #06232a;
     padding: 8px;
     border-radius: 8px;
     opacity: 0;
     transform: translateY(4px);
     transition: all .18s ease;
-    z-index: 999;
+    z-index: 99999;
 }
+
 
 .dots-menu.show {
     display: block;
