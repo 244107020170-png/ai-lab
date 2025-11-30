@@ -71,6 +71,10 @@
 
 </section>
 
+<section>
+  <div id="pagination" class="flex justify-center mt-10 space-x-3"></div>
+</section>
+
 <!-- FOOTER -->
 <footer class="mt-32 bg-cyan-900 text-white py-8">
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
@@ -114,36 +118,75 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+let activities = [];
+let currentPage = 1;
+const perPage = 12;  // <= LIMIT 12 PER PAGE
+
+function renderActivities() {
+  const container = document.getElementById("activityList");
+  container.innerHTML = "";
+
+  let start = (currentPage - 1) * perPage;
+  let end = start + perPage;
+  let pageItems = activities.slice(start, end);
+
+  pageItems.forEach(item => {
+    const thumb = item.thumbnail_image || "img/activitymage.png";
+
+    container.innerHTML += `
+      <a href="activity-detail.html?id=${item.id}" 
+          class="block bg-white shadow-md hover:shadow-xl rounded-xl overflow-hidden transition">
+        <img src="${thumb}" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">${item.label || "Published"}</span>
+          <h3 class="text-xl font-semibold mt-3">${item.title}</h3>
+          <p class="text-gray-600 mt-1">${item.short_description || ""}</p>
+        </div>
+      </a>
+    `;
+  });
+
+  renderPagination();
+}
+
+function renderPagination() {
+  const totalPages = Math.ceil(activities.length / perPage);
+  const pag = document.getElementById("pagination");
+
+  pag.innerHTML = "";
+
+  if (totalPages <= 1) return;
+
+  for (let i = 1; i <= totalPages; i++) {
+    pag.innerHTML += `
+      <button 
+        onclick="goToPage(${i})"
+        class="px-4 py-2 rounded-lg border transition
+          ${i === currentPage 
+            ? 'bg-sky-600 text-white border-sky-700' 
+            : 'bg-white text-sky-700 border-sky-300 hover:bg-sky-100'}">
+        ${i}
+      </button>
+    `;
+  }
+}
+
+function goToPage(n) {
+  currentPage = n;
+  renderActivities();
+  window.scrollTo({ top: 300, behavior: "smooth" });
+}
+
+
 async function loadActivities() {
   const container = document.getElementById("activityList");
   container.innerHTML = `<p class="col-span-3 text-center text-sky-700">Loading activities...</p>`;
 
   try {
     const res = await fetch("http://127.0.0.1:8000/api/activities");
-    const data = await res.json();
+    activities = await res.json(); // STORE ALL DATA
 
-    container.innerHTML = "";
-
-    if (!data.length) {
-      container.innerHTML = `<p class="col-span-3 text-center text-gray-600">No published activities.</p>`;
-      return;
-    }
-
-    data.forEach(item => {
-      const thumb = item.thumbnail_image || "img/activitymage.png";
-
-      container.innerHTML += `
-        <a href="activity-detail.html?id=${item.id}" 
-           class="block bg-white shadow-md hover:shadow-xl rounded-xl overflow-hidden transition">
-          <img src="${thumb}" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">${item.label || "published"}</span>
-            <h3 class="text-xl font-semibold mt-3">${item.title}</h3>
-            <p class="text-gray-600 mt-1">${item.short_description || ""}</p>
-          </div>
-        </a>
-      `;
-    });
+    renderActivities(); // SHOW FIRST PAGE
 
   } catch (err) {
     container.innerHTML = `<p class="col-span-3 text-red-600 text-center">Failed to load activities.</p>`;
