@@ -61,19 +61,19 @@ body {
 
 .header-left,
 .header-right {
-  padding: 12px 22px;
-  border-radius: 90px !important;
+  padding: 8px 18px;
+  border-radius: 60px !important;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 .admin-logo {
-  height: 50px;
+  height: 38px;
 }
 
 .admin-title {
-  font-size: 22px;
+  font-size: 18px;
   color: rgba(255, 255, 255, 0.65);
   font-family: "Poppins", sans-serif;
 }
@@ -82,8 +82,8 @@ body {
 /* NAVBAR*/
 .nav-item {
   color: #8ef1ff;
-  font-size: 20px;
-  padding: 6px 16px;
+  font-size: 17px;
+  padding: 5px 14px;
   border-radius: 30px;
   text-decoration: none;
   transition: 0.25s ease;
@@ -97,7 +97,7 @@ body {
 .selected-navbar {
   background: linear-gradient(246deg, #03d3f1, #027a8b);
   color: white !important;
-  padding: 8px 18px;
+  padding: 6px 16px;
   border-radius: 30px;
   font-weight: 500;
 }
@@ -130,11 +130,12 @@ body {
   max-width: 1164px;
   margin: 20px auto;
   display: flex;
+  justify-content: flex-start;
   gap: 20px;
 }
 
 .search-box {
-  flex: 1;
+  width: 320px;         /* pilih 280–340px sesuaikan */
   padding: 12px 20px;
   display: flex;
   align-items: center;
@@ -239,20 +240,23 @@ body {
 
 /* PAGINATION*/
 .pagination {
-    position: absolute;
-    bottom: 20px;   /* naikkan pagination */
-    left: 50%;
-    transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 25px 0 5px 0;
 }
 
 .page-btn {
-  background: rgba(255, 255, 255, 0.20);
+  background: rgba(255,255,255,0.1);
   border: none;
   padding: 6px 12px;
-  border-radius: 16px;
-  color: white;
+  border-radius: 12px;
+  display: inline-flex;        /* <- IMPORTANT */
+  justify-content: center;
+  align-items: center;
+  color: #fff;
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
 .page-btn:hover {
@@ -262,7 +266,7 @@ body {
 .page-indicator {
   width: 15px;
   height: 15px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,0.2);
   border-radius: 50%;
 }
 
@@ -270,6 +274,7 @@ body {
   width: 35px;
   border-radius: 16px;
 }
+
 
 
 /* FOOTER (Soft light gradient)*/
@@ -291,7 +296,7 @@ body {
 
 .footer-left,
 .footer-right {
-  font-size: 24px;
+  font-size: 20px;
   font-family: "Poppins", sans-serif;
 }
 
