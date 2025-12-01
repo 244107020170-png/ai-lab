@@ -215,15 +215,31 @@ body {
 /* FOOTER */
 .admin-footer {
   width: 100%;
-  background: linear-gradient(270deg, #76EBFB, #0F698B);
   height: 90px;
   display: flex;
   justify-content: space-between;
-  padding: 0 120px;
   align-items: center;
-  margin-top: 80px;
+  padding: 0 120px;
+
+  /* Gradient Figma but softened */
+  background: linear-gradient(270deg, rgba(118, 235, 251, 0.85), rgba(15, 105, 139, 0.85));
+  backdrop-filter: blur(6px);
+
+  /* Slight blending to match the soft-light look */
+  mix-blend-mode: screen;
 }
 
-.footer-right span {
+.admin-footer .footer-left {
+  font-size: 24px;
+  font-family: "Poppins", sans-serif;
+}
+
+.admin-footer .footer-right {
+  font-size: 24px;
+  font-family: "Inter", sans-serif;
+}
+
+.admin-footer .footer-right span {
   text-decoration: underline;
 }
+
