@@ -39,8 +39,6 @@ h1{font-size:36px;margin:8px 0 4px}
 .dot.red{background:#ff5c5c}
 .actions{position:relative}
 .dots-btn{background:transparent;border:0;color:var(--muted);font-size:22px;cursor:pointer}
-.dots-menu{display:none;position:absolute;right:8px;top:24px;background:#06232a;padding:8px;border-radius:8px}
-.dots-menu a{display:block;color:#dff6f6;text-decoration:none;padding:6px 10px;border-radius:6px}
 
 /* pagination */
 .pagination {
@@ -185,16 +183,52 @@ select option {
     transform: translateX(-20px);
     transition: all .35s ease;
 }
+/* === DOTS MENU REFINED === */
 .dots-menu {
     display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+
+    background: rgba(9, 28, 35, 0.95);
+    backdrop-filter: blur(4px);
+
+    padding: 8px 0;
+    border-radius: 10px;
+
+    min-width: 110px;
+
     opacity: 0;
-    transform: scale(0.9);
+    transform: translateY(6px) scale(0.95);
     transform-origin: top right;
+
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
+
     transition: all .18s ease;
+    z-index: 999;
 }
 
 .dots-menu.show {
     display: block;
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0) scale(1);
+}
+
+/* menu item */
+.dots-menu a {
+    display: block;
+    padding: 10px 14px;
+    font-size: 14px;
+    text-decoration: none;
+
+    color: #eafff5;
+    border-radius: 6px;
+
+    transition: background .15s ease, padding-left .15s ease;
+}
+
+/* hover smooth */
+.dots-menu a:hover {
+    background: rgba(255,255,255,0.08);
+    padding-left: 18px;
 }

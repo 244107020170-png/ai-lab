@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin • News Management</title>
+
+  <link rel="stylesheet" href="css/admin-news.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- BACKGROUND LAYERS (same as dashboard) -->
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
+
+<!-- HEADER -->
+<header class="admin-header">
+  <div class="leBox header-left">
+    <a href="home.php"><img src="img/logo.png" class="admin-logo"></a>
+    <span class="admin-title">Lab Admin Page</span>
+  </div>
+
+  <nav class="leBox header-right">
+    <a href="home.php" class="nav-item">Home</a>
+    <a href="members.php" class="nav-item">Members</a>
+    <a href="projects/index.php" class="nav-item">Projects</a>
+    <a href="admin-news.php" class="nav-item selected-navbar">News</a>
+  </nav>
+</header>
+
+<!-- TITLE SECTION -->
+<section class="admin-section-title">
+  <h1>News Management</h1>
+  <p>Manage the News and Research Highlight that will be shown in the website.
+     You can set which three news will be displayed in the main website.</p>
+</section>
+
+<!-- SEARCH + FILTER -->
+<div class="top-controls">
+  <div class="search-box glass-box">
+    <input type="text" id="searchInput" placeholder="Search...">
+  </div>
+
+  <div class="filter-box glass-box" id="filterBtn">
+    <span>Filter</span>
+    <span>▾</span>
+  </div>
+</div>
+
+<!-- TABLE PANEL -->
+<div class="table-wrapper glass-panel">
+
+  <div class="table-header">
+    <h2>Projects List</h2>
+    <button class="add-btn">+ Add Projects</button>
+  </div>
+
+  <div class="table-head-row">
+    <div>ID</div>
+    <div>Title</div>
+    <div>Status</div>
+    <div>...</div>
+  </div>
+
+  <div id="tableBody"></div>
+
+  <div class="pagination">
+    <button class="page-btn prev">←</button>
+    <div class="page-indicator active"></div>
+    <div class="page-indicator"></div>
+    <div class="page-indicator"></div>
+    <button class="page-btn next">→</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="admin-footer">
+  <div class="footer-left">© 2025 AI Lab Polinema</div>
+  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+</footer>
+
+<script src="js/admin-news.js"></script>
+</body>
+</html>
