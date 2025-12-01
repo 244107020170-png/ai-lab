@@ -260,7 +260,7 @@ body {
 .bg-image {
     position: absolute;
     inset: 0;
-    background-image: url("views/img/background3.jpg"); /* SESUAIKAN PATH */
+    background-image: url("admin/views/img/background3.jpg"); /* SESUAIKAN PATH */
     background-size: cover;
     background-position: center;
     opacity: 0.25;
