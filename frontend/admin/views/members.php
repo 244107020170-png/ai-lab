@@ -55,7 +55,10 @@
             padding: 2rem;
         }
     </style>
+</head>
 
+<body>
+    <!-- Header -->
     <div class="header-container">
 
         <!-- LEFT BOX -->
@@ -73,9 +76,8 @@
         </div>
 
     </div>
-</head>
-
-<body>
+    <!-- /.Header -->
+    
     <!-- Background: Image + Gradient -->
     <div class="bg-layer" aria-hidden="true">
         <div class="bg-image"></div>
@@ -83,7 +85,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="main-container">
+    <div class="main-container" style="margin-top: 50px;">
         <!--Brief Description-->
         <div class="desc-title">Members Management</div>
         <div class="desc-text">
@@ -166,6 +168,8 @@
                 <div class="pagination">
                     <?php if ($page > 1): ?>
                         <a href="?action=members&page=<?= $page - 1 ?>" class="page-btn">&lt;</a>
+                    <?php else: ?>
+                        <a href="#" class="page-btn disabled">&lt;</a>
                     <?php endif; ?>
 
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
@@ -176,6 +180,8 @@
 
                     <?php if ($page < $totalPages): ?>
                         <a href="?action=members&page=<?= $page + 1 ?>" class="page-btn">&gt;</a>
+                    <?php else: ?>
+                        <a href="#" class="page-btn disabled">&gt;</a>
                     <?php endif; ?>
                 </div>
 

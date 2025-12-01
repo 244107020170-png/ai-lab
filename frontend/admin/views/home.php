@@ -83,7 +83,7 @@
     </div>
 
     <!-- Main Figma Canvas Container -->
-    <div class="main-container">
+    <div class="main-container" style="margin-top: 50px;">
 
         <!--Brief Description-->
         <div class="desc-title">
@@ -130,8 +130,8 @@
                 <div class="stat-inner">
                     <div class="stat-text">
                         <div class="stat-title">Activity’s done this month</div>
-                        <div class="stat-value">N/A</div>
-                        <div class="stat-desc">N/A Pending.</div>
+                        <div class="stat-value"><?php echo $newscount ?></div>
+                        <div class="stat-desc"><?php echo $newscountpending ?> Pending.</div>
                     </div>
                     <div class="stat-icon">
                         <img src="views/img/clipboard-pencil-logo.png" alt="">

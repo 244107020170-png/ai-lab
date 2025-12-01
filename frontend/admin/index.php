@@ -25,6 +25,11 @@ switch ($action) {
         else                      $ctrl->members();
         break;
 
+    case 'members_form':
+        $ctrl = new MembersController();
+        $ctrl->form();
+        break;
+
     case 'projects':
         $ctrl = new ProjectsController();
         if ($op === 'index')      $ctrl->index();

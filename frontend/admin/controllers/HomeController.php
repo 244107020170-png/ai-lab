@@ -1,15 +1,18 @@
 <?php
 require_once __DIR__ . '/../models/members.php';
 require_once __DIR__ . '/../models/Activities.php';
+require_once __DIR__ . '/../models/News.php';
 
 class HomeController {
 
     private $members;
     private $activities;
+    private $news;
 
     public function __construct() {
         $this->members = new Members();
         $this->activities = new Activities();
+        $this->news = new News();
     }
 
     public function index() {
@@ -29,6 +32,12 @@ class HomeController {
             "projectspublished"  => $projectspublished,
             "projectsinprogress" => $projectsinprogress
         ]);
+
+        // News
+        $news = $this->news->getAll();
+        $newscount = count($news);
+        $newscountapproved = count($this->news->findByStatus('approved'));
+        $newscountpending = count($this->news->findByStatus('pending'));
 
         include __DIR__ . '/../views/home.php';
     }

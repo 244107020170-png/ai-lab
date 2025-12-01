@@ -23,10 +23,10 @@ class MembersController
         // 3. Send to View
         include __DIR__ . '/../views/members.php';
     }
-    public function form()
+    public function form($id = null)
     {
-        $members = $this->model->getAll();
-        include __DIR__ . '/../views/dosen_form.php';
+        $data = $id ? $this->model->find($id) : null;
+        include __DIR__ . '/../views/members_form.php';
     }
     public function save()
     {

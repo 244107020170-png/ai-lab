@@ -71,3 +71,13 @@
     /* Optional: Ensures the hovered box sits on top of neighbors if they overlap */
     z-index: 10;
 }
+
+/* Form Text */
+.glass-input:focus {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.glass-input:focus::placeholder {
+    color: transparent;
+}
