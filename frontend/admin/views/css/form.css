@@ -1,0 +1,174 @@
+/* FORM CONTAINER */
+.form-container {
+    width: 1000px; /* Adjust width as preferred */
+    max-width: 90%;
+    margin: 0 auto;
+    
+    /* THE REQUESTED PADDING */
+    padding: 40px 60px !important; 
+    
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+    
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+    padding-bottom: 120px;
+}
+
+/* ROW LAYOUT (For Name/Degree) */
+.form-row {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
+.form-group.half {
+    flex: 1; /* Makes them split 50/50 */
+}
+
+/* LABELS */
+.form-group label {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+/* SECTION HEADER */
+.section-header {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* GLASS INPUT (Copies your search-box style) */
+.glass-input {
+    width: 100%;
+    height: 47px;
+    
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    /* Use border instead of outline for inputs to prevent double-lines on focus */
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    outline: none;
+    
+    backdrop-filter: blur(6.35px);
+    color: white;
+    padding: 0 20px; /* Internal text padding */
+    font-size: 14px;
+    box-sizing: border-box; /* Ensures padding doesn't break width */
+    
+    transition: 0.2s ease;
+}
+
+/* TEXTAREA SPECIFIC */
+.glass-input.textarea {
+    height: 120px;
+    padding: 15px 20px;
+    resize: none; /* Disables dragging corner */
+    font-family: inherit;
+}
+
+/* --- NEW SAVE BAR STYLES --- */
+.save-bar {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 90%;
+    max-width: 1000px; /* Matches your form width */
+    
+    /* Dark background like reference */
+    padding: 12px 24px;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+    
+    /* Optional: Slide up animation */
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+    from { transform: translate(-50%, 100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Left side text */
+.save-text {
+    color: #94A3B8; /* Muted grey/blue text */
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.info-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #94A3B8;
+    color: #94A3B8;
+    font-size: 12px;
+}
+
+/* Right side buttons */
+.save-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.discard-btn {
+    padding: 8px 18px;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: 0.2s;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.discard-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.save-btn-floating {
+    padding: 8px 24px;
+    background: #8EF1FF; /* Your theme teal color */
+    color: #0F2027;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    font-family: 'SF Pro Display', sans-serif;
+}
+
+.save-btn-floating:hover {
+    background: white;
+    box-shadow: 0 0 15px rgba(142, 241, 255, 0.4);
+}
