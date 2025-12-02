@@ -19,7 +19,7 @@ class ProjectsController {
         $rows = $this->model->getAll($q, $status, $limit, $offset);
 
         // pass variables to view
-        include __DIR__ . '/../views/projects/index.php';
+        include __DIR__ . '/../views/projects/projects.php';
     }
 
     public function create() {

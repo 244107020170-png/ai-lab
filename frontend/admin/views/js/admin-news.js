@@ -1,47 +1,130 @@
-const projects = [
-  { id: "PJ001", title: "Agriculture Database-Based System", status: "Main" },
-  { id: "PJ002", title: "Automated Cyber Security Maturity Assessment (AMATI)", status: "Main" },
-  { id: "PJ003", title: "Implementation of Smart Adaptive Learning System (SEALS)", status: "None" },
-  { id: "PJ004", title: "Crowdfunding Activity with CrowdEquiChain", status: "Main" },
-  { id: "PJ005", title: "The First Ever Dinosaur Revival", status: "None" },
-  { id: "PJ006", title: "Insert Project Here cuz I Ran Out of Ideas", status: "None" },
-  { id: "PJ007", title: "Polinema Siakad Remaster :3", status: "None" },
-  { id: "PJ008", title: "Also the SLC", status: "None" },
-  { id: "PJ009", title: "LMSSLC as well", status: "None" }
-];
+/* ======================================================
+   NEWS LIST — SEARCH + SORT + FILTER + DELETE MODAL
+====================================================== */
 
-function renderTable(list) {
-  const body = document.getElementById("tableBody");
-  body.innerHTML = "";
+const searchInput = document.getElementById("searchInput");
+const rows = Array.from(document.querySelectorAll(".project-row"));
+const pagination = document.querySelector(".pagination");
+const categoryFilter = document.getElementById("categoryFilter");
+const sortBtn = document.getElementById("sortBtn");
+const tableBody = document.getElementById("tableBody");
 
-  list.forEach(item => {
-    const row = document.createElement("div");
-    row.className = "project-row";
+const modal = document.getElementById("deleteModal");
+const confirmDelete = document.getElementById("confirmDelete");
+const cancelDelete = document.getElementById("cancelDelete");
 
-    const dotColor = item.status === "Main" ? "#27C840" : "#404040";
+let deleteID = null;
 
-    row.innerHTML = `
-      <div>${item.id}</div>
-      <div>${item.title}</div>
-      <div style="display:flex; align-items:center; gap:6px;">
-        <div class="status-dot" style="background:${dotColor};"></div>
-        <span>${item.status}</span>
-      </div>
-      <div style="text-align:center; opacity:0.5;">...</div>
-    `;
+/* ======================================================
+   HELPER — REFRESH TABLE VIEW
+====================================================== */
+function applyFilters() {
+  const q = searchInput.value.toLowerCase().trim();
+  const selectedCat = categoryFilter.value.toLowerCase();
+  let visible = 0;
 
-    body.appendChild(row);
+  rows.forEach(row => {
+    const title = row.children[1].innerText.toLowerCase();
+    const category = row.children[2].innerText.toLowerCase();
+
+    let match = true;
+
+    if (!title.includes(q)) match = false;
+    if (selectedCat && selectedCat !== category) match = false;
+
+    row.style.display = match ? "grid" : "none";
+    if (match) visible++;
   });
+
+  pagination.style.display = q !== "" || selectedCat !== "" ? "none" : "flex";
 }
 
-renderTable(projects);
+/* ======================================================
+   SEARCH
+====================================================== */
+searchInput?.addEventListener("input", applyFilters);
 
-/* SEARCH */
-document.getElementById("searchInput").addEventListener("input", e => {
-  const val = e.target.value.toLowerCase();
-  const filtered = projects.filter(p =>
-    p.id.toLowerCase().includes(val) ||
-    p.title.toLowerCase().includes(val)
+/* ======================================================
+   FILTER CATEGORY
+====================================================== */
+categoryFilter?.addEventListener("change", applyFilters);
+
+/* ======================================================
+   SORT SYSTEM
+====================================================== */
+sortBtn?.addEventListener("click", () => {
+  const choice = prompt(
+    "Choose sort:\n1. Title A-Z\n2. Category A-Z\n3. Newest First\n4. Oldest First\n5. Status main→none"
   );
-  renderTable(filtered);
+
+  if (!choice) return;
+
+  let sortFn = null;
+
+  switch (choice) {
+    case "1": // title A-Z
+      sortFn = (a, b) =>
+        a.children[1].innerText.localeCompare(b.children[1].innerText);
+      break;
+
+    case "2": // category A-Z
+      sortFn = (a, b) =>
+        a.children[2].innerText.localeCompare(b.children[2].innerText);
+      break;
+
+    case "3": // newest (ID numeric only!)
+      sortFn = (a, b) =>
+        Number(b.children[0].innerText) - Number(a.children[0].innerText);
+      break;
+
+    case "4": // oldest
+      sortFn = (a, b) =>
+        Number(a.children[0].innerText) - Number(b.children[0].innerText);
+      break;
+
+    case "5": // main → none
+      sortFn = (a, b) => {
+        const va = a.children[3].innerText === "main" ? 0 : 1;
+        const vb = b.children[3].innerText === "main" ? 0 : 1;
+        return va - vb;
+      };
+      break;
+
+    default:
+      return;
+  }
+
+  rows.sort(sortFn);
+  rows.forEach(r => tableBody.appendChild(r));
+});
+
+/* ======================================================
+   DELETE — WITH MODAL
+====================================================== */
+document.querySelectorAll(".delete-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    deleteID = btn.dataset.id;
+    modal.style.display = "flex";
+  });
+});
+
+cancelDelete?.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+confirmDelete?.addEventListener("click", () => {
+  fetch("index.php?action=news_delete", {
+    method: "POST",
+    body: new URLSearchParams({ id: deleteID })
+  })
+    .then(r => r.json())
+    .then(res => {
+      if (res.success) {
+        location.reload();
+      } else {
+        alert(res.msg || "Delete failed");
+      }
+    });
+
+  modal.style.display = "none";
 });
