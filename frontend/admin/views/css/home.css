@@ -121,7 +121,7 @@ body {
 
 /* Content Container */
 .content-container {
-    padding-top: 140px; /* adjust to your liking */
+    padding-top: 140px;
 }
 
 
@@ -140,14 +140,14 @@ body {
 /* Responsive row */
 .stats-row {
     width: 100%;
-    max-width: 1200px; /* keeps original Figma width feel */
+    max-width: 1200px;
     margin: 0 auto; /* centers the row */
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 18px;
     flex-wrap: horizontal; /* makes it responsive */
-    padding-top: 25px; /* your original top spacing */
+    padding-top: 25px;
 }
 
 /* Individual box */

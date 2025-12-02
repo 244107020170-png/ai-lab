@@ -34,6 +34,11 @@ switch ($action) {
         $ctrl = new MembersController();
         $ctrl->save();
         break;
+    
+    case 'members_delete':
+        $ctrl = new MembersController();
+        $ctrl->delete($_GET['id'] ?? null);
+        break;
 
     case 'projects':
         $ctrl = new ProjectsController();

@@ -3,12 +3,11 @@ require_once __DIR__ . '/../models/members.php';
 class MembersController
 {
     private $model;
-    public function __construct()
-    {
+    public function __construct() {
         $this->model = new Members();
     }
-    public function members()
-    {
+
+    public function members() {
         // 1. Settings
         $limit = 8; // How many rows per page
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -24,8 +23,8 @@ class MembersController
         // 3. Send to View
         include __DIR__ . '/../views/members.php';
     }
-    public function form($id = null)
-    {
+
+    public function form($id = null) {
         $data = $id ? $this->model->find($id) : null;
         include __DIR__ . '/../views/members_form.php';
     }
@@ -35,7 +34,6 @@ class MembersController
         $id = $_POST['id'] ?? '';
 
         // 2. Prepare Data Array 
-        // keys match the input names in your NEW form view
         $data = [
             $_POST['full_name'] ?? '',
             $_POST['role'] ?? '',
@@ -59,9 +57,9 @@ class MembersController
         exit;
     }
 
-    public function delete($id)
-    {
+    public function delete($id) {
         $this->model->delete($id);
+        $this->model->resetID();
         header("Location: index.php?action=members");
     }
 }

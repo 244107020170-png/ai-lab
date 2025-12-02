@@ -184,6 +184,12 @@
                         placeholder="https://orcid.org/...">
                 </div>
 
+                <select name="status" class="glass-input">
+                    <option class="glass-input" value="Active" <?= isset($data['status']) && $data['status'] == 'Active' ? 'selected' : '' ?>>Active</option>
+                    <option class="glass-input" value="Pending" <?= isset($data['status']) && $data['status'] == 'Pending' ? 'selected' : '' ?>>Pending</option>
+                    <option class="glass-input" value="Rejected" <?= isset($data['status']) && $data['status'] == 'Rejected' ? 'selected' : '' ?>>Rejected</option>
+
+                </select>
             </form>
         </div>
         <!-- Footer Section -->
