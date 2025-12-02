@@ -50,6 +50,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
             color: #fff;
             padding: 2rem;
         }
