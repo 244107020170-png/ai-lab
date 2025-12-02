@@ -49,7 +49,6 @@
             position: relative;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
             color: #fff;
             padding: 2rem;
@@ -68,36 +67,53 @@
 
     <!-- Header -->
     <div class="header-container">
+
+        <!-- LEFT BOX -->
         <div class="leBox header-left">
             <a href="../"><img src="views/img/logo.png"></a>
             <div class="logo-text">Lab Admin Page</div>
         </div>
+
+        <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
+            <a href="index.php?action=index" class="nav-item">Home</a>
             <div class="nav-item selected-navbar">Members</div>
-            <a href="index.php?action=projects" class="nav-item">Projects</a>
-            <a href="index.php?action=news" class="nav-item">News</a>
+            <a href="projects.html" class="nav-item">Projects</a>
+            <a href="news.html" class="nav-item">News</a>
         </div>
+
     </div>
     <!-- /.Header -->
 
-    <div class="main-container" style="margin-top: 50px;">
+    <div class="main-container">
 
+        <!--Brief Description-->
+        <div class="desc-title">Members Management</div>
+        <div class="desc-text">
+            Manage members and their role, contact, name, etc. This will include the students who became a volunteer.
+            You can edit the statuses in the more menu.
+        </div>
+
+        <!--/.Brief Description-->
+
+        <!-- Personal Information Container -->
+        <span style="font-size: 32px; font-weight: 600; margin-bottom: 20px; color: #F5F7FA; padding-top: 20px;">Personal Information</span>
         <div class="leBox form-container">
 
             <form action="index.php?action=save" method="POST">
-                <input type="hidden" name="dosen_id" value="<?= isset($member['id']) ? $member['id'] : '' ?>">
+                <input type="hidden" name="dosen_id" value="<?= isset($data['id']) ? $data['id'] : '' ?>">
 
                 <div class="form-row">
                     <div class="form-group half">
                         <label>Full Name</label>
                         <input type="text" name="nama" class="glass-input"
-                            value="<?= isset($member['full_name']) ? $member['full_name'] : '' ?>"
+                            value="<?= isset($data['full_name']) ? $data['full_name'] : '' ?>"
                             placeholder="e.g. Spinosaurus Aegyptiacus">
                     </div>
                     <div class="form-group half">
                         <label>Degree (Role)</label>
                         <input type="text" name="status" class="glass-input"
-                            value="<?= isset($member['role']) ? $member['role'] : '' ?>"
+                            value="<?= isset($data['role']) ? $data['role'] : '' ?>"
                             placeholder="e.g. S.T., M.MT.">
                     </div>
                 </div>
@@ -105,7 +121,7 @@
                 <div class="form-group">
                     <label>Brief Description</label>
                     <textarea name="description" class="glass-input textarea"
-                        placeholder="I am a student who wants to be..."><?= isset($member['description']) ? $member['description'] : '' ?></textarea>
+                        placeholder="I am a student who wants to be..."><?= isset($data['description']) ? $data['description'] : '' ?></textarea>
                 </div>
 
                 <div class="section-header">External Links</div>
@@ -113,28 +129,28 @@
                 <div class="form-group">
                     <label>Google Scholar</label>
                     <input type="text" name="scholar" class="glass-input"
-                        value="<?= isset($member['scholar']) ? $member['scholar'] : '' ?>"
+                        value="<?= isset($data['scholar']) ? $data['scholar'] : '' ?>"
                         placeholder="https://scholar.google.com/...">
                 </div>
 
                 <div class="form-group">
                     <label>LinkedIn</label>
                     <input type="text" name="linkedin" class="glass-input"
-                        value="<?= isset($member['linkedin']) ? $member['linkedin'] : '' ?>"
+                        value="<?= isset($data['linkedin']) ? $data['linkedin'] : '' ?>"
                         placeholder="https://linkedin.com/in/...">
                 </div>
 
                 <div class="form-group">
                     <label>ResearcherID (ResearchGate)</label>
                     <input type="text" name="researchgate" class="glass-input"
-                        value="<?= isset($member['researchgate']) ? $member['researchgate'] : '' ?>"
+                        value="<?= isset($data['researchgate']) ? $data['researchgate'] : '' ?>"
                         placeholder="https://www.researchgate.net/profile/...">
                 </div>
 
                 <div class="form-group">
                     <label>Orcid</label>
                     <input type="text" name="orcid" class="glass-input"
-                        value="<?= isset($member['orcid']) ? $member['orcid'] : '' ?>"
+                        value="<?= isset($data['orcid']) ? $data['orcid'] : '' ?>"
                         placeholder="https://orcid.org/...">
                 </div>
 

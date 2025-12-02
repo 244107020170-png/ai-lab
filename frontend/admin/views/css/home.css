@@ -3,7 +3,11 @@ body {
     justify-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Aligns content to the TOP, not center */
+    
+    /* Allow scroll */
+    min-height: 100vh; 
+    margin: 0;
 }
 
 /* Main Container */
@@ -12,6 +16,10 @@ body {
     max-width: 1200px;
     display: flex;
     flex-direction: column;
+
+    /* Add this padding/margin to clear the Fixed Header */
+    margin-top: 140px; /* Adjust this value if your header is taller/shorter */
+    margin-bottom: 50px; /* Adds breathing room at the bottom of the page */
 }
 
 /* Brief Description Title*/

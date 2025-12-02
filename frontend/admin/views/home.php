@@ -48,7 +48,6 @@
             position: relative;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
             color: #fff;
             padding: 2rem;
@@ -83,7 +82,7 @@
     </div>
 
     <!-- Main Figma Canvas Container -->
-    <div class="main-container" style="margin-top: 50px;">
+    <div class="main-container">
 
         <!--Brief Description-->
         <div class="desc-title">

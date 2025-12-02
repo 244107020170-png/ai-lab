@@ -49,7 +49,6 @@
             position: relative;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
             color: #fff;
             padding: 2rem;
@@ -85,7 +84,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="main-container" style="margin-top: 50px;">
+    <div class="main-container"">
         <!--Brief Description-->
         <div class="desc-title">Members Management</div>
         <div class="desc-text">
@@ -158,7 +157,9 @@
                             <td><?= $m['full_name'] ?></td>
                             <td><?= $m['role'] ?></td>
                             <td><?= $m['expertise'] ?></td>
-                            <td>...</td>
+                            <td>
+                                <a href="index.php?action=members_form&id=<?= $m['id'] ?>" style="text-decoration: none !important; color: white !important;">Edit</a>
+                            </td>
                     </tr>
                 <?php endforeach; ?>
                 </table>

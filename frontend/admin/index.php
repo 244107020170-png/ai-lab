@@ -27,7 +27,7 @@ switch ($action) {
 
     case 'members_form':
         $ctrl = new MembersController();
-        $ctrl->form();
+        $ctrl->form($_GET['id'] ?? null);
         break;
 
     case 'projects':
