@@ -1,24 +1,22 @@
 <?php
-// Include semua controller
 require_once __DIR__ . '/controllers/HomeController.php';
 require_once __DIR__ . '/controllers/MembersController.php';
 require_once __DIR__ . '/controllers/ProjectsController.php';
+require_once __DIR__ . '/controllers/NewsController.php'; // <-- WAJIB TAMBAH
 
-// Ambil param action & op
 $action = $_GET['action'] ?? 'home';
 $op     = $_GET['op'] ?? 'index';
 
-// Routing utama
 switch ($action) {
 
+    /* HOME */
     case 'home':
-        $ctrl = new HomeController();
-        $ctrl->index();
+        (new HomeController())->index();
         break;
 
+    /* MEMBERS */
     case 'members':
         $ctrl = new MembersController();
-        // operations
         if ($op === 'index')      $ctrl->members();
         elseif ($op === 'save')   $ctrl->save();
         elseif ($op === 'delete') $ctrl->delete($_GET['id'] ?? null);
@@ -26,15 +24,14 @@ switch ($action) {
         break;
 
     case 'members_form':
-        $ctrl = new MembersController();
-        $ctrl->form($_GET['id'] ?? null);
-        break;
-    
-    case 'members_form_save':
-        $ctrl = new MembersController();
-        $ctrl->save();
+        (new MembersController())->form($_GET['id'] ?? null);
         break;
 
+    case 'members_form_save':
+        (new MembersController())->save();
+        break;
+
+    /* PROJECTS */
     case 'projects':
         $ctrl = new ProjectsController();
         if ($op === 'index')      $ctrl->index();
@@ -46,8 +43,34 @@ switch ($action) {
         else                      $ctrl->index();
         break;
 
+    /* NEWS (FIXED) */
+    case 'news':
+    $ctrl = new NewsController();
+    $ctrl->index();
+    break;
+
+case 'news_create':
+    (new NewsController())->create();
+    break;
+
+case 'news_edit':
+    (new NewsController())->edit();
+    break;
+
+case 'news_store':
+    (new NewsController())->store();
+    break;
+
+case 'news_update':
+    (new NewsController())->update();
+    break;
+
+case 'news_delete':
+    (new NewsController())->delete();
+    break;
+
+    /* DEFAULT */
     default:
-        $ctrl = new HomeController();
-        $ctrl->index();
+        (new HomeController())->index();
         break;
 }

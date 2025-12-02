@@ -343,3 +343,27 @@ body {
     display: none;
   }
 }
+/* MODAL BACKDROP */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* MODAL WINDOW */
+.modal-window {
+  width: 340px;
+  padding: 25px;
+  border-radius: 14px;
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
