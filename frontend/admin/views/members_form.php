@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="views/css/home.css">
     <link rel="stylesheet" href="views/css/anims.css">
     <link rel="stylesheet" href="views/css/members.css">
+    <link rel="stylesheet" href="views/css/form.css">
     <style>
         :root {
             --img-opacity: 0.25;
@@ -97,26 +98,54 @@
 
         <!--/.Brief Description-->
 
+
         <!-- Personal Information Container -->
         <span style="font-size: 32px; font-weight: 600; margin-bottom: 20px; color: #F5F7FA; padding-top: 20px;">Personal Information</span>
         <div class="leBox form-container">
 
-            <form action="index.php?action=save" method="POST">
-                <input type="hidden" name="dosen_id" value="<?= isset($data['id']) ? $data['id'] : '' ?>">
+            <!-- Back Button -->
+            <div style="margin-bottom: 20px;">
+                <a href="index.php?action=members" style="color: rgba(255,255,255,0.6); text-decoration: none;">&larr; Back to Members</a>
+            </div>
+            <!-- /.Back Button -->
 
-                <div class="form-row">
+            <form action="index.php?action=members_form_save" method="POST"  id="memberForm">
+                <input type="hidden" name="id" value="<?= isset($data['id']) ? $data['id'] : '' ?>">
+
+                <!-- <div class="form-row">
                     <div class="form-group half">
                         <label>Full Name</label>
-                        <input type="text" name="nama" class="glass-input"
+                        <input type="text" name="full_name" class="glass-input"
                             value="<?= isset($data['full_name']) ? $data['full_name'] : '' ?>"
                             placeholder="e.g. Spinosaurus Aegyptiacus">
                     </div>
                     <div class="form-group half">
                         <label>Degree (Role)</label>
-                        <input type="text" name="status" class="glass-input"
+                        <input type="text" name="role" class="glass-input"
                             value="<?= isset($data['role']) ? $data['role'] : '' ?>"
                             placeholder="e.g. S.T., M.MT.">
                     </div>
+                </div> -->
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" class="glass-input"
+                        value="<?= isset($data['full_name']) ? $data['full_name'] : '' ?>"
+                        placeholder="e.g. Spinosaurus Aegyptiacus">
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <input type="text" name="role" class="glass-input"
+                        value="<?= isset($data['role']) ? $data['role'] : '' ?>"
+                        placeholder="Terrestial Carnivore">
+                </div>
+
+                <div class="form-group">
+                    <label>Expertise</label>
+                    <input type="text" name="expertise" class="glass-input"
+                        value="<?= isset($data['expertise']) ? $data['expertise'] : '' ?>"
+                        placeholder="e.g. Paleoanthropology">
                 </div>
 
                 <div class="form-group">
@@ -155,16 +184,40 @@
                         placeholder="https://orcid.org/...">
                 </div>
 
-                <div class="form-actions">
-                    <button type="submit" class="save-btn">Save Changes</button>
-                </div>
-
             </form>
-            <div style="margin-bottom: 20px;">
-                <a href="index.php?action=members" style="color: rgba(255,255,255,0.6); text-decoration: none;">&larr; Back to Members</a>
+        </div>
+        <!-- Footer Section -->
+        <footer class="footer" style="margin-bottom: 100px;">
+            <div>
+                <span style="color: white; font-size: 24px;"">©</span>
+                        <span style=" color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
             </div>
+
+            <div>
+                <span style="color: white; font-size: 24px;">Contact: </span>
+                <span style="color: white; font-size: 24px; text-decoration: underline;">
+                    <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
+                        ailab@polinema.ac.id
+                    </a>
+                </span>
+            </div>
+        </footer>
+        <!-- /.Footer Section -->
+    </div>
+
+    <!-- Save Bar -->
+    <div class="leBox save-bar">
+        <div class="save-text">
+            <span class="info-icon">!</span>
+            You have unsaved changes.
+        </div>
+        <div class="save-actions">
+            <a href="index.php?action=members" class="discard-btn">Discard</a>
+            
+            <button type="submit" form="memberForm" class="save-btn-floating">Save</button>
         </div>
     </div>
+    <!-- /.Save Bar -->
 
 </body>
 

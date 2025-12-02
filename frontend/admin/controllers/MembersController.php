@@ -7,7 +7,8 @@ class MembersController
     {
         $this->model = new Members();
     }
-    public function members() {
+    public function members()
+    {
         // 1. Settings
         $limit = 8; // How many rows per page
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -30,22 +31,34 @@ class MembersController
     }
     public function save()
     {
-        $fields = [
-            $_POST['nama'],
-            $_POST['nip'],
-            $_POST['nidn'],
-            $_POST['nomor_ponsel'],
-            $_POST['status'],
-            $_POST['kode_prodi']
+        // 1. Capture the ID (Matches name="id" in your new form)
+        $id = $_POST['id'] ?? '';
+
+        // 2. Prepare Data Array 
+        // keys match the input names in your NEW form view
+        $data = [
+            $_POST['full_name'] ?? '',
+            $_POST['role'] ?? '',
+            null,                           // photo
+            $_POST['expertise'] ?? '',
+            $_POST['description'] ?? '',
+            $_POST['linkedin'] ?? '',
+            $_POST['scholar'] ?? '',
+            $_POST['researchgate'] ?? '',
+            $_POST['orcid'] ?? ''
         ];
 
-        if ($_POST['dosen_id'] === "") {
-            $this->model->create($fields);
+        // 3. Save
+        if ($id === "") {
+            $this->model->create($data);
         } else {
-            $this->model->update($_POST['dosen_id'], $fields);
+            $this->model->update($id, $data);
         }
-        header("Location: index.php");
+
+        header("Location: index.php?action=members");
+        exit;
     }
+
     public function delete($id)
     {
         $this->model->delete($id);
