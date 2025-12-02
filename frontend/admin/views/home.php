@@ -72,7 +72,7 @@
             <div class="nav-item selected-navbar">Home</div>
             <a href="index.php?action=members" class="nav-item">Members</a>
             <a href="index.php?action=projects" class="nav-item">Projects</a>
-            <a href="index.php?action=news" class="nav-item">News</a>
+            <a href="index.php?action=admin-news" class="nav-item">News</a>
         </div>
     </div>
 

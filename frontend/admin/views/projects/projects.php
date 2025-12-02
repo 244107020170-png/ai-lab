@@ -43,7 +43,7 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
     <a href="index.php">Home</a>
     <a href="index.php?action=members">Members</a>
     <a class="active" href="index.php?action=projects">Projects</a>
-    <a href="index.php?action=news">News</a>
+    <a href="index.php?action=admin-news">News</a>
   </nav>
 </div>
 
