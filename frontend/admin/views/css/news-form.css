@@ -133,6 +133,7 @@ body {
   gap: 30px;
 }
 
+
 /* ============================================================
    IMAGE BLOCKS
 ============================================================ */
@@ -323,4 +324,18 @@ body {
   .form-grid {
     grid-template-columns: 1fr;
   }
+}
+/* Fix dropdown inside form (Add/Edit) */
+.form-container select {
+    background: rgba(0,0,0,0.35) !important;
+    color: #e8feff !important;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+/* Dropdown options */
+.form-container select option {
+    background: #0f2c2f !important; 
+    color: #e8feff !important;
 }
