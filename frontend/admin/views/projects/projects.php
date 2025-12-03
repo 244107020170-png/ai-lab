@@ -36,6 +36,10 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 <link rel="stylesheet" href="views/css/projects.css">
 </head>
 <body>
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
 
 <div class="admin-header">
   <div class="logo">Lab Admin Page</div>
@@ -49,7 +53,7 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 
 <main class="container">
   <h1>Project Management</h1>
-  <p class="lead">Manage the projects that will be shown in the website.</p>
+  <p class="lead">Manage the projects that will be shown in the website. Freely edit on who participated in the project, what is the current status of the projects, and the link towards the document if any. If there isn’t, just upload the PDF file of the document.</p>
 
   <div class="controls">
     <!-- SEARCH + FILTER IN ONE FORM -->
