@@ -37,6 +37,11 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 </head>
 <body>
 
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
+
 <div class="admin-header">
 
   <div class="header-left">
@@ -48,7 +53,7 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
     <a href="index.php">Home</a>
     <a href="index.php?action=members">Members</a>
     <a class="active" href="index.php?action=projects">Projects</a>
-    <a href="index.php?action=news">News</a>
+    <a href="index.php?action=news-list">News</a>
   </nav>
 
 </div>
