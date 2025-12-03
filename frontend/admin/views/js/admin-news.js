@@ -136,26 +136,25 @@
 
   async function doDelete(id) {
     try {
-      const res = await fetch("index.php?action=news_delete", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({ id }),
-      });
+        const res = await fetch("index.php?action=news_delete", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: "id=" + encodeURIComponent(id)
+        });
 
-      const json = await res.json();
+        const json = await res.json();
 
-      if (json.success) {
-        const row = getRows().find((r) => r.children[0].innerText == id);
-        if (row) row.remove();
-        applyFiltersAndSort();
-      } else {
-        alert(json.msg || "Delete failed");
-      }
+        if (json.success) {
+            const row = document.querySelector(`.project-row:nth-child(${id})`);
+            if (row) row.remove();
+        } else {
+            alert(json.msg || "Delete failed");
+        }
     } catch (err) {
-      console.error(err);
-      alert("Network error");
+        console.error("DELETE ERROR:", err);
+        alert("Network error");
     }
-  }
+}
 
   confirmDelete?.addEventListener("click", () => {
     if (deleteID) doDelete(deleteID);
