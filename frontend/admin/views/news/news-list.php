@@ -46,24 +46,24 @@
   </div>
 
   <!-- SORT -->
-<select id="sortSelect" class="glass-box"
-        style="padding:10px 14px; border-radius:11px; color:white; background:rgba(255,255,255,0.03);">
-    <option value="">Sort</option>
-    <option value="title_az">Title A–Z</option>
-    <option value="category_az">Category A–Z</option>
-    <option value="newest">Newest First</option>
-    <option value="oldest">Oldest First</option>
-    <option value="status_main_first">Status main → none</option>
-</select>
-
+  <select id="sortSelect" class="glass-box"
+    style="padding:10px 14px; border-radius:11px; background:rgba(255,255,255,0.05); color:white;">
+      <option value="">Sort</option>
+      <option value="title_az">Title A–Z</option>
+      <option value="category_az">Category A–Z</option>
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="status_main_first">Status main → none</option>
+  </select>
 
   <!-- CATEGORY FILTER -->
-  <select id="categoryFilter" class="glass-box" 
-          style="padding:10px 15px; border-radius:11px; border:none; color:white; background:rgba(255,255,255,0.1);">
-    <option value="">All Categories</option>
-    <?php foreach ($categories as $c): ?>
-      <option value="<?= htmlspecialchars($c) ?>"><?= htmlspecialchars($c) ?></option>
-    <?php endforeach; ?>
+  <select id="categoryFilter" class="glass-box"
+    style="padding:10px 15px; border-radius:11px; background:rgba(255,255,255,0.1); color:white;">
+      <option value="">All Categories</option>
+      <option value="award">award</option>
+      <option value="collaboration">collaboration</option>
+      <option value="innovation">innovation</option>
+      <option value="research">research</option>
   </select>
 
 </div>
@@ -73,7 +73,7 @@
 
   <div class="table-header">
     <h2>News List</h2>
-    <a href="index.php?action=news_create" class="add-btn">+ Add News</a>
+    <a href="index.php?action=news_create" class="add-btn" style="text-decoration:none;">+ Add News</a>
   </div>
 
   <div class="table-head-row">
@@ -81,12 +81,13 @@
     <div>Title</div>
     <div>Category</div>
     <div>Status</div>
-    <div>...</div>
+    <div>Actions</div>
   </div>
 
   <div id="tableBody">
     <?php foreach ($news as $n): ?>
       <div class="project-row">
+
         <div><?= $n['id'] ?></div>
 
         <div><?= htmlspecialchars($n['title']) ?></div>
@@ -98,13 +99,16 @@
           <span><?= $n['status'] ?></span>
         </div>
 
-        <div style="display:flex; justify-content:center; gap:12px;">
+        <div style="display:flex; gap:14px; justify-content:center;">
           <a href="index.php?action=news_edit&id=<?= $n['id'] ?>" style="color:#8EF1FF;">✏️</a>
 
-          <button class="delete-btn" data-id="<?= $n['id'] ?>" style="background:none;border:none;color:#ff6b6b;cursor:pointer;">
+          <button class="delete-btn"
+                  data-id="<?= $n['id'] ?>"
+                  style="background:none;border:none;color:#ff6b6b;cursor:pointer;">
             🗑️
           </button>
         </div>
+
       </div>
     <?php endforeach; ?>
   </div>
@@ -135,7 +139,7 @@
 
 <script src="views/js/admin-news.js"></script>
 
-<!-- DELETE CONFIRMATION MODAL -->
+<!-- DELETE MODAL -->
 <div id="deleteModal" class="modal-overlay" style="display:none;">
   <div class="modal-window glass-panel">
       <h3 style="margin-bottom:10px;">Delete News?</h3>
