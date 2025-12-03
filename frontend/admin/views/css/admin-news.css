@@ -203,7 +203,7 @@ body {
 .table-head-row,
 .project-row {
   display: grid;
-  grid-template-columns: 120px 1fr 120px 40px;
+  grid-template-columns: 80px 1fr 150px 120px 60px;
   padding: 12px 25px;
   align-items: center;
 }
@@ -367,3 +367,15 @@ body {
   from { transform: scale(0.85); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+/* status dots: ensure the dot aligns with text */
+.project-row > div:nth-child(4) .status-dot { width:14px; height:14px; border-radius:50%; display:inline-block; vertical-align:middle; margin-right:8px; }
+.status-main { background:#27c840; }
+.status-none { background:#404040; }
+
+/* Remove underline on .add-btn if it's an anchor */
+.add-btn { text-decoration: none; display:inline-block; }
+.add-btn:hover { text-decoration: none; }
+
+/* reduce white on meta fields in form */
+.news-form label .label, .news-form input, .news-form select { color: rgba(255,255,255,0.9); }
+.news-form .two-inline input, .news-form .two-inline select { color: rgba(255,255,255,0.9); }

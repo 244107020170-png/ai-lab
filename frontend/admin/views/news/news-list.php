@@ -46,9 +46,16 @@
   </div>
 
   <!-- SORT -->
-  <div class="filter-box glass-box" id="sortBtn">
-    <span>Sort</span> ▾
-  </div>
+<select id="sortSelect" class="glass-box"
+        style="padding:10px 14px; border-radius:11px; color:white; background:rgba(255,255,255,0.03);">
+    <option value="">Sort</option>
+    <option value="title_az">Title A–Z</option>
+    <option value="category_az">Category A–Z</option>
+    <option value="newest">Newest First</option>
+    <option value="oldest">Oldest First</option>
+    <option value="status_main_first">Status main → none</option>
+</select>
+
 
   <!-- CATEGORY FILTER -->
   <select id="categoryFilter" class="glass-box" 
