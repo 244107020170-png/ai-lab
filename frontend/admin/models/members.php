@@ -33,7 +33,6 @@ class Members
 }
     public function getByYear($year)
     {
-        // EXTRACT(YEAR FROM column) gets just the year part of the timestamp
         $sql = "SELECT * FROM members 
                 WHERE EXTRACT(YEAR FROM created_at) = $1 
                 ORDER BY id ASC";
@@ -44,14 +43,12 @@ class Members
 
     public function sortByNameASC($limit, $offset) {
         $sql = "SELECT * FROM members ORDER BY full_name ASC LIMIT $1 OFFSET $2";
-        // FIX: Use pg_query_params and pass the variables in an array
         $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
         return pg_fetch_all($res) ?: [];
     }
 
     public function sortByNameDESC($limit, $offset) {
         $sql = "SELECT * FROM members ORDER BY full_name DESC LIMIT $1 OFFSET $2";
-        // FIX: Use pg_query_params here too
         $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
         return pg_fetch_all($res) ?: [];
     }
@@ -79,9 +76,14 @@ class Members
         $data[] = $id;
         return pg_query_params($this->conn, $sql, $data);
     }
-    public function delete($id)
-    {
+    public function delete($id) {
         return pg_query_params($this->conn, "DELETE FROM members WHERE
                                 id=$1", [$id]);
     }
+
+    public function resetID() {
+        return "SELECT setval('members_id_seq', COALESCE((SELECT MAX(id) FROM members), 1))";
+    }
+
+    
 }

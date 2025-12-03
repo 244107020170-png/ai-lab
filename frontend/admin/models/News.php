@@ -108,6 +108,14 @@ class News
         return pg_query_params($this->conn, $sql, $params) ? true : false;
     }
 
+    // --- Get news by status
+    public function findByStatus($status)
+    {
+        $sql = "SELECT * FROM news WHERE status = $1";
+        $res = pg_query_params($this->conn, $sql, [$status]);
+        return pg_fetch_all($res);
+    }
+
     // --- Delete news
     public function delete($id)
     {

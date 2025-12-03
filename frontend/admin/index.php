@@ -26,6 +26,11 @@ switch ($action) {
     case 'members_form':
         (new MembersController())->form($_GET['id'] ?? null);
         break;
+    
+    case 'members_delete':
+        $ctrl = new MembersController();
+        $ctrl->delete($_GET['id'] ?? null);
+        break;
 
     case 'members_form_save':
         (new MembersController())->save();

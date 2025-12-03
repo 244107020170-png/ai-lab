@@ -100,7 +100,7 @@
 
 
         <!-- Personal Information Container -->
-        <span style="font-size: 32px; font-weight: 600; margin-bottom: 20px; color: #F5F7FA; padding-top: 20px;">Personal Information</span>
+        <span style="font-size: 28px; font-weight: 600; margin-bottom: 20px; color: #f5f7fab0; padding-top: 20px;">Personal Information</span>
         <div class="leBox form-container">
 
             <!-- Back Button -->
@@ -109,7 +109,28 @@
             </div>
             <!-- /.Back Button -->
 
-            <form action="index.php?action=members_form_save" method="POST"  id="memberForm">
+            <!-- Profile Photo -->
+            <div class="profile-container" style=" margin-bottom: 20px;">
+                <img src="../admin/upload/img.png" alt="profile-photo" width="84px" height="112px" style="border-radius: 11px; outline: 1px solid rgba(255, 255, 255, 0.11);">
+
+                <div class="photo-text">
+                    <div>
+                        <div style="color: #F5F7FA; margin-bottom: 5px;">Profile Photo</div>
+                        <div style="color: #f5f7fa7c;">Please upload an image with the format of PNG, JPEG, and JPG</div>
+                    </div>
+
+
+                    <input type="file" name="profile_photo" id="profile_photo" accept="image/*" style="display: none;">
+
+                    <label for="profile_photo" class="member-btn-action" style="margin-left: 0; color: #F5F7FA !important; padding: 6px 10px;">
+                        Upload Photo
+                    </label>
+                </div>
+            </div>
+            <!-- /.Profile Photo -->
+
+            <!-- Form -->
+            <form action="index.php?action=members_form_save" method="POST" id="memberForm">
                 <input type="hidden" name="id" value="<?= isset($data['id']) ? $data['id'] : '' ?>">
 
                 <!-- <div class="form-row">
@@ -184,6 +205,12 @@
                         placeholder="https://orcid.org/...">
                 </div>
 
+                <select name="status" class="glass-input">
+                    <option class="glass-input" value="Active" <?= isset($data['status']) && $data['status'] == 'Active' ? 'selected' : '' ?>>Active</option>
+                    <option class="glass-input" value="Pending" <?= isset($data['status']) && $data['status'] == 'Pending' ? 'selected' : '' ?>>Pending</option>
+                    <option class="glass-input" value="Rejected" <?= isset($data['status']) && $data['status'] == 'Rejected' ? 'selected' : '' ?>>Rejected</option>
+
+                </select>
             </form>
         </div>
         <!-- Footer Section -->
@@ -213,7 +240,7 @@
         </div>
         <div class="save-actions">
             <a href="index.php?action=members" class="discard-btn">Discard</a>
-            
+
             <button type="submit" form="memberForm" class="save-btn-floating">Save</button>
         </div>
     </div>

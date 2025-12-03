@@ -199,6 +199,8 @@
     
     cursor: pointer;
     z-index: 10; /* Ensures it sits on top */
+
+    transition: 0.25s ease;
 }
 
 .member-btn a {
@@ -210,6 +212,41 @@
     height: 100%;
     line-height: 25px; /* Vertically centers text */
     text-align: center;
+}
+
+.member-btn-action {
+    /* Glass Effect */
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 6px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+    
+    /* SIZE: Remove fixed W/H, use padding to fit text */
+    padding: 1px 10px; 
+    width: auto; 
+    height: auto;
+    
+    /* ALIGNMENT: inline-flex makes them sit side-by-side */
+    display: inline-flex; 
+    justify-content: center;
+    align-items: center;
+    
+    /* Spacing between the horizontal buttons */
+    margin-left: 8px; 
+    
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.member-btn-action a {
+    text-decoration: none;
+    color: white !important;
+    font-size: 12px;
+    font-weight: 500;
+    
+    /* Ensure the link takes up the clickable space */
+    display: block;
 }
 
 .member-table {
@@ -238,8 +275,8 @@
     /* Prevent it from getting squished */
     flex-shrink: 0;
 
-    margin-top: 10px;
-    padding-top: 10px;
+    margin-top: 0px;
+    padding-top: 2px;
 }
 
 .page-btn {

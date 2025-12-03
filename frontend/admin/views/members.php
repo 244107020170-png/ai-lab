@@ -137,7 +137,7 @@
                 <div class="member-header">
                     <div class="member-title">Members List</div>
                     <div class="member-btn">
-                        <a href="projects.html" style="display: block; color: white !important; text-decoration: none !important;">
+                        <a href="index.php?action=members_form" style="display: block; color: white !important; text-decoration: none !important;">
                             Add Members
                         </a>
                     </div>
@@ -150,7 +150,7 @@
                         <th>Name</th>
                         <th>Role</th>
                         <th>Expertise</th>
-                        <th></th>
+                        <th style="text-align: center;">Actions</th>
                     </tr>
                     <tr>
                         <?php foreach ($members as $m): ?>
@@ -158,8 +158,10 @@
                             <td><?= $m['full_name'] ?></td>
                             <td><?= $m['role'] ?></td>
                             <td><?= $m['expertise'] ?></td>
-                            <td>
-                                <a href="index.php?action=members_form&id=<?= $m['id'] ?>" style="text-decoration: none !important; color: white !important;">Edit</a>
+                            <td style="text-align: center;">
+                                <a href="index.php?action=members_form&id=<?= $m['id'] ?>" class="member-btn-action" style="text-decoration: none !important; color: white !important;">Edit</a>
+                                <a href="index.php?action=members_delete&id=<?= $m['id'] ?>" class ="member-btn-action" style="text-decoration: none !important; color: white !important;"
+                                    onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
                             </td>
                     </tr>
                 <?php endforeach; ?>
