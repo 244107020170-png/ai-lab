@@ -149,7 +149,7 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Role</th>
-                        <th>Expertise</th>
+                        <th>Status</th>
                         <th style="text-align: center;">Actions</th>
                     </tr>
                     <tr>
@@ -157,7 +157,7 @@
                             <td><?= $m['id'] ?></td>
                             <td><?= $m['full_name'] ?></td>
                             <td><?= $m['role'] ?></td>
-                            <td><?= $m['expertise'] ?></td>
+                            <td><?= $m['status'] ?></td>
                             <td style="text-align: center;">
                                 <a href="index.php?action=members_form&id=<?= $m['id'] ?>" class="member-btn-action" style="text-decoration: none !important; color: white !important;">Edit</a>
                                 <a href="index.php?action=members_delete&id=<?= $m['id'] ?>" class ="member-btn-action" style="text-decoration: none !important; color: white !important;"

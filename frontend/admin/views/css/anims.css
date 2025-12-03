@@ -87,3 +87,20 @@
 .glass-input:focus::placeholder {
     color: transparent;
 }
+
+.discard-btn:hover {
+    background: rgba(255,255,255,0.1);
+
+    transform: scale(1.05);
+
+    z-index: 10;
+}
+
+.save-btn-floating:hover {
+    background: white;
+    box-shadow: 0 0 15px rgba(142, 241, 255, 0.4);
+
+    transform: scale(1.05);
+
+    z-index: 10;
+}

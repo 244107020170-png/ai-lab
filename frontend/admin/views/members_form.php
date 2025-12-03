@@ -109,44 +109,50 @@
             </div>
             <!-- /.Back Button -->
 
-            <!-- Profile Photo -->
-            <div class="profile-container" style=" margin-bottom: 20px;">
-                <img src="../admin/upload/img.png" alt="profile-photo" width="84px" height="112px" style="border-radius: 11px; outline: 1px solid rgba(255, 255, 255, 0.11);">
-
-                <div class="photo-text">
-                    <div>
-                        <div style="color: #F5F7FA; margin-bottom: 5px;">Profile Photo</div>
-                        <div style="color: #f5f7fa7c;">Please upload an image with the format of PNG, JPEG, and JPG</div>
-                    </div>
-
-
-                    <input type="file" name="profile_photo" id="profile_photo" accept="image/*" style="display: none;">
-
-                    <label for="profile_photo" class="member-btn-action" style="margin-left: 0; color: #F5F7FA !important; padding: 6px 10px;">
-                        Upload Photo
-                    </label>
-                </div>
-            </div>
-            <!-- /.Profile Photo -->
-
             <!-- Form -->
             <form action="index.php?action=members_form_save" method="POST" id="memberForm">
-                <input type="hidden" name="id" value="<?= isset($data['id']) ? $data['id'] : '' ?>">
+                <!-- Profile Photo -->
+                <div class="profile-container" style="margin-bottom: 20px;">
 
-                <!-- <div class="form-row">
-                    <div class="form-group half">
-                        <label>Full Name</label>
-                        <input type="text" name="full_name" class="glass-input"
-                            value="<?= isset($data['full_name']) ? $data['full_name'] : '' ?>"
-                            placeholder="e.g. Spinosaurus Aegyptiacus">
+                    <?php
+                    // FIX: Database already has "img/name.png", so we just need "../" to go up one folder.
+                    $pathPrefix = '../';
+                    $defaultImg = '../img/default-profile.png';
+
+                    // Check if photo exists in DB
+                    if (!empty($data['photo'])) {
+                        // Result: ../img/yan.png
+                        $photoSrc = $pathPrefix . $data['photo'] . '?' . time();
+                    } else {
+                        // Result: ../img/default-profile.png
+                        $photoSrc = $defaultImg;
+                    }
+                    ?>
+
+                    <img src="<?= $photoSrc ?>" id="preview-img" alt="profile-photo"
+                        width="84px" height="112px"
+                        style="border-radius: 11px; outline: 1px solid rgba(255, 255, 255, 0.11); object-fit: cover;">
+
+                    <div class="photo-text">
+                        <div>
+                            <div style="color: #F5F7FA; margin-bottom: 5px;">Profile Photo</div>
+                            <div style="color: #f5f7fa7c;">Please upload an image with the format of PNG, JPEG, and JPG</div>
+                        </div>
+
+                        <input type="file" name="photo" id="photo_input" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <label for="photo_input" class="member-btn-action" style="margin-left: 0; color: #F5F7FA !important; padding: 6px 10px;">
+                                Upload Photo
+                            </label>
+
+                            <span id="file-name" style="color: #f5f7fa7c; font-size: 13px;">No file chosen</span>
+                        </div>
                     </div>
-                    <div class="form-group half">
-                        <label>Degree (Role)</label>
-                        <input type="text" name="role" class="glass-input"
-                            value="<?= isset($data['role']) ? $data['role'] : '' ?>"
-                            placeholder="e.g. S.T., M.MT.">
-                    </div>
-                </div> -->
+                </div>
+                <!-- /.Profile Photo -->
+
+                <input type="hidden" name="id" value="<?= isset($data['id']) ? $data['id'] : '' ?>">
 
                 <div class="form-group">
                     <label>Full Name</label>
@@ -159,7 +165,7 @@
                     <label>Role</label>
                     <input type="text" name="role" class="glass-input"
                         value="<?= isset($data['role']) ? $data['role'] : '' ?>"
-                        placeholder="Terrestial Carnivore">
+                        placeholder="e.g. Terrestial Carnivore">
                 </div>
 
                 <div class="form-group">
@@ -211,8 +217,84 @@
                     <option class="glass-input" value="Rejected" <?= isset($data['status']) && $data['status'] == 'Rejected' ? 'selected' : '' ?>>Rejected</option>
 
                 </select>
-            </form>
+
+
         </div>
+        <!-- /.Personal Information Container -->
+
+        <!-- Study Background Container -->
+        <!-- Table -->
+        <div class="leBox form-container" style="margin-top: 20px;">
+            <div class="section-header">Educational Background</div>
+
+            <table class="member-table">
+                <tr>
+                    <th style="width: 50px;">ID</th>
+                    <th style="width: 200px;">Institute Name</th>
+                    <th style="width: 400px;">Academic Title</th>
+                    <th style="width: 80px;">Year</th>
+                    <th>Degree</th>
+                    <th style="width: 50px;"></th>
+                </tr>
+
+                <?php
+                // Ensure variable exists
+                if (!isset($studyBackground)) $studyBackground = [];
+                ?>
+
+                <?php foreach ($studyBackground as $index => $s): ?>
+                    <tr>
+                        <td>
+                            <?= is_numeric($s['id']) ? $s['id'] : '<span style="opacity:0.5; font-size:10px;">NEW</span>' ?>
+
+                            <input type="hidden" name="backgrounds[<?= $index ?>][id]" value="<?= isset($s['id']) ? $s['id'] : 'new' ?>">
+                        </td>
+                        <td>
+                            <input type="text" class="table-input"
+                                name="backgrounds[<?= $index ?>][institute]"
+                                value="<?= $s['institute'] ?>" placeholder="Institute">
+                        </td>
+                        <td>
+                            <input type="text" class="table-input"
+                                name="backgrounds[<?= $index ?>][academic_title]"
+                                value="<?= $s['academic_title'] ?>" placeholder="Title">
+                        </td>
+                        <td>
+                            <input type="number" class="table-input"
+                                name="backgrounds[<?= $index ?>][year]"
+                                value="<?= $s['year'] ?>" placeholder="Year">
+                        </td>
+                        <td>
+                            <input type="text" class="table-input"
+                                name="backgrounds[<?= $index ?>][degree]"
+                                value="<?= $s['degree'] ?>" placeholder="Degree">
+                        </td>
+                        <td style="text-align: center;">
+                            <?php if (is_numeric($s['id'])): ?>
+                                <a href="index.php?action=members_delete_background&id=<?= $s['id'] ?>&member_id=<?= $data['id'] ?>"
+                                    class="text-red"
+                                    style="text-decoration:none; color: #ff6b6b; font-size: 12px;"
+                                    onclick="return confirm('Are you sure you want to delete this field?')">
+                                    &#10005;
+                                </a>
+                            <?php else: ?>
+                                <a href="#" onclick="this.closest('tr').remove(); return false;" class="text-red" style="text-decoration:none; color: #ff6b6b; font-size: 12px;">&#10005;</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
+            <div style="padding: 15px; display: flex; justify-content: center;">
+                <button type="submit" name="add_row" value="1" class="discard-btn" style="font-size: 12px;">
+                    + Add Field
+                </button>
+            </div>
+        </div>
+        <!-- Table -->
+        </form>
+        <!-- /.Study Background Container -->
+
         <!-- Footer Section -->
         <footer class="footer" style="margin-bottom: 100px;">
             <div>
@@ -246,6 +328,7 @@
     </div>
     <!-- /.Save Bar -->
 
+    <script src="views/js/members.js"></script>
 </body>
 
 </html>

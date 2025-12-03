@@ -35,7 +35,12 @@ switch ($action) {
     case 'members_form_save':
         (new MembersController())->save();
         break;
-
+    
+    case 'members_delete_background':
+        $ctrl = new MembersController();
+        $ctrl->deleteBackground($_GET['id'] ?? null);
+        break;
+    
     /* PROJECTS */
     case 'projects':
         $ctrl = new ProjectsController();
