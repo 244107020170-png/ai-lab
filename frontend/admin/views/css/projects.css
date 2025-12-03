@@ -232,3 +232,41 @@ select option {
     background: rgba(255,255,255,0.08);
     padding-left: 18px;
 }
+
+/* === ADD NEWS-STYLE BACKGROUND TO PROJECTS === */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/background3.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+}
+
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  z-index: -1;
+}
+
+/* === MATCH TABLE OPACITY LIKE NEWS === */
+.table-card {
+  background: rgba(0,0,0,0.34) !important;  /* glass transparency */
+  outline: 1px solid rgba(255,255,255,0.12);
+  border-radius: 11px;
+  backdrop-filter: blur(6px);
+  box-shadow: none !important;
+}
+
+.table-row:hover {
+  background: rgba(255,255,255,0.08) !important;
+  transform: none; /* hilang efek geser */
+}

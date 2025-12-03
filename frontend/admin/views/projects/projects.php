@@ -36,6 +36,7 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 <link rel="stylesheet" href="views/css/projects.css">
 </head>
 <body>
+  
 <div class="bg-layer">
   <div class="bg-image"></div>
   <div class="bg-gradient"></div>
