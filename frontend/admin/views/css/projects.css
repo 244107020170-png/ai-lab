@@ -66,7 +66,13 @@ h1{font-size:36px;margin:8px 0 4px}
 }
 
 /* form */
-.form-container .card{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px}
+.form-container .card {
+  background: rgba(0, 0, 0, 0.34) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  backdrop-filter: blur(6px);
+  padding: 25px;
+}
 .form-container label{display:block;margin-top:12px;color:var(--muted);font-size:14px}
 .form-container input[type="text"],
 .form-container input[type="date"],
