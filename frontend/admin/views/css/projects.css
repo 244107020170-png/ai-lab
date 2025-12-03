@@ -12,6 +12,7 @@ body {
   color: white;
   overflow-x: hidden;
   min-height: 100vh;
+  outline: 5px solid red !important;
 }
 
 /* ===========================================
