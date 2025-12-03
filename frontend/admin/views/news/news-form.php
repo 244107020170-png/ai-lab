@@ -32,7 +32,7 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
     <a href="index.php?action=home" class="nav-item">Home</a>
     <a href="index.php?action=members" class="nav-item">Members</a>
     <a href="index.php?action=projects" class="nav-item">Projects</a>
-    <a href="index.php?action=news" class="nav-item">News</a>
+    <a href="index.php?action=news" class="nav-item selected-navbar">News</a>
   </nav>
 </header>
 
