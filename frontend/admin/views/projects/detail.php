@@ -10,6 +10,12 @@ $mode = $activity ? 'edit' : 'create';
   <link rel="stylesheet" href="views/css/projects.css">
 </head>
 <body>
+
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
+
 <div class="admin-header">
   <div class="logo">Lab Admin Page</div>
   <nav class="nav">
@@ -96,6 +102,13 @@ $mode = $activity ? 'edit' : 'create';
 </main>
 
 <div id="toast" class="toast"></div>
+
+<!-- FOOTER -->
+<footer class="admin-footer">
+  <div class="footer-left">© 2025 AI Lab Polinema</div>
+  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+</footer>
+
 <script src="views/js/projects.js"></script>
 </body>
 </html>

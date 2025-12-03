@@ -36,7 +36,7 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 <link rel="stylesheet" href="views/css/projects.css">
 </head>
 <body>
-  
+
 <div class="bg-layer">
   <div class="bg-image"></div>
   <div class="bg-gradient"></div>
@@ -126,6 +126,12 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 
 <!-- toast -->
 <div id="toast" class="toast"></div>
+
+<!-- FOOTER -->
+<footer class="admin-footer">
+  <div class="footer-left">© 2025 AI Lab Polinema</div>
+  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+</footer>
 
 <script src="views/js/projects.js"></script>
 
