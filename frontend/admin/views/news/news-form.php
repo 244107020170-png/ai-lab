@@ -8,7 +8,7 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
 <head>
   <meta charset="UTF-8">
   <title><?= $news ? 'Edit News' : 'Add News' ?> • Admin</title>
-  <link rel="stylesheet" href="views/css/news-form.css">
+  <link rel="stylesheet" href="views/css/admin-news.css">
 </head>
 
 <body>
