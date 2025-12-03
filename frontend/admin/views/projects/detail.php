@@ -11,22 +11,20 @@ $mode = $activity ? 'edit' : 'create';
 </head>
 <body>
 
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
+
 <div class="admin-header">
-
-  <div class="header-left">
-    <img src="views/img/logo.png" class="admin-logo">
-    <span class="admin-title">Lab Admin Page</span>
-  </div>
-
-  <nav class="header-right nav">
+  <div class="logo">Lab Admin Page</div>
+  <nav class="nav">
     <a href="index.php">Home</a>
     <a href="index.php?action=members">Members</a>
     <a class="active" href="index.php?action=projects">Projects</a>
     <a href="index.php?action=news">News</a>
   </nav>
-
 </div>
-
 
 <main class="container form-container">
   <h1>Project Management</h1>
@@ -110,7 +108,6 @@ $mode = $activity ? 'edit' : 'create';
   <div class="footer-left">© 2025 AI Lab Polinema</div>
   <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
 </footer>
-
 <script src="views/js/projects.js"></script>
 </body>
 </html>
