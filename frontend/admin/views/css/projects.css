@@ -307,27 +307,58 @@ select option {
   font-family: "Poppins", sans-serif;
 }
 
-/* NAVBAR */
-.nav-item {
-  color: #8ef1ff;
-  font-size: 17px;
-  padding: 5px 14px;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: 0.25s ease;
+/* =============================== */
+/* 🔥 NAVBAR FIX – MATCH NEWS STYLE */
+/* =============================== */
+
+/* Wrapper header */
+.admin-header {
+    width: 90%;
+    max-width: 1250px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.nav-item:hover {
-  color: white;
-  transform: translateY(-1px);
+/* Logo container */
+.header-left, .header-right {
+    background: rgba(0,0,0,0.34);
+    outline: 1px solid rgba(255,255,255,0.12);
+    border-radius: 60px;
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    backdrop-filter: blur(6px);
 }
 
-.selected-navbar {
-  background: linear-gradient(246deg, #03d3f1, #027a8b);
-  color: white !important;
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-weight: 500;
+/* Navbar link (like news page) */
+.nav a {
+    color: #8ef1ff !important;
+    font-size: 17px;
+    padding: 6px 16px;
+    border-radius: 30px;
+    text-decoration: none !important;
+    transition: .25s ease;
+}
+
+.nav a:hover {
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+/* Active nav style */
+.nav a.active {
+    background: linear-gradient(246deg, #03d3f1, #027a8b);
+    color: white !important;
+    font-weight: 500;
+}
+
+/* Remove the old default nav spacing */
+.nav {
+    display: flex;
+    gap: 8px;
 }
 
 /* FOOTER */
