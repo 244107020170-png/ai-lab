@@ -131,14 +131,6 @@
 
 </div>
 
-<!-- FOOTER -->
-<footer class="admin-footer">
-  <div class="footer-left">© 2025 AI Lab Polinema</div>
-  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
-</footer>
-
-<script src="views/js/admin-news.js"></script>
-
 <!-- DELETE MODAL -->
 <div id="deleteModal" class="modal-overlay" style="display:none;">
   <div class="modal-window glass-panel">
@@ -151,6 +143,14 @@
       </div>
   </div>
 </div>
+
+<!-- FOOTER -->
+<footer class="admin-footer">
+  <div class="footer-left">© 2025 AI Lab Polinema</div>
+  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+</footer>
+
+<script src="views/js/admin-news.js"></script>
 
 </body>
 </html>
