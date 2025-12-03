@@ -34,7 +34,7 @@
 <!-- TITLE -->
 <section class="admin-section-title">
   <h1>News Management</h1>
-  <p>Manage all published news and highlights on the website.</p>
+  <p>Manage the News and Research Highlight that will be shown in the website. You can set which three news that will be displayed in the main website.</p>
 </section>
 
 <!-- CONTROLS -->

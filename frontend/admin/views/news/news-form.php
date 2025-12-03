@@ -173,13 +173,6 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
         <textarea name="quote" rows="3"><?= htmlspecialchars($news['quote'] ?? '') ?></textarea>
       </label>
 
-      <div class="form-actions">
-        <a href="index.php?action=news" class="btn-outline">Discard</a>
-        <button type="submit" id="saveBtn" class="btn-solid">
-          <?= $news ? 'Update' : 'Save' ?>
-        </button>
-      </div>
-
     </div>
   </div>
 
