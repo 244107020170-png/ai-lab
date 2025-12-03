@@ -325,8 +325,10 @@ body {
     grid-template-columns: 1fr;
   }
 }
-/* Fix dropdown inside form (Add/Edit) */
-.form-container select {
+/* === FIX SELECT DROPDOWN IN ADD/EDIT NEWS === */
+
+.field select,
+.two-inline select {
     background: rgba(0,0,0,0.35) !important;
     color: #e8feff !important;
     border: 1px solid rgba(255,255,255,0.18);
@@ -334,8 +336,9 @@ body {
     backdrop-filter: blur(4px);
 }
 
-/* Dropdown options */
-.form-container select option {
-    background: #0f2c2f !important; 
+/* Dropdown internal options */
+.field select option,
+.two-inline select option {
+    background: #0f2c2f !important;
     color: #e8feff !important;
 }
