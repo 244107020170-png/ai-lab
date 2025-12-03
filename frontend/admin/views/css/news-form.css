@@ -1,79 +1,344 @@
-/* news-form.css
-   Follows the admin theme: glass, blur, rounded cards
-*/
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-*{box-sizing:border-box}
 body {
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(180deg,#0F2027 0%, #203A43 50%, #2C5364 100%);
-  color: #fff;
-  margin:0;
-  min-height:100vh;
+  font-family: "Inter", sans-serif;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* background & header classes (reuse if present) */
-.bg-layer { position: fixed; inset:0; z-index:-2; pointer-events:none; }
-.bg-image { position:absolute; inset:0; background-image:url('../img/background3.jpg'); background-size:cover; opacity:0.25; }
-.bg-gradient { position:absolute; inset:0; background: linear-gradient(#0F2027,#203A43,#2C5364); z-index:-1; }
-
-.admin-header { margin:20px auto; width:90%; max-width:1250px; display:flex; justify-content:space-between; align-items:center; }
-.admin-logo{ height:38px; }
-.admin-title{ font-size:20px; color:rgba(255,255,255,0.75); margin-left:10px }
-
-/* shared glass */
-.glass-pill { background: rgba(0,0,0,0.67); border-radius:34px; padding:8px 18px; backdrop-filter:blur(16px); display:flex; align-items:center; gap:12px; }
-.glass-panel { background: rgba(0,0,0,0.34); border-radius:11px; outline:1px solid rgba(255,255,255,0.11); backdrop-filter: blur(6px); padding:20px; margin:30px auto; width:90%; max-width:1164px; }
-
-/* title */
-.admin-section-title { width:90%; max-width:934px; margin:60px auto 10px; }
-.admin-section-title h1 { font-size:36px; font-weight:700; font-family:Poppins; text-shadow:0 5px 10px rgba(0,224,255,0.4); }
-.admin-section-title p { margin-top:10px; color:#AEBACB }
-
-/* unsaved banner */
-.unsaved-banner { width:90%; max-width:1164px; margin: 20px auto; display:flex; justify-content:space-between; align-items:center; padding:10px 20px; border-radius:11px; background:rgba(0,0,0,0.34); outline:1px solid rgba(255,255,255,0.11); }
-.unsaved-left { display:flex; align-items:center; gap:12px }
-.unsaved-left .dot { width:14px; height:14px; background:#8EF1FF; border-radius:50% }
-.unsaved-text { color:rgba(255,255,255,0.85) }
-.unsaved-actions { display:flex; gap:10px }
-.btn-outline { background:transparent; border:1px solid rgba(255,255,255,0.18); padding:8px 14px; color:#fff; border-radius:8px; text-decoration:none; display:inline-block }
-.btn-solid { background: linear-gradient(246deg,#03D3F1,#027A8B); padding:8px 14px; border-radius:8px; color:#fff; border: none; cursor:pointer }
-
-/* form layout */
-.news-form .form-grid { display:flex; gap:24px; }
-.news-form .col-left { width:320px }
-.news-form .col-right { flex:1 }
-
-/* image block */
-.image-block { display:flex; gap:12px; margin-bottom:18px; align-items:flex-start }
-.image-preview { width:185px; height:112px; background:rgba(255,255,255,0.03); border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; outline:2px solid rgba(255,255,255,0.08) }
-.image-preview img { width:100%; height:100%; object-fit:cover }
-.image-meta { flex:1; }
-.upload-btn { display:inline-block; padding:8px 12px; border-radius:8px; background:rgba(0,0,0,0.34); border:1px solid rgba(255,255,255,0.11); cursor:pointer; }
-.upload-btn input { display:none }
-.filename { color:rgba(255,255,255,0.7); margin-top:8px }
-.hint { color:rgba(255,255,255,0.45); font-size:13px; margin-top:6px }
-
-/* fields */
-.field { display:block; margin-bottom:14px }
-.field .label { color:rgba(255,255,255,0.75); margin-bottom:6px; font-size:15px }
-.field input[type="text"], .field input[type="date"], .field select, .field textarea {
-  width:100%;
-  padding:12px 14px;
-  background: rgba(0,0,0,0.34);
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,0.06);
-  color:#fff;
-  outline:none;
-  resize:vertical;
+/* ============================================================
+   BACKGROUND LAYER
+============================================================ */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
 }
-.two-inline { display:flex; gap:12px; justify-content:space-between }
-.two-inline > div { flex:1 }
 
-.form-actions { display:flex; gap:12px; justify-content:flex-end; margin-top:8px }
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/background3.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+}
 
-/* responsive */
-@media (max-width: 980px) {
-  .news-form .form-grid { flex-direction:column }
-  .news-form .col-left { width:100% }
-  .image-preview { width:100%; height:220px }
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  z-index: -1;
+}
+
+/* ============================================================
+   GLASS ELEMENTS
+============================================================ */
+.glass-panel {
+  background: rgba(0, 0, 0, 0.32);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+/* ============================================================
+   HEADER (Same as News List)
+============================================================ */
+.admin-header {
+  width: 90%;
+  max-width: 1250px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left,
+.header-right {
+  padding: 8px 18px;
+  border-radius: 60px !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-logo {
+  height: 38px;
+}
+
+.admin-title {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: "Poppins", sans-serif;
+}
+
+.nav-item {
+  color: #8ef1ff;
+  font-size: 17px;
+  padding: 5px 14px;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.nav-item:hover {
+  color: white;
+  transform: translateY(-1px);
+}
+
+/* Tidak ada selected-navbar (karena add/edit page tidak highlight menu) */
+
+/* ============================================================
+   PAGE TITLE
+============================================================ */
+.admin-section-title {
+  width: 90%;
+  max-width: 934px;
+  margin: 60px auto 20px;
+}
+
+.admin-section-title h1 {
+  font-size: 36px;
+  font-weight: 700;
+  font-family: "Poppins", sans-serif;
+  text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4);
+}
+
+.admin-section-title p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #aebacb;
+}
+
+/* ============================================================
+   FORM GRID LAYOUT
+============================================================ */
+.news-form {
+  width: 90%;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 30px;
+}
+
+
+/* ============================================================
+   IMAGE BLOCKS
+============================================================ */
+.image-block {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 20px;
+}
+
+.image-preview {
+  width: 100%;
+  height: 180px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-btn {
+  margin-top: 10px;
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upload-btn input {
+  display: none;
+}
+
+.filename {
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.hint {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.55;
+}
+
+/* ============================================================
+   INPUT + TEXTAREA + SELECT
+============================================================ */
+.field {
+  margin-bottom: 18px;
+}
+
+.field .label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: rgba(255,255,255,0.85);
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.92);
+  font-size: 15px;
+}
+
+.two-inline {
+  display: flex;
+  gap: 20px;
+}
+
+.two-inline div {
+  flex: 1;
+}
+
+/* Created At + Status should look softer */
+.two-inline input,
+.two-inline select {
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.9);
+}
+
+/* ============================================================
+   ACTION BUTTONS
+============================================================ */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.btn-outline {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.35);
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-solid {
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: linear-gradient(246deg,#03d3f1,#027a8b);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* ============================================================
+   UNSAVED BANNER
+============================================================ */
+.unsaved-banner {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 14px 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 1100px;
+  margin: 15px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.unsaved-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.unsaved-left .dot {
+  width: 12px;
+  height: 12px;
+  background: #ffb74d;
+  border-radius: 50%;
+}
+
+.unsaved-actions button {
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+.admin-footer {
+  width: 100%;
+  height: 90px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 120px;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.footer-left,
+.footer-right {
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-right span {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVE FIX
+============================================================ */
+@media (max-width: 900px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* === FIX SELECT DROPDOWN IN ADD/EDIT NEWS === */
+
+.field select,
+.two-inline select {
+    background: rgba(0,0,0,0.35) !important;
+    color: #e8feff !important;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 8px;
+    backdrop-filter: blur(4px);
+}
+
+/* Dropdown internal options */
+.field select option,
+.two-inline select option {
+    background: #0f2c2f !important;
+    color: #e8feff !important;
 }

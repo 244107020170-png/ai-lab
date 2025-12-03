@@ -1,177 +1,189 @@
 <?php
-// news-form.php
-// Usage:
-// - For ADD: set $news = null
-// - For EDIT: set $news = associative array from DB (keys: id, title, category, excerpt, content, created_at, quote, image_thumb, image_detail, status)
-
-// safe defaults
-$news = $news ?? null;
-$categories = $categories ?? []; // pass from controller: unique category list
+// $news = null (add) atau array (edit)
+// $categories dari controller sudah benar
 $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_store";
 ?>
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
   <title><?= $news ? 'Edit News' : 'Add News' ?> • Admin</title>
-
+  <link rel="stylesheet" href="views/css/admin-news.css">
   <link rel="stylesheet" href="views/css/news-form.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- background + header: try include project's header if exists -->
-<?php
-$headerPath = __DIR__ . '/../shared/header.php';
-if (file_exists($headerPath)) {
-    include $headerPath;
-} else {
-    // fallback header (kept minimal but matches style)
-    ?>
-    <div class="bg-layer" aria-hidden="true">
-      <div class="bg-image"></div>
-      <div class="bg-gradient"></div>
-    </div>
+<!-- BACKGROUND -->
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
 
-    <div class="admin-header glass-pill">
-      <div class="admin-header-left">
-        <img src="views/img/logowhite.png" alt="logo" class="admin-logo">
-        <span class="admin-title">Lab Admin Page</span>
-      </div>
-      <nav class="admin-nav glass-pill">
-        <a href="index.php?action=home" class="nav-item">Home</a>
-        <a href="index.php?action=members" class="nav-item">Members</a>
-        <a href="index.php?action=projects" class="nav-item">Projects</a>
-        <a href="index.php?action=news" class="nav-item nav-active">News</a>
-      </nav>
-    </div>
-    <?php
-}
-?>
-
-<main class="main-container">
-  <section class="admin-section-title">
-    <h1><?= $news ? 'Edit News' : 'Add News' ?></h1>
-    <p>Manage the news that will be shown in the website. Keep styling consistent with the admin panel.</p>
-  </section>
-
-  <!-- unsaved changes banner -->
-  <div id="unsavedBanner" class="unsaved-banner" style="display:none">
-    <div class="unsaved-left">
-      <div class="dot"></div>
-      <div class="unsaved-text">You have unsaved changes.</div>
-    </div>
-    <div class="unsaved-actions">
-      <button id="discardBtn" type="button" class="btn-outline">Discard</button>
-      <button id="saveBannerBtn" type="button" class="btn-solid">Save</button>
-    </div>
+<!-- HEADER (same as news-list, no active navbar on form pages) -->
+<header class="admin-header">
+  <div class="leBox header-left">
+    <a href="index.php?action=home">
+      <img src="views/img/logo.png" class="admin-logo">
+    </a>
+    <span class="admin-title">Lab Admin Page</span>
   </div>
 
-  <form id="newsForm" class="glass-panel news-form" action="<?= $actionUrl ?>" method="post" enctype="multipart/form-data" novalidate>
-    <!-- If editing -->
-    <?php if ($news): ?>
-      <input type="hidden" name="id" value="<?= htmlspecialchars($news['id']) ?>">
-    <?php endif; ?>
+  <nav class="leBox header-right">
+    <a href="index.php?action=home" class="nav-item">Home</a>
+    <a href="index.php?action=members" class="nav-item">Members</a>
+    <a href="index.php?action=projects" class="nav-item">Projects</a>
+    <a href="index.php?action=news" class="nav-item selected-navbar">News</a>
+  </nav>
+</header>
 
-    <div class="form-grid">
-      <!-- left column: images & brief -->
-      <div class="col-left">
-        <div class="image-block">
-          <div class="image-preview">
-            <img id="thumbPreview" src="<?= $news['image_thumb'] ?? 'views/img/placeholder-185x112.png' ?>" alt="Thumbnail preview">
-          </div>
-          <div class="image-meta">
-            <label class="upload-btn">
-              Upload Thumbnail
-              <input id="thumbInput" name="image_thumb" type="file" accept="image/png,image/jpeg">
-            </label>
-            <div id="thumbFilename" class="filename"><?= $news['image_thumb'] ? basename($news['image_thumb']) : '' ?></div>
-            <div class="hint">Please upload PNG/JPG. Max 5MB. Resized to 600px width.</div>
-          </div>
+<!-- TITLE -->
+<section class="admin-section-title">
+  <h1><?= $news ? 'Edit News' : 'Add News' ?></h1>
+  <p>Fill in the fields below to manage news content displayed on the website.</p>
+</section>
+
+<!-- UNSAVED BANNER -->
+<div id="unsavedBanner" class="unsaved-banner" style="display:none;">
+    <div class="unsaved-left">
+        <div class="dot"></div>
+        <span>You have unsaved changes.</span>
+    </div>
+    <div class="unsaved-actions">
+        <button type="button" id="discardBtn" class="btn-outline">Discard</button>
+        <button type="button" id="saveBannerBtn" class="btn-solid">Save</button>
+    </div>
+</div>
+
+<!-- FORM -->
+<form id="newsForm" class="glass-panel news-form"
+      action="<?= $actionUrl ?>"
+      method="post"
+      enctype="multipart/form-data"
+      novalidate>
+
+  <?php if ($news): ?>
+    <input type="hidden" name="id" value="<?= $news['id'] ?>">
+  <?php endif; ?>
+
+  <div class="form-grid">
+
+    <!-- LEFT IMAGE COLUMN -->
+    <div class="col-left">
+
+      <!-- Thumbnail -->
+      <div class="image-block">
+        <div class="image-preview">
+          <img id="thumbPreview"
+               src="<?= $news['image_thumb'] ?? 'views/img/placeholder-185x112.png' ?>">
         </div>
 
-        <div class="image-block">
-          <div class="image-preview">
-            <img id="detailPreview" src="<?= $news['image_detail'] ?? 'views/img/placeholder-185x112.png' ?>" alt="Detail preview">
+        <div class="image-meta">
+          <label class="upload-btn">
+            Upload Thumbnail
+            <input type="file" name="image_thumb" id="thumbInput"
+                   accept="image/png,image/jpeg" <?= $news ? '' : 'required' ?>>
+          </label>
+          <div id="thumbFilename" class="filename">
+            <?= $news['image_thumb'] ? basename($news['image_thumb']) : '' ?>
           </div>
-          <div class="image-meta">
-            <label class="upload-btn">
-              Upload Detail Image
-              <input id="detailInput" name="image_detail" type="file" accept="image/png,image/jpeg" <?= $news ? '' : 'required' ?>>
-            </label>
-            <div id="detailFilename" class="filename"><?= $news['image_detail'] ? basename($news['image_detail']) : '' ?></div>
-            <div class="hint">Required. PNG/JPG. Max 5MB. Resized to 1200px width.</div>
-          </div>
+          <div class="hint">PNG/JPG — max 5MB — resized to width 600px</div>
         </div>
-
       </div>
 
-      <!-- right column: inputs -->
-      <div class="col-right">
-        <label class="field">
-          <div class="label">News Title</div>
-          <input type="text" name="title" value="<?= htmlspecialchars($news['title'] ?? '') ?>" required>
+      <!-- Detail Image -->
+      <div class="image-block">
+        <div class="image-preview">
+          <img id="detailPreview"
+               src="<?= $news['image_detail'] ?? 'views/img/placeholder-185x112.png' ?>">
+        </div>
+
+        <div class="image-meta">
+          <label class="upload-btn">
+            Upload Detail Image
+            <input type="file" name="image_detail" id="detailInput"
+                   accept="image/png,image/jpeg" <?= $news ? '' : 'required' ?>>
+          </label>
+          <div id="detailFilename" class="filename">
+            <?= $news['image_detail'] ? basename($news['image_detail']) : '' ?>
+          </div>
+          <div class="hint">Required — PNG/JPG — max 5MB — resized to width 1200px</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+
+      <label class="field">
+        <span class="label">News Title</span>
+        <input type="text" name="title"
+               value="<?= htmlspecialchars($news['title'] ?? '') ?>"
+               required>
+      </label>
+
+      <label class="field">
+        <span class="label">Category</span>
+        <select name="category" required>
+          <option value="">-- Select Category --</option>
+
+          <?php
+          // 4 kategori fixed yang kamu minta
+          $fixedCats = ['award', 'collaboration', 'innovation', 'research'];
+          ?>
+          <?php foreach ($fixedCats as $cat): ?>
+            <option value="<?= $cat ?>"
+              <?= (isset($news['category']) && $news['category'] === $cat) ? 'selected' : '' ?>>
+              <?= $cat ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      </label>
+
+      <label class="field">
+        <span class="label">Brief Description</span>
+        <textarea name="excerpt" rows="4" required><?= htmlspecialchars($news['excerpt'] ?? '') ?></textarea>
+      </label>
+
+      <label class="field">
+        <span class="label">Full Content</span>
+        <textarea name="content" rows="7"><?= htmlspecialchars($news['content'] ?? '') ?></textarea>
+      </label>
+
+      <div class="two-inline">
+
+        <label class="field small">
+          <span class="label">Created At</span>
+          <input type="date" name="created_at"
+            value="<?= isset($news['created_at']) ? date('Y-m-d', strtotime($news['created_at'])) : date('Y-m-d') ?>">
         </label>
 
-        <label class="field">
-          <div class="label">Category</div>
-          <select name="category" required>
-            <option value="">-- Select category --</option>
-            <?php foreach ($categories as $cat): ?>
-              <option value="<?= htmlspecialchars($cat) ?>" <?= (isset($news['category']) && $news['category'] === $cat) ? 'selected' : '' ?>>
-                <?= htmlspecialchars($cat) ?>
-              </option>
-            <?php endforeach; ?>
+        <label class="field small">
+          <span class="label">Status</span>
+          <select name="status">
+            <option value="none"  <?= isset($news['status']) && $news['status']==='none' ? 'selected':''; ?>>none</option>
+            <option value="main" <?= isset($news['status']) && $news['status']==='main' ? 'selected':''; ?>>main</option>
           </select>
         </label>
 
-        <label class="field">
-          <div class="label">Brief Description</div>
-          <textarea name="excerpt" rows="5" required><?= htmlspecialchars($news['excerpt'] ?? '') ?></textarea>
-        </label>
-
-        <label class="field">
-          <div class="label">Full Content</div>
-          <textarea name="content" rows="8"><?= htmlspecialchars($news['content'] ?? '') ?></textarea>
-        </label>
-
-        <label class="two-inline">
-          <div>
-            <div class="label">Created At</div>
-            <input type="date" name="created_at" value="<?= isset($news['created_at']) ? date('Y-m-d', strtotime($news['created_at'])) : date('Y-m-d') ?>">
-          </div>
-
-          <div>
-            <div class="label">Status</div>
-            <select name="status">
-              <option value="none" <?= (isset($news['status']) && $news['status'] === 'none') ? 'selected' : '' ?>>none</option>
-              <option value="main" <?= (isset($news['status']) && $news['status'] === 'main') ? 'selected' : '' ?>>main</option>
-            </select>
-          </div>
-        </label>
-
-        <label class="field">
-          <div class="label">Short Quote</div>
-          <textarea name="quote" rows="3"><?= htmlspecialchars($news['quote'] ?? '') ?></textarea>
-        </label>
-
-        <div class="form-actions">
-          <a href="index.php?action=news" class="btn-outline">Discard</a>
-          <button id="saveBtn" type="submit" class="btn-solid"><?= $news ? 'Update' : 'Save' ?></button>
-        </div>
       </div>
+
+      <label class="field">
+        <span class="label">Short Quote</span>
+        <textarea name="quote" rows="3"><?= htmlspecialchars($news['quote'] ?? '') ?></textarea>
+      </label>
+
     </div>
-  </form>
+  </div>
 
-  <div style="height:40px;"></div>
-</main>
+</form>
 
-<?php
-$footerPath = __DIR__ . '/../shared/footer.php';
-if (file_exists($footerPath)) include $footerPath;
-?>
+<!-- FOOTER -->
+<footer class="admin-footer">
+  <div class="footer-left">© 2025 AI Lab Polinema</div>
+  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+</footer>
 
 <script src="views/js/news-form.js"></script>
 </body>

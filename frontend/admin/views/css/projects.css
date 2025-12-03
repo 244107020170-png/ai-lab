@@ -11,8 +11,6 @@
 body{font-family: "Poppins", sans-serif; margin:0; background:linear-gradient(180deg,#031d26 0%, #072936 100%); color:#e6f7f7}
 .admin-header{display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:transparent}
 .admin-header .logo{font-weight:600}
-.nav a{color:var(--muted);margin-left:18px;text-decoration:none;padding:8px 14px;border-radius:24px}
-.nav a.active{background:linear-gradient(90deg,#0f8a8a,#47c7c7); color:#fff; box-shadow:0 8px 24px rgba(0,0,0,0.35)}
 .container{max-width:1100px;margin:28px auto;padding:0 18px}
 h1{font-size:36px;margin:8px 0 4px}
 .lead{color:var(--muted);margin-bottom:18px}
@@ -68,7 +66,13 @@ h1{font-size:36px;margin:8px 0 4px}
 }
 
 /* form */
-.form-container .card{background:rgba(255,255,255,0.02);padding:18px;border-radius:12px}
+.form-container .card {
+  background: rgba(0, 0, 0, 0.34) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  backdrop-filter: blur(6px);
+  padding: 25px;
+}
 .form-container label{display:block;margin-top:12px;color:var(--muted);font-size:14px}
 .form-container input[type="text"],
 .form-container input[type="date"],
@@ -231,4 +235,163 @@ select option {
 .dots-menu a:hover {
     background: rgba(255,255,255,0.08);
     padding-left: 18px;
+}
+
+/* === ADD NEWS-STYLE BACKGROUND TO PROJECTS === */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url("../img/background3.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+}
+
+.bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  z-index: -1;
+}
+
+/* === MATCH TABLE OPACITY LIKE NEWS === */
+.table-card {
+  background: rgba(0,0,0,0.34) !important;  /* glass transparency */
+  outline: 1px solid rgba(255,255,255,0.12);
+  border-radius: 11px;
+  backdrop-filter: blur(6px);
+  box-shadow: none !important;
+}
+
+.table-row:hover {
+  background: rgba(255,255,255,0.08) !important;
+  transform: none; /* hilang efek geser */
+}
+/* GLASS ELEMENTS */
+.leBox,
+.glass-box,
+.glass-panel {
+  background: rgba(0, 0, 0, 0.34);
+  outline: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  backdrop-filter: blur(6px);
+}
+
+/* HEADER */
+.admin-header {
+  width: 90%;
+  max-width: 1250px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left,
+.header-right {
+  padding: 8px 18px;
+  border-radius: 60px !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-logo {
+  height: 38px;
+}
+
+.admin-title {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: "Poppins", sans-serif;
+}
+
+/* =============================== */
+/* 🔥 NAVBAR FIX – MATCH NEWS STYLE */
+/* =============================== */
+
+/* Wrapper header */
+.admin-header {
+    width: 90%;
+    max-width: 1250px;
+    margin: 25px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Logo container */
+.header-left, .header-right {
+    background: rgba(0,0,0,0.34);
+    outline: 1px solid rgba(255,255,255,0.12);
+    border-radius: 60px;
+    padding: 10px 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    backdrop-filter: blur(6px);
+}
+
+/* Navbar link (like news page) */
+.nav a {
+    color: #8ef1ff !important;
+    font-size: 17px;
+    padding: 6px 16px;
+    border-radius: 30px;
+    text-decoration: none !important;
+    transition: .25s ease;
+}
+
+.nav a:hover {
+    color: white !important;
+    transform: translateY(-1px);
+}
+
+/* Active nav style */
+.nav a.active {
+    background: linear-gradient(246deg, #03d3f1, #027a8b);
+    color: white !important;
+    font-weight: 500;
+}
+
+/* Remove the old default nav spacing */
+.nav {
+    display: flex;
+    gap: 8px;
+}
+
+/* FOOTER */
+.admin-footer {
+  width: 100%;
+  height: 90px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 120px;
+  background: rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(8px) saturate(130%);
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+
+.footer-left,
+.footer-right {
+  font-size: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-right span {
+  text-decoration: underline;
+}
+
+/* FIX DATE PICKER ICON COLOR */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }

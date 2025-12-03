@@ -37,19 +37,31 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 </head>
 <body>
 
+<div class="bg-layer">
+  <div class="bg-image"></div>
+  <div class="bg-gradient"></div>
+</div>
+
 <div class="admin-header">
-  <div class="logo">Lab Admin Page</div>
-  <nav class="nav">
+
+  <div class="header-left">
+    <img src="views/img/logo.png" class="admin-logo">
+    <span class="admin-title">Lab Admin Page</span>
+  </div>
+
+  <nav class="header-right nav">
     <a href="index.php">Home</a>
     <a href="index.php?action=members">Members</a>
     <a class="active" href="index.php?action=projects">Projects</a>
-    <a href="index.php?action=admin-news">News</a>
+    <a href="index.php?action=news" class="nav-item">News</a>
   </nav>
+
 </div>
+
 
 <main class="container">
   <h1>Project Management</h1>
-  <p class="lead">Manage the projects that will be shown in the website.</p>
+  <p class="lead">Manage the projects that will be shown in the website. Freely edit on who participated in the project, what is the current status of the projects, and the link towards the document if any. If there isn’t, just upload the PDF file of the document.</p>
 
   <div class="controls">
     <!-- SEARCH + FILTER IN ONE FORM -->
@@ -121,6 +133,12 @@ $pages = ($total>0) ? ceil($total / $limit) : 1;
 
 <!-- toast -->
 <div id="toast" class="toast"></div>
+
+<!-- FOOTER -->
+<footer class="admin-footer">
+  <div class="footer-left">© 2025 AI Lab Polinema</div>
+  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+</footer>
 
 <script src="views/js/projects.js"></script>
 
