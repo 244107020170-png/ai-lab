@@ -35,21 +35,28 @@
     const rows = getRows();
 
     rows.forEach((row) => {
-      const { title, id, category } = rowValues(row);
-      let visible = true;
+        const { title, id, category } = rowValues(row);
+        let visible = true;
 
-      if (q && !(title.toLowerCase().includes(q) || id.toLowerCase().includes(q)))
-        visible = false;
+        if (q && !(title.toLowerCase().includes(q) || id.toLowerCase().includes(q)))
+            visible = false;
 
-      if (visible && selectedCat && category !== selectedCat)
-        visible = false;
+        if (visible && selectedCat && category !== selectedCat)
+            visible = false;
 
-      row.style.display = visible ? "grid" : "none";
+        row.style.display = visible ? "grid" : "none";
+    });
+
+    // Animasi soft 
+    rows.forEach(row => {
+        if (row.style.display !== "none") {
+            row.classList.add("soft-appear");
+        }
     });
 
     applySort();
     updatePaginationVisibility(q || selectedCat);
-  }
+}
 
   function applySort() {
     if (!sortSelect) return;
@@ -86,6 +93,22 @@
       t = setTimeout(() => fn(...args), ms);
     };
   }
+
+  function renderResults(results) {
+    const container = document.querySelector(".news-list");
+    container.innerHTML = "";
+
+    results.forEach(item => {
+        const row = document.createElement("div");
+        row.classList.add("news-item", "soft-appear");
+        row.innerHTML = `
+            <h3>${item.title}</h3>
+            <p>${item.category}</p>
+            <p>${item.date}</p>
+        `;
+        container.appendChild(row);
+    });
+}
 
   if (searchInput)
     searchInput.addEventListener("input", debounce(applyFiltersAndSort, 140));
