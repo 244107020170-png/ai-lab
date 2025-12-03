@@ -200,11 +200,11 @@
     </p>
 
     <!-- BUTTON -->
-    <a href="https://maps.app.goo.gl/JkrYFQFsuwCcxGHK6" target="_blank" rel="noopener">
-       target="_blank"
-       class="bg-sky-600 hover:bg-sky-700 text-white font-semibold text-lg px-10 py-3 rounded-full shadow transition flex items-center gap-2">
-      📍 Open in Google Maps
-    </a>
+    <a href="https://maps.app.goo.gl/JkrYFQFsuwCcxGHK6"
+   target="_blank" rel="noopener"
+   class="bg-sky-600 hover:bg-sky-700 text-white font-semibold text-lg px-10 py-3 rounded-full shadow transition flex items-center gap-2">
+  📍 Open in Google Maps
+</a>
   </div>
 </div>
 
@@ -224,16 +224,16 @@
 
       <!-- Full Name -->
       <div>
-        <label class="text-neutral-700 text-xl font-semibold">Full Name</label>
+        <label for="fullName" class="text-neutral-700 text-xl font-semibold">Full Name</label>
         <input 
-          type="text"
-          class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
-                 px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
+  id="fullName"
+  type="text"
+  class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
+         px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
       </div>
 
       <!-- Study Program -->
         <div>
-          <label class="text-neutral-700 text-xl font-semibold">Study Program</label>
           <label for="studyProgram" class="text-neutral-700 text-xl font-semibold">
             Study Program
           </label>
@@ -261,17 +261,17 @@
 
       <!-- Semester -->
       <div>
-        <label class="text-neutral-700 text-xl font-semibold">Semester</label>
-        <input 
-          type="number" min="1" max="14"
-          class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
-                 px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
+        <label for="semester" class="text-neutral-700 text-xl font-semibold">Semester</label>
+        <input id="semester" type="number" min="1" max="14"
+       class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
+              px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
+
       </div>
 
       <!-- Phone Number -->
       <div>
         <label class="text-neutral-700 text-xl font-semibold">Phone Number</label>
-        <input 
+        <input id="phone" 
           type="text"
           class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
                  px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
@@ -280,7 +280,7 @@
       <!-- Email -->
       <div>
         <label class="text-neutral-700 text-xl font-semibold">Email</label>
-        <input 
+        <input id="email"
           type="email"
           class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
                  px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
@@ -294,7 +294,7 @@
         Why do you want to use our lab?
       </label>
 
-      <textarea 
+      <textarea id="reason"
         class="w-full h-[380px] bg-white border border-gray-300 rounded-2xl shadow-sm 
                p-4 text-lg outline-none resize-none focus:ring-2 focus:ring-sky-400 transition"></textarea>
     </div>

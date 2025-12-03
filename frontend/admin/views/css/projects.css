@@ -390,3 +390,8 @@ select option {
 .footer-right span {
   text-decoration: underline;
 }
+
+/* FIX DATE PICKER ICON COLOR */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+}
