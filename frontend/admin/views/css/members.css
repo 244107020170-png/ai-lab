@@ -328,3 +328,23 @@
 .status-inactive {
     background-color: #ef4444; /* red */
 }
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: #1d2a35;
+    padding: 20px;
+    border-radius: 14px;
+    width: 450px;
+}

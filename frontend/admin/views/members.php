@@ -205,6 +205,77 @@
         </div>
         <!-- /.Members Lists -->
 
+        <!-- Volunteer List -->
+        <?php 
+        require_once __DIR__ . '/../models/Volunteer.php';
+        $volunteers = (new Volunteer())->getAll();
+        ?>
+            <div class="search-filter">
+    <div class="leBox search-box">
+        <img src="views/img/maginifier-icon.png" alt="">
+        <input type="text" placeholder="Search Volunteer" id="vSearch" class="search-text">
+    </div>
+
+    <div class="filter-container">
+        <div class="leBox filter-box" onclick="toggleVolunteerFilter()">
+            <span id="vFilterLabel">Filter</span>
+            <img src="views/img/arrow-down.png" class="filter-arrow">
+        </div>
+
+        <div class="filter-dropdown" id="vFilterDropdown">
+            <div onclick="setVolunteerFilter('Pending')">Pending</div>
+            <div onclick="setVolunteerFilter('Approved')">Approved</div>
+            <div onclick="setVolunteerFilter('Rejected')">Rejected</div>
+            <div onclick="setVolunteerFilter('All')">All</div>
+        </div>
+    </div>
+</div>
+
+            <div class="leBox member-container" style="margin-top: 40px;">
+  <div class="member-inner">
+
+    <div class="member-header">
+        <div class="member-title">Volunteer Applicants</div>
+    </div>
+
+    <table class="member-table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Program</th>
+        <th>Semester</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    <?php foreach ($volunteers as $v): ?>
+    <tr class="vol-row" data-status="<?= $v['status'] ?>">
+        <td><?= $v['id'] ?></td>
+        <td><?= $v['full_name'] ?></td>
+        <td><?= $v['study_program'] ?></td>
+        <td><?= $v['semester'] ?></td>
+        <td>
+            <span class="status-dot 
+                <?= $v['status'] === 'Pending' ? 'status-warning' : 
+                   ($v['status'] === 'Approved' ? 'status-active' : 'status-inactive') ?>">
+            </span>
+            <?= $v['status'] ?>
+        </td>
+
+        <td>
+            <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="member-btn-action">View</button>
+            <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="member-btn-action">Approve</a>
+            <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="member-btn-action">Reject</a>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+</table>
+
+
+  </div>
+</div>
+
+
         <!-- Footer Section -->
         <footer class="footer">
             <div>
@@ -224,6 +295,18 @@
         <!-- /.Footer Section -->
     </div>
     <!-- /.Main Container -->
+
+<!-- Volunteer Detail Modal -->
+<div id="volunteerModal" class="modal hidden">
+    <div class="modal-content leBox">
+        <h2 style="margin-bottom:10px;">Volunteer Details</h2>
+
+        <table class="member-table" id="volunteerDetailTable"></table>
+
+        <button onclick="closeVolunteerModal()" class="member-btn-action" 
+                style="margin-top:15px;">Close</button>
+    </div>
+</div>
 
     <script src="views/js/members.js"></script>
 </body>

@@ -178,7 +178,10 @@
       </div>
 
       <div class="md:col-span-2 mt-24">
-        <form id="volunteerForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form id="volunteerForm" 
+      action="http://localhost/admin/volunteer_process.php" 
+      method="POST" 
+      class="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           <!-- Left -->
           <div class="space-y-4">
@@ -223,12 +226,12 @@
             <fieldset>
               <legend class="text-slate-200 font-semibold">Interest & Commitment</legend>
               <div class="mt-3 grid grid-cols-2 gap-2">
-                <label class="flex items-center gap-2"><input type="checkbox" name="area" value="AI" class="accent-cyan-400" /> <span class="text-slate-200">Artificial Intelligence</span></label>
-                <label class="flex items-center gap-2"><input type="checkbox" name="area" value="DS" class="accent-cyan-400" /> <span class="text-slate-200">Data Science</span></label>
-                <label class="flex items-center gap-2"><input type="checkbox" name="area" value="IoT" class="accent-cyan-400" /> <span class="text-slate-200">Internet of Things</span></label>
-                <label class="flex items-center gap-2"><input type="checkbox" name="area" value="Web" class="accent-cyan-400" /> <span class="text-slate-200">Web Development</span></label>
-                <label class="flex items-center gap-2"><input type="checkbox" name="area" value="Net" class="accent-cyan-400" /> <span class="text-slate-200">Networks</span></label>
-                <label class="flex items-center gap-2"><input type="checkbox" name="area" value="Other" class="accent-cyan-400" /> <span class="text-slate-200">Other</span></label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="area[]" value="AI" class="accent-cyan-400" /> <span class="text-slate-200">Artificial Intelligence</span></label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="area[]" value="DS" class="accent-cyan-400" /> <span class="text-slate-200">Data Science</span></label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="area[]" value="IoT" class="accent-cyan-400" /> <span class="text-slate-200">Internet of Things</span></label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="area[]" value="Web" class="accent-cyan-400" /> <span class="text-slate-200">Web Development</span></label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="area[]" value="Net" class="accent-cyan-400" /> <span class="text-slate-200">Networks</span></label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="area[]" value="Other" class="accent-cyan-400" /> <span class="text-slate-200">Other</span></label>
               </div>
             </fieldset>
 
@@ -364,11 +367,12 @@
     });
 
     // Form logic
-    const form = document.getElementById('volunteerForm');
-    const processing = document.getElementById('processing');
-    const success = document.getElementById('success');
+    // Form logic
+const form = document.getElementById('volunteerForm');
+const processing = document.getElementById('processing');
+const success = document.getElementById('success');
 
-    form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const fullname = form.fullname.value.trim();
@@ -379,33 +383,38 @@
   if (!email) { alert('Please enter your email.'); form.email.focus(); return; }
   if (!agree) { alert('Please accept the agreement to continue.'); return; }
 
-  // Show processing
+  // Show processing animation
   form.closest('section').classList.add('opacity-60');
   processing.classList.remove('hidden');
   setTimeout(() => processing.classList.add('show'), 40);
-
-  // Auto scroll to processing
   processing.scrollIntoView({ behavior: "smooth", block: "center" });
 
-  // Simulate delay
-  await new Promise(r => setTimeout(r, 1800));
+  // wait animation
+  await new Promise(r => setTimeout(r, 1300));
+
+  // SEND DATA WITH AJAX
+  let response = await fetch(form.action, {
+    method: "POST",
+    body: new FormData(form)
+  });
+
+  let result = await response.json();
 
   // Hide processing
   processing.classList.remove('show');
   setTimeout(()=> processing.classList.add('hidden'), 300);
-
-  // Show success
-  success.classList.remove('hidden');
-  setTimeout(()=> success.classList.add('show'), 40);
-
-  // Clear form
-  form.reset();
   form.closest('section').classList.remove('opacity-60');
 
-  // Auto scroll to success
-  success.scrollIntoView({ behavior: "smooth", block: "center" });
+  // SUCCESS
+  if (result.success) {
+    success.classList.remove('hidden');
+    setTimeout(()=> success.classList.add('show'), 40);
+    form.reset();
+    success.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else {
+    alert("Something went wrong, please try again.");
+  }
 });
-
 
 
     // Explore button

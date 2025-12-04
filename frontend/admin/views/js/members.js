@@ -20,3 +20,55 @@ function setSort(value) {
     document.getElementById("sort-label").innerText = value;
     document.getElementById("sort-dropdown").style.display = "none";
 }
+function openVolunteerModal(id) {
+    fetch(`index.php?action=volunteer_view&id=${id}`)
+        .then(res => res.json())
+        .then(data => {
+            const table = document.getElementById("volunteerDetailTable");
+
+            table.innerHTML = `
+                <tr><th>Full Name</th><td>${data.full_name}</td></tr>
+                <tr><th>Nickname</th><td>${data.nickname}</td></tr>
+                <tr><th>Email</th><td>${data.email}</td></tr>
+                <tr><th>Phone</th><td>${data.phone}</td></tr>
+                <tr><th>Study Program</th><td>${data.study_program}</td></tr>
+                <tr><th>Semester</th><td>${data.semester}</td></tr>
+                <tr><th>Areas</th><td>${data.areas}</td></tr>
+                <tr><th>Skills</th><td>${data.skills}</td></tr>
+                <tr><th>Motivation</th><td>${data.motivation}</td></tr>
+                <tr><th>Availability</th><td>${data.availability}</td></tr>
+            `;
+
+            document.getElementById("volunteerModal").classList.remove("hidden");
+        });
+}
+
+function closeVolunteerModal() {
+    document.getElementById("volunteerModal").classList.add("hidden");
+}
+const vSearch = document.getElementById("vSearch");
+if (vSearch) {
+    vSearch.addEventListener("keyup", function () {
+        const value = this.value.toLowerCase();
+        document.querySelectorAll(".vol-row").forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+        });
+    });
+}
+
+function toggleVolunteerFilter(){
+    document.getElementById("vFilterDropdown").classList.toggle("show");
+}
+
+function setVolunteerFilter(status){
+    document.getElementById("vFilterLabel").innerText = status;
+
+    document.querySelectorAll(".vol-row").forEach(row => {
+        if(status === "All"){
+            row.style.display = "";
+        }
+        else {
+            row.style.display = row.dataset.status === status ? "" : "none";
+        }
+    });
+}

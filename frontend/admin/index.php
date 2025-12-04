@@ -79,6 +79,24 @@ case 'news_delete':
     (new NewsController())->delete();
     break;
 
+    case 'volunteer_approve':
+    require_once "models/Volunteer.php";
+    (new Volunteer())->updateStatus($_GET['id'], "Approved");
+    header("Location: index.php?action=members");
+    exit;
+
+case 'volunteer_reject':
+    require_once "models/Volunteer.php";
+    (new Volunteer())->updateStatus($_GET['id'], "Rejected");
+    header("Location: index.php?action=members");
+    exit;
+
+case 'volunteer_view':
+    require_once "models/Volunteer.php";
+    $v = (new Volunteer())->getById($_GET['id']);
+    echo json_encode($v);
+    exit;
+
     /* DEFAULT */
     default:
         (new HomeController())->index();
