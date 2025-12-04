@@ -172,7 +172,7 @@ async function loadProfile() {
 
         // ====== PROFILE MAIN ======
         document.getElementById("profileName").textContent = m.full_name || "";
-        document.getElementById("profileImg").src = m.photo || "img/default.png";
+        document.getElementById("profileImg").src = "img/profile-photos/" + m.photo || "img/default.png";
         document.getElementById("profileDesc").textContent = m.description || m.expertise || "";
         document.getElementById("profileRole").textContent = m.role || "";
 
