@@ -24,20 +24,22 @@ function openVolunteerModal(id) {
     fetch(`index.php?action=volunteer_view&id=${id}`)
         .then(res => res.json())
         .then(data => {
+            let areas = data.areas;
+            try { areas = JSON.parse(areas); } catch(e) {}
             const table = document.getElementById("volunteerDetailTable");
 
             table.innerHTML = `
-                <tr><th>Full Name</th><td>${data.full_name}</td></tr>
-                <tr><th>Nickname</th><td>${data.nickname}</td></tr>
-                <tr><th>Email</th><td>${data.email}</td></tr>
-                <tr><th>Phone</th><td>${data.phone}</td></tr>
-                <tr><th>Study Program</th><td>${data.study_program}</td></tr>
-                <tr><th>Semester</th><td>${data.semester}</td></tr>
-                <tr><th>Areas</th><td>${Array.isArray(data.areas) ? data.areas.join(", ") : data.areas}</td></tr>
-                <tr><th>Skills</th><td>${data.skills}</td></tr>
-                <tr><th>Motivation</th><td>${data.motivation}</td></tr>
-                <tr><th>Availability</th><td>${data.availability}</td></tr>
-            `;
+            <tr><th>Full Name</th><td>${data.full_name}</td></tr>
+            <tr><th>Nickname</th><td>${data.nickname}</td></tr>
+            <tr><th>Email</th><td>${data.email}</td></tr>
+            <tr><th>Phone</th><td>${data.phone}</td></tr>
+            <tr><th>Study Program</th><td>${data.study_program}</td></tr>
+            <tr><th>Semester</th><td>${data.semester}</td></tr>
+            <tr><th>Areas</th><td>${Array.isArray(areas) ? data.areas.join(", ") : data.areas}</td></tr>
+            <tr><th>Skills</th><td>${data.skills}</td></tr>
+            <tr><th>Motivation</th><td>${data.motivation}</td></tr>
+            <tr><th>Availability</th><td>${data.availability}</td></tr>
+        `;
 
             document.getElementById("volunteerModal").classList.remove("hidden");
         });
