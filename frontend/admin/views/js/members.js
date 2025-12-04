@@ -33,7 +33,7 @@ function openVolunteerModal(id) {
                 <tr><th>Phone</th><td>${data.phone}</td></tr>
                 <tr><th>Study Program</th><td>${data.study_program}</td></tr>
                 <tr><th>Semester</th><td>${data.semester}</td></tr>
-                <tr><th>Areas</th><td>${data.areas}</td></tr>
+                <tr><th>Areas</th><td>${Array.isArray(data.areas) ? data.areas.join(", ") : data.areas}</td></tr>
                 <tr><th>Skills</th><td>${data.skills}</td></tr>
                 <tr><th>Motivation</th><td>${data.motivation}</td></tr>
                 <tr><th>Availability</th><td>${data.availability}</td></tr>

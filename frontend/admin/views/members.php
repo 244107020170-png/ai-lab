@@ -250,10 +250,12 @@
 
     <?php foreach ($volunteers as $v): ?>
     <tr class="vol-row" data-status="<?= $v['status'] ?>">
+
         <td><?= $v['id'] ?></td>
-        <td><?= $v['full_name'] ?></td>
-        <td><?= $v['study_program'] ?></td>
-        <td><?= $v['semester'] ?></td>
+        <td><?= htmlspecialchars($v['full_name']) ?></td>
+        <td><?= htmlspecialchars($v['study_program']) ?></td>
+        <td><?= htmlspecialchars($v['semester']) ?></td>
+
         <td>
             <span class="status-dot 
                 <?= $v['status'] === 'Pending' ? 'status-warning' : 
@@ -270,7 +272,6 @@
     </tr>
     <?php endforeach; ?>
 </table>
-
 
   </div>
 </div>
