@@ -418,26 +418,25 @@
     width: 200px;
 }
 
-/* FOOTER */
+/* NEW CLEAN FOOTER STYLE */
 .admin-footer {
   width: 100%;
-  height: 90px;
-  margin-top: 40px;
+  padding: 20px 80px;  /* biar tidak terlalu mepet kanan kiri */
+  margin-top: 60px;     /* jarak dari content ke footer */
+  
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 120px;
+  align-items: center;
+
   background: rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(8px) saturate(130%);
   border-top: 1px solid rgba(255,255,255,0.12);
-}
 
-.footer-left,
-.footer-right {
+  color: white;
   font-size: 20px;
-  font-family: "Poppins", sans-serif;
 }
 
-.footer-right span {
+.admin-footer a {
+  color: white;
   text-decoration: underline;
 }

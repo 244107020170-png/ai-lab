@@ -286,11 +286,16 @@
 
 
         <!-- Footer Section -->
-        <!-- FOOTER -->
-<footer class="admin-footer">
-  <div class="footer-left">© 2025 AI Lab Polinema</div>
-  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
-</footer>
+        <footer class="admin-footer">
+            <div>
+                <span>© 2025 AI Lab Polinema</span>
+            </div>
+
+            <div>
+                <span>Contact: </span>
+                    <a href="mailto:ailab@polinema.ac.id">ailab@polinema.ac.id</a>
+            </div>
+        </footer>
         <!-- /.Footer Section -->
     </div>
     <!-- /.Main Container -->
