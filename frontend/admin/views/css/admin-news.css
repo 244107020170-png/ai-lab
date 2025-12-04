@@ -124,7 +124,7 @@ body {
 .top-controls {
   width: 90%;
   max-width: 1164px;
-  margin: 20px auto;
+  margin: 10px auto;
   display: flex;
   justify-content: flex-start;
   gap: 20px;
