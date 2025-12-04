@@ -211,36 +211,41 @@
         $volunteers = (new Volunteer())->getAll();
         ?>
 
-<div class="leBox member-container" style="margin-top: 60px;">
+<div class="desc-title" style="margin-top: 60px;">Volunteer Applicants</div>
+<div class="desc-text">
+    List of students who applied to join the AI Lab. You can review their data and approve or reject their application.
+</div>
+
+<!-- Search + Filter -->
+<div class="search-filter">
+    <div class="leBox search-box">
+        <img src="views/img/maginifier-icon.png" alt="">
+        <input type="text" placeholder="Search Volunteer" id="vSearch" class="search-text">
+    </div>
+
+    <div class="filter-container">
+        <div class="leBox filter-box" onclick="toggleVolunteerFilter()">
+            <span id="vFilterLabel">Filter</span>
+            <img src="views/img/arrow-down.png" class="filter-arrow" alt="">
+        </div>
+
+        <div class="filter-dropdown" id="vFilterDropdown">
+            <div onclick="setVolunteerFilter('Pending')">Pending</div>
+            <div onclick="setVolunteerFilter('Approved')">Approved</div>
+            <div onclick="setVolunteerFilter('Rejected')">Rejected</div>
+            <div onclick="setVolunteerFilter('All')">All</div>
+        </div>
+    </div>
+</div>
+
+<!-- VOLUNTEER TABLE CONTAINER   -->
+<div class="leBox member-container" style="margin-top: 10px;">
     <div class="member-inner">
 
-        <div class="member-header" style="margin-bottom: 10px;">
-            <div class="member-title">Volunteer Applicants</div>
+        <div class="member-header">
+            <div class="member-title">Volunteer Applicants List</div>
         </div>
 
-        <!-- Search + Filter -->
-        <div class="search-filter" style="margin-top: 5px; margin-bottom: 20px;">
-            <div class="leBox search-box">
-                <img src="views/img/maginifier-icon.png" alt="">
-                <input type="text" placeholder="Search Volunteer" id="vSearch" class="search-text">
-            </div>
-
-            <div class="filter-container">
-                <div class="leBox filter-box" onclick="toggleVolunteerFilter()">
-                    <span id="vFilterLabel">Filter</span>
-                    <img src="views/img/arrow-down.png" class="filter-arrow">
-                </div>
-
-                <div class="filter-dropdown" id="vFilterDropdown">
-                    <div onclick="setVolunteerFilter('Pending')">Pending</div>
-                    <div onclick="setVolunteerFilter('Approved')">Approved</div>
-                    <div onclick="setVolunteerFilter('Rejected')">Rejected</div>
-                    <div onclick="setVolunteerFilter('All')">All</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Volunteer Table -->
         <table class="member-table">
             <tr>
                 <th>ID</th>
@@ -268,11 +273,10 @@
                 </td>
 
                 <td style="text-align:center;">
-                    <button class="member-btn-action" onclick="openVolunteerModal(<?= $v['id'] ?>)">View</button>
+                    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="member-btn-action">View</button>
                     <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="member-btn-action">Approve</a>
                     <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="member-btn-action">Reject</a>
                 </td>
-
             </tr>
             <?php endforeach; ?>
         </table>
