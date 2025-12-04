@@ -95,6 +95,11 @@
     font-size: 14px;
 }
 
+#vFilterLabel {
+    color: #fff;
+    font-size: 14px;
+}
+
 /* Sort Button */
 .sort-container {
     position: relative;
@@ -366,4 +371,9 @@
 
 .vol-action-btn:hover {
     background: rgba(255,255,255,0.22);
+}
+
+.member-table td.actions-cell {
+    text-align: right !important;
+    padding-right: 20px; /* optional biar ga mepet */
 }

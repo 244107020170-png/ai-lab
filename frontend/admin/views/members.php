@@ -272,19 +272,11 @@
                     <?= $v['status'] ?>
                 </td>
 
-                <td>
-    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="vol-action-btn">
-        View
-    </button>
-
-    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="vol-action-btn">
-        Approve
-    </a>
-
-    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="vol-action-btn">
-        Reject
-    </a>
-</td>
+                <td class=actions-cell>
+    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="vol-action-btn">View</button>
+    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="vol-action-btn">Approve</a>
+    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="vol-action-btn">Reject</a>
+                </td>
             </tr>
             <?php endforeach; ?>
         </table>
