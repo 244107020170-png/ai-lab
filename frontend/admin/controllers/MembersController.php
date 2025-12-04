@@ -36,30 +36,7 @@ class MembersController
     {
         $id = $_POST['id'] ?? '';
 
-        // 1. Prepare Data (10 Fields)
-        $data = [
-            $_POST['full_name'] ?? '',
-            $_POST['role'] ?? '',
-            null, // Photo logic goes here later
-            $_POST['expertise'] ?? '',
-            $_POST['description'] ?? '',
-            $_POST['linkedin'] ?? '',
-            $_POST['scholar'] ?? '',
-            $_POST['researchgate'] ?? '',
-            $_POST['orcid'] ?? '',
-            $_POST['status'] ?? 'Active'
-        ];
-
-        // 2. Save Main Data & Get ID
-        if ($id === "") {
-            // Create returns the NEW ID
-            $memberId = $this->model->create($data);
-        } else {
-            $this->model->update($id, $data);
-            $memberId = $id;
-        }
-
-        // Check if the user just clicked "Add Field"
+        // 0. Check if the user just clicked "Add Field"
         if (isset($_POST['add_row'])) {
             // Get the current data from the form so we don't lose what they typed
             $data = [
@@ -90,6 +67,29 @@ class MembersController
             // Reload the view with the extra row
             include __DIR__ . '/../views/members_form.php';
             return; // STOP here. Do not save to DB yet.
+        }
+
+        // 1. Prepare Data (10 Fields)
+        $data = [
+            $_POST['full_name'] ?? '',
+            $_POST['role'] ?? '',
+            null, // Photo logic goes here later
+            $_POST['expertise'] ?? '',
+            $_POST['description'] ?? '',
+            $_POST['linkedin'] ?? '',
+            $_POST['scholar'] ?? '',
+            $_POST['researchgate'] ?? '',
+            $_POST['orcid'] ?? '',
+            $_POST['status'] ?? 'Active'
+        ];
+
+        // 2. Save Main Data & Get ID
+        if ($id === "") {
+            // Create returns the NEW ID
+            $memberId = $this->model->create($data);
+        } else {
+            $this->model->update($id, $data);
+            $memberId = $id;
         }
 
 
