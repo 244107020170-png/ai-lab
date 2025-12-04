@@ -418,12 +418,14 @@
     width: 200px;
 }
 
-/* NEW CLEAN FOOTER STYLE */
+/* FOOTER STYLE */
 .admin-footer {
   width: 100%;
-  padding: 20px 80px;  /* biar tidak terlalu mepet kanan kiri */
-  margin-top: 60px;     /* jarak dari content ke footer */
+  box-sizing: border-box;   /* PENTING BIAR PAD GK BIKIN LEBAR */
   
+  padding: 20px 60px;       /* aman, ga terlalu besar */
+  margin-top: 60px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -434,9 +436,6 @@
 
   color: white;
   font-size: 20px;
+  overflow-x: hidden;        /* mencegah overflow */
 }
 
-.admin-footer a {
-  color: white;
-  text-decoration: underline;
-}
