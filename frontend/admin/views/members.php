@@ -99,7 +99,7 @@
         <div class="search-filter">
             <div class="leBox search-box">
                 <img src="views/img/maginifier-icon.png" alt="">
-                <input type="text" placeholder="Search Members" class="search-text">
+                <input id="mSearch" type="text" placeholder="Search Members" class="search-text">
             </div>
 
             <div class="filter-container">
@@ -272,11 +272,19 @@
                     <?= $v['status'] ?>
                 </td>
 
-                <td style="text-align:center;">
-                    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="member-btn-action">View</button>
-                    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="member-btn-action">Approve</a>
-                    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="member-btn-action">Reject</a>
-                </td>
+                <td>
+    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="vol-action-btn">
+        View
+    </button>
+
+    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="vol-action-btn">
+        Approve
+    </a>
+
+    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="vol-action-btn">
+        Reject
+    </a>
+</td>
             </tr>
             <?php endforeach; ?>
         </table>

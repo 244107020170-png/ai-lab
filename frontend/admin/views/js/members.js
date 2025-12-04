@@ -35,7 +35,12 @@ function openVolunteerModal(id) {
             <tr><th>Phone</th><td>${data.phone}</td></tr>
             <tr><th>Study Program</th><td>${data.study_program}</td></tr>
             <tr><th>Semester</th><td>${data.semester}</td></tr>
-            <tr><th>Areas</th><td>${Array.isArray(areas) ? data.areas.join(", ") : data.areas}</td></tr>
+            <tr><th>Areas</th>
+                <td>${
+                    Array.isArray(areas)
+                        ? areas.join(", ")
+                        : (typeof areas === 'string' ? areas : '')
+                }</td></tr>
             <tr><th>Skills</th><td>${data.skills}</td></tr>
             <tr><th>Motivation</th><td>${data.motivation}</td></tr>
             <tr><th>Availability</th><td>${data.availability}</td></tr>
@@ -58,19 +63,22 @@ if (vSearch) {
     });
 }
 
-function toggleVolunteerFilter(){
+function toggleVolunteerFilter() {
     document.getElementById("vFilterDropdown").classList.toggle("show");
 }
 
-function setVolunteerFilter(status){
+function setVolunteerFilter(status) {
     document.getElementById("vFilterLabel").innerText = status;
+    document.getElementById("vFilterDropdown").classList.remove("show");
 
     document.querySelectorAll(".vol-row").forEach(row => {
-        if(status === "All"){
+        let rowStatus = row.dataset.status;
+
+        if (status === "All") {
             row.style.display = "";
-        }
-        else {
-            row.style.display = row.dataset.status === status ? "" : "none";
+        } else {
+            row.style.display = (rowStatus === status) ? "" : "none";
         }
     });
 }
+

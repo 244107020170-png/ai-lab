@@ -82,6 +82,10 @@
     transition: 0.2s ease;
 }
 
+#vFilterDropdown.show {
+    display: flex;
+}
+
 .filter-dropdown div:hover {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -347,4 +351,19 @@
     padding: 20px;
     border-radius: 14px;
     width: 450px;
+}
+.vol-action-btn {
+    background: rgba(255,255,255,0.08);
+    padding: 4px 10px;
+    margin-right: 6px;
+    border-radius: 6px;
+    color: white !important;
+    font-size: 13px;
+    text-decoration: none !important;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: 0.2s;
+}
+
+.vol-action-btn:hover {
+    background: rgba(255,255,255,0.22);
 }
