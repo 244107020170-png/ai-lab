@@ -12,7 +12,7 @@
     <div class="login-bg"></div>
 
     <div class="login-card">
-        <img src="img/logo-admin.png" alt="Logo" class="login-logo">
+        <img src="img/logo.png" alt="Logo" class="login-logo">
 
         <h1 class="login-title">Login</h1>
         <p class="login-subtitle">Please enter the credentials</p>
@@ -34,7 +34,7 @@
 
             <button type="submit" class="login-btn">Login</button>
 
-            <a href="../../index.html" class="go-back">← Go Back</a>
+            <a href="../../home.php" class="go-back">← Go Back</a>
         </form>
     </div>
 
