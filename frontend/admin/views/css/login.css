@@ -86,6 +86,25 @@ body {
     color: rgba(255, 255, 255, 0.75);
     font-weight: 400;
 }
+.input-wrapper:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    transition: 0.2s ease-in-out;
+}
+.input-wrapper.active {
+    border-color: rgba(56, 189, 248, 0.8); /* biru cyan */
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+    transition: 0.25s ease-in-out;
+}
+.error-text {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 5px;
+    text-align: left;
+    width: 335px;
+    display: none;
+}
 
 
 .show-pass {
