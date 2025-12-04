@@ -384,6 +384,13 @@
     border-radius: 14px;
     width: 450px;
 }
+.modal-content h2 {
+    color: white !important;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
 .vol-action-btn {
     background: rgba(255,255,255,0.08);
     padding: 4px 10px;
