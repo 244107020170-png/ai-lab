@@ -69,6 +69,18 @@ class Activities {
         return pg_fetch_assoc($res);
     }
 
+    // Get by Status
+    public function getByStatus($status) {
+    // FIX: Added a comma after the SQL string
+    $res = pg_query_params($this->db, "SELECT * FROM activities WHERE status = $1", [$status]);
+    
+    $data = pg_fetch_all($res);
+    
+    // Safety check: pg_fetch_all returns FALSE if no rows found.
+    // Returning an empty array [] prevents count() from crashing in the controller.
+    return $data ? $data : []; 
+}
+
     // INSERT
     public function insert($data) {
 

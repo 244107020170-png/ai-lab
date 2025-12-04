@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/controllers/LoginController.php';
 require_once __DIR__ . '/controllers/HomeController.php';
 require_once __DIR__ . '/controllers/MembersController.php';
 require_once __DIR__ . '/controllers/ProjectsController.php';
@@ -8,6 +9,21 @@ $action = $_GET['action'] ?? 'home';
 $op     = $_GET['op'] ?? 'index';
 
 switch ($action) {
+
+    /* LOGIN PAGE */
+    case 'login':
+        $ctrl = (new LoginController())->loginPage();
+        break;
+
+    /* LOGIN PROCESS */
+    case 'login_process':
+        (new LoginController())->loginProcess();
+        break;
+
+    /* LOGOUT */
+    case 'logout':
+        (new LoginController())->logout();
+        break;
 
     /* HOME */
     case 'home':

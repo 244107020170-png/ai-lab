@@ -1,24 +1,39 @@
 const togglePass = document.getElementById("togglePass");
 const passwordInput = document.getElementById("password");
 
+// Show / hide password
 togglePass.addEventListener("change", () => {
     passwordInput.type = togglePass.checked ? "text" : "password";
 });
 
+// Submit handler
 document.getElementById("loginForm").addEventListener("submit", function (e) {
-    // default submit ke PHP, tidak preventDefault
-    console.log("Submitting login form...");
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (!username || !password) {
+        e.preventDefault();
+        showError("Please fill out both fields.");
+        return;
+    }
+
+    // Add loading spinner (ONLY ONCE)
+    const btn = document.querySelector(".login-btn");
+    btn.classList.add("loading");
+    btn.innerHTML = `<div class="spinner"></div>`;
 });
-// Add focus/blur glow
+
+// Glow on focus
 document.querySelectorAll(".input-wrapper input").forEach(input => {
     input.addEventListener("focus", () => {
         input.parentElement.classList.add("active");
     });
-
     input.addEventListener("blur", () => {
         input.parentElement.classList.remove("active");
     });
 });
+
+// Error handler
 function showError(msg) {
     let err = document.getElementById("loginError");
 
@@ -41,15 +56,3 @@ function showError(msg) {
         err.style.opacity = "1";
     }, 3000);
 }
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    if (!username || !password) {
-        e.preventDefault();
-        showError("Please fill out both fields.");
-        return;
-    }
-
-    console.log("Login requested:", username, password);
-});
