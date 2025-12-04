@@ -5,7 +5,11 @@ class Volunteer {
     private $db;
 
     public function __construct() {
-        $this->db = new PDO("pgsql:host=localhost;dbname=ai_lab_db", "postgres", "passwordmu");
+        $this->db = new PDO (
+            "pgsql:host=localhost;
+             dbname=ai_lab_db", 
+             "postgres", 
+             "nasywa1010");//ngikut password db
     }
 
     // INSERT NEW VOLUNTEER
