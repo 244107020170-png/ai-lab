@@ -116,8 +116,8 @@
 
                     <?php
                     // FIX: Database already has "img/name.png", so we just need "../" to go up one folder.
-                    $pathPrefix = '../';
-                    $defaultImg = '../img/default-profile.png';
+                    $pathPrefix = '../img/profile-photos/';
+                    $defaultImg = '../img/profile-photos/img/default-profile.png';
 
                     // Check if photo exists in DB
                     if (!empty($data['photo'])) {
