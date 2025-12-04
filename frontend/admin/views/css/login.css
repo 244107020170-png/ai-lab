@@ -65,19 +65,28 @@ body {
     width: 100%;
     padding: 10px 15px;
     background: rgba(0, 0, 0, 0.34);
-    border-radius: 11px;
+    border-radius: 14px;
     border: 1px solid rgba(255, 255, 255, 0.11);
     backdrop-filter: blur(6.35px);
 }
 
 .input-wrapper input {
     width: 100%;
-    background: transparent;
+    height: 100%;
     border: none;
-    color: #eee;
-    font-size: 16px;
     outline: none;
+    background: transparent;
+    color: #eaeaea;
+    font-size: 16px;
+
+    /* placeholder styling */
 }
+
+.input-wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 400;
+}
+
 
 .show-pass {
     display: flex;
