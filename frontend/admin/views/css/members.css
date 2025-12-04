@@ -418,24 +418,32 @@
     width: 200px;
 }
 
-/* FOOTER STYLE */
 .admin-footer {
-  width: 100%;
-  box-sizing: border-box;   /* PENTING BIAR PAD GK BIKIN LEBAR */
-  
-  padding: 20px 60px;       /* aman, ga terlalu besar */
-  margin-top: 60px;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
 
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 25px 120px;
+    box-sizing: border-box;
 
-  background: rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(8px) saturate(130%);
-  border-top: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(8px) saturate(130%);
+    border-top: 1px solid rgba(255,255,255,0.12);
 
-  color: white;
-  font-size: 20px;
-  overflow-x: hidden;        /* mencegah overflow */
+    margin-top: 60px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: white;
+    font-size: 20px;
 }
 
+.admin-footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+html, body {
+    overflow-x: hidden;
+}
