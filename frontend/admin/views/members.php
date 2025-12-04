@@ -206,6 +206,11 @@
         <!-- /.Members Lists -->
 
         <!-- Volunteer Applicants -->
+        <?php 
+        require_once __DIR__ . '/../models/Volunteer.php';
+        $volunteers = (new Volunteer())->getAll();
+        ?>
+
 <div class="leBox member-container" style="margin-top: 60px;">
     <div class="member-inner">
 
