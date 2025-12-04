@@ -74,7 +74,7 @@ body {
 .admin-title {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.65);
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
 }
 
 /* NAVBAR */
@@ -110,7 +110,7 @@ body {
 .admin-section-title h1 {
   font-size: 36px;
   font-weight: 700;
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
   text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4);
 }
 
@@ -168,7 +168,7 @@ body {
 .table-header h2 {
   font-size: 20px;
   font-weight: 700;
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
 }
 
 /* Add button */
@@ -281,7 +281,7 @@ body {
 .footer-left,
 .footer-right {
   font-size: 20px;
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
 }
 
 .footer-right span {

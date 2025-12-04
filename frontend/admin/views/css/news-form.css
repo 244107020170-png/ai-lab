@@ -12,9 +12,7 @@ body {
   min-height: 100vh;
 }
 
-/* ============================================================
-   BACKGROUND LAYER
-============================================================ */
+/* BACKGROUND LAYER */
 .bg-layer {
   position: fixed;
   inset: 0;
@@ -38,9 +36,7 @@ body {
   z-index: -1;
 }
 
-/* ============================================================
-   GLASS ELEMENTS
-============================================================ */
+/* GLASS ELEMENTS */
 .glass-panel {
   background: rgba(0, 0, 0, 0.32);
   border-radius: 12px;
@@ -48,9 +44,7 @@ body {
   backdrop-filter: blur(6px);
 }
 
-/* ============================================================
-   HEADER (Same as News List)
-============================================================ */
+/* HEADER (Same as News List) */
 .admin-header {
   width: 90%;
   max-width: 1250px;
@@ -76,7 +70,7 @@ body {
 .admin-title {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.65);
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
 }
 
 .nav-item {
@@ -93,11 +87,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* Tidak ada selected-navbar (karena add/edit page tidak highlight menu) */
-
-/* ============================================================
-   PAGE TITLE
-============================================================ */
+/* PAGE TITLE */
 .admin-section-title {
   width: 90%;
   max-width: 934px;
@@ -107,7 +97,7 @@ body {
 .admin-section-title h1 {
   font-size: 36px;
   font-weight: 700;
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
   text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4);
 }
 
@@ -117,9 +107,7 @@ body {
   color: #aebacb;
 }
 
-/* ============================================================
-   FORM GRID LAYOUT
-============================================================ */
+/* FORM GRID LAYOUT */
 .news-form {
   width: 90%;
   max-width: 1100px;
@@ -134,9 +122,7 @@ body {
 }
 
 
-/* ============================================================
-   IMAGE BLOCKS
-============================================================ */
+/* IMAGE BLOCKS */
 .image-block {
   background: rgba(255, 255, 255, 0.05);
   padding: 15px;
@@ -187,9 +173,7 @@ body {
   opacity: 0.55;
 }
 
-/* ============================================================
-   INPUT + TEXTAREA + SELECT
-============================================================ */
+/* INPUT + TEXTAREA + SELECT */
 .field {
   margin-bottom: 18px;
 }
@@ -228,9 +212,7 @@ body {
   color: rgba(255,255,255,0.9);
 }
 
-/* ============================================================
-   ACTION BUTTONS
-============================================================ */
+/* ACTION BUTTONS */
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -257,9 +239,7 @@ body {
   cursor: pointer;
 }
 
-/* ============================================================
-   UNSAVED BANNER
-============================================================ */
+/* UNSAVED BANNER */
 .unsaved-banner {
   background: rgba(255,255,255,0.1);
   border: 1px solid rgba(255,255,255,0.2);
@@ -291,9 +271,7 @@ body {
   border-radius: 6px;
 }
 
-/* ============================================================
-   FOOTER
-============================================================ */
+/* FOOTER */
 .admin-footer {
   width: 100%;
   height: 90px;
@@ -310,22 +288,20 @@ body {
 .footer-left,
 .footer-right {
   font-size: 20px;
-  font-family: "Poppins", sans-serif;
+  font-family: "SF Pro Rounded", sans-serif;
 }
 
 .footer-right span {
   text-decoration: underline;
 }
 
-/* ============================================================
-   RESPONSIVE FIX
-============================================================ */
+/* RESPONSIVE FIX */
 @media (max-width: 900px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
 }
-/* === FIX SELECT DROPDOWN IN ADD/EDIT NEWS === */
+/* FIX SELECT DROPDOWN IN ADD/EDIT NEWS */
 
 .field select,
 .two-inline select {
