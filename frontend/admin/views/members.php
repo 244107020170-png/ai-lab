@@ -85,7 +85,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="main-container"">
+    <div class="main-container">
         <!--Brief Description-->
         <div class="desc-title">Members Management</div>
         <div class="desc-text">
