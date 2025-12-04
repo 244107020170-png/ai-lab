@@ -308,3 +308,23 @@
     border-radius: 16px;
     font-weight: bold;
 }
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* Warna status */
+.status-active {
+    background-color: #4ade80; /* green */
+}
+
+.status-warning {
+    background-color: #facc15; /* yellow */
+}
+
+.status-inactive {
+    background-color: #ef4444; /* red */
+}

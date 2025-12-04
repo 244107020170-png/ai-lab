@@ -157,7 +157,19 @@
                             <td><?= $m['id'] ?></td>
                             <td><?= $m['full_name'] ?></td>
                             <td><?= $m['role'] ?></td>
-                            <td><?= $m['status'] ?></td>
+                            <td>
+                                <?php 
+                                    $status = $m['status']; 
+                                    $dotClass = match ($status) {
+                                        'Active'   => 'status-active',
+                                        'On Leave' => 'status-warning',
+                                        'Inactive' => 'status-inactive',
+                                        default    => 'status-inactive'
+                                    };
+                                ?>
+                                <span class="status-dot <?= $dotClass ?>"></span>
+                                <?= $status ?>
+                            </td>
                             <td style="text-align: center;">
                                 <a href="index.php?action=members_form&id=<?= $m['id'] ?>" class="member-btn-action" style="text-decoration: none !important; color: white !important;">Edit</a>
                                 <a href="index.php?action=members_delete&id=<?= $m['id'] ?>" class ="member-btn-action" style="text-decoration: none !important; color: white !important;"
