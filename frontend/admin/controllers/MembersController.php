@@ -38,9 +38,36 @@ class MembersController
 
         // 0. Check for "Add Field" (Row Logic) - KEEP THIS AS IS
         if (isset($_POST['add_row'])) {
-            // ... (Your existing Add Row code) ...
-            // (I omitted the body here to save space, but DO NOT delete it)
-            return; 
+            $data = [
+                'id' => $id,
+                'full_name' => $_POST['full_name'] ?? '',
+                'role' => $_POST['role'] ?? '',
+                // Keep the existing photo if editing, otherwise blank
+                'photo' => $id ? ($this->model->find($id)['photo'] ?? '') : '', 
+                'expertise' => $_POST['expertise'] ?? '',
+                'description' => $_POST['description'] ?? '',
+                'linkedin' => $_POST['linkedin'] ?? '',
+                'scholar' => $_POST['scholar'] ?? '',
+                'researchgate' => $_POST['researchgate'] ?? '',
+                'orcid' => $_POST['orcid'] ?? '',
+                'status' => $_POST['status'] ?? 'Active'
+            ];
+
+            // Get existing backgrounds from the form (so we don't lose typed rows)
+            $studyBackground = $_POST['backgrounds'] ?? [];
+
+            // ADD AN EMPTY ROW TO THE LIST
+            $studyBackground[] = [
+                'id' => 'new',
+                'institute' => '',
+                'academic_title' => '',
+                'year' => '',
+                'degree' => ''
+            ];
+
+            // Reload the view with the extra row
+            include __DIR__ . '/../views/members_form.php';
+            return; // STOP here. Do not save to DB yet.
         }
 
         // 1. Prepare Data (10 Fields)

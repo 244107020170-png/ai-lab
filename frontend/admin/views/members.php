@@ -77,7 +77,7 @@
 
     </div>
     <!-- /.Header -->
-    
+
     <!-- Background: Image + Gradient -->
     <div class="bg-layer" aria-hidden="true">
         <div class="bg-image"></div>
@@ -158,21 +158,21 @@
                             <td><?= $m['full_name'] ?></td>
                             <td><?= $m['role'] ?></td>
                             <td>
-                                <?php 
-                                    $status = $m['status']; 
-                                    $dotClass = match ($status) {
-                                        'Active'   => 'status-active',
-                                        'On Leave' => 'status-warning',
-                                        'Inactive' => 'status-inactive',
-                                        default    => 'status-inactive'
-                                    };
+                                <?php
+                                $status = $m['status'];
+                                $dotClass = match ($status) {
+                                    'Active'   => 'status-active',
+                                    'On Leave' => 'status-warning',
+                                    'Inactive' => 'status-inactive',
+                                    default    => 'status-inactive'
+                                };
                                 ?>
                                 <span class="status-dot <?= $dotClass ?>"></span>
                                 <?= $status ?>
                             </td>
                             <td style="text-align: center;">
                                 <a href="index.php?action=members_form&id=<?= $m['id'] ?>" class="member-btn-action" style="text-decoration: none !important; color: white !important;">Edit</a>
-                                <a href="index.php?action=members_delete&id=<?= $m['id'] ?>" class ="member-btn-action" style="text-decoration: none !important; color: white !important;"
+                                <a href="index.php?action=members_delete&id=<?= $m['id'] ?>" class="member-btn-action" style="text-decoration: none !important; color: white !important;"
                                     onclick="return confirm('Are you sure you want to delete this member?')">Delete</a>
                             </td>
                     </tr>
@@ -206,83 +206,82 @@
         <!-- /.Members Lists -->
 
         <!-- Volunteer Applicants -->
-        <?php 
+        <?php
         require_once __DIR__ . '/../models/Volunteer.php';
         $volunteers = (new Volunteer())->getAll();
         ?>
 
-<div class="desc-title" style="margin-top: 60px;">Volunteer Applicants</div>
-<div class="desc-text">
-    List of students who applied to join the AI Lab. You can review their data and approve or reject their application.
-</div>
-
-<!-- Search + Filter -->
-<div class="search-filter">
-    <div class="leBox search-box">
-        <img src="views/img/maginifier-icon.png" alt="">
-        <input type="text" placeholder="Search Volunteer" id="vSearch" class="search-text">
-    </div>
-
-    <div class="filter-container">
-        <div class="leBox filter-box" onclick="toggleVolunteerFilter()">
-            <span id="vFilterLabel">Filter</span>
-            <img src="views/img/arrow-down.png" class="filter-arrow" alt="">
+        <div class="desc-title" style="margin-top: 60px;">Volunteer Applicants</div>
+        <div class="desc-text">
+            List of students who applied to join the AI Lab. You can review their data and approve or reject their application.
         </div>
 
-        <div class="filter-dropdown" id="vFilterDropdown">
-            <div onclick="setVolunteerFilter('Pending')">Pending</div>
-            <div onclick="setVolunteerFilter('Approved')">Approved</div>
-            <div onclick="setVolunteerFilter('Rejected')">Rejected</div>
-            <div onclick="setVolunteerFilter('All')">All</div>
+        <!-- Search + Filter -->
+        <div class="search-filter">
+            <div class="leBox search-box">
+                <img src="views/img/maginifier-icon.png" alt="">
+                <input type="text" placeholder="Search Volunteer" id="vSearch" class="search-text">
+            </div>
+
+            <div class="filter-container">
+                <div class="leBox filter-box" onclick="toggleVolunteerFilter()">
+                    <span id="vFilterLabel">Filter</span>
+                    <img src="views/img/arrow-down.png" class="filter-arrow" alt="">
+                </div>
+
+                <div class="filter-dropdown" id="vFilterDropdown">
+                    <div onclick="setVolunteerFilter('Pending')">Pending</div>
+                    <div onclick="setVolunteerFilter('Approved')">Approved</div>
+                    <div onclick="setVolunteerFilter('Rejected')">Rejected</div>
+                    <div onclick="setVolunteerFilter('All')">All</div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<!-- VOLUNTEER TABLE CONTAINER   -->
-<div class="leBox member-container" style="margin-top: 10px;">
-    <div class="member-inner">
+        <!-- VOLUNTEER TABLE CONTAINER   -->
+        <div class="leBox member-container" style="margin-top: 10px;">
+            <div class="member-inner">
 
-        <div class="member-header">
-            <div class="member-title">Volunteer Applicants List</div>
+                <div class="member-header">
+                    <div class="member-title">Volunteer Applicants List</div>
+                </div>
+
+                <table class="member-table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Semester</th>
+                        <th>Status</th>
+                        <th style="text-align:center;">Actions</th>
+                    </tr>
+
+                    <?php foreach ($volunteers as $v): ?>
+                        <tr class="vol-row" data-status="<?= $v['status'] ?>">
+
+                            <td><?= $v['id'] ?></td>
+                            <td><?= htmlspecialchars($v['full_name']) ?></td>
+                            <td><?= htmlspecialchars($v['study_program']) ?></td>
+                            <td><?= htmlspecialchars($v['semester']) ?></td>
+
+                            <td>
+                                <span class="status-dot 
+                        <?= $v['status'] === 'Pending' ? 'status-warning' : ($v['status'] === 'Approved' ? 'status-active' : 'status-inactive') ?>">
+                                </span>
+                                <?= $v['status'] ?>
+                            </td>
+
+                            <td class="actions-cell">
+                                <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="vol-action-btn">View</button>
+                                <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="vol-action-btn">Approve</a>
+                                <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="vol-action-btn">Reject</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+
+            </div>
         </div>
-
-        <table class="member-table">
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Program</th>
-                <th>Semester</th>
-                <th>Status</th>
-                <th style="text-align:center;">Actions</th>
-            </tr>
-
-            <?php foreach ($volunteers as $v): ?>
-            <tr class="vol-row" data-status="<?= $v['status'] ?>">
-
-                <td><?= $v['id'] ?></td>
-                <td><?= htmlspecialchars($v['full_name']) ?></td>
-                <td><?= htmlspecialchars($v['study_program']) ?></td>
-                <td><?= htmlspecialchars($v['semester']) ?></td>
-
-                <td>
-                    <span class="status-dot 
-                        <?= $v['status'] === 'Pending' ? 'status-warning' : 
-                           ($v['status'] === 'Approved' ? 'status-active' : 'status-inactive') ?>">
-                    </span>
-                    <?= $v['status'] ?>
-                </td>
-
-                <td class=actions-cell>
-    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="vol-action-btn">View</button>
-    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="vol-action-btn">Approve</a>
-    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="vol-action-btn">Reject</a>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-
-    </div>
-</div>
 
 
         <!-- Footer Section -->
@@ -293,24 +292,24 @@
 
             <div>
                 <span>Contact: </span>
-                    <a href="mailto:ailab@polinema.ac.id">ailab@polinema.ac.id</a>
+                <a href="mailto:ailab@polinema.ac.id">ailab@polinema.ac.id</a>
             </div>
         </footer>
         <!-- /.Footer Section -->
     </div>
     <!-- /.Main Container -->
 
-<!-- Volunteer Detail Modal -->
-<div id="volunteerModal" class="modal hidden">
-    <div class="modal-content leBox">
-        <h2 style="margin-bottom:10px;">Volunteer Details</h2>
+    <!-- Volunteer Detail Modal -->
+    <div id="volunteerModal" class="modal hidden">
+        <div class="modal-content leBox">
+            <h2 style="margin-bottom:10px;">Volunteer Details</h2>
 
-        <table class="member-table" id="volunteerDetailTable"></table>
+            <table class="member-table" id="volunteerDetailTable"></table>
 
-        <button onclick="closeVolunteerModal()" class="member-btn-action" 
+            <button onclick="closeVolunteerModal()" class="member-btn-action"
                 style="margin-top:15px;">Close</button>
+        </div>
     </div>
-</div>
 
     <script src="views/js/members.js"></script>
 </body>

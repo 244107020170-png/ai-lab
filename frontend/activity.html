@@ -131,7 +131,24 @@ function renderActivities() {
   let pageItems = activities.slice(start, end);
 
   pageItems.forEach(item => {
-    const thumb = item.thumbnail_image || "img/activitymage.png";
+    // Getting Thumbnail Images
+    let filename = "default.png"; // 1. Set fallback
+
+    if (item.thumbnail_image) {
+        // 2. Check if API sent a full URL (e.g. http://.../storage/image.png)
+        if (item.thumbnail_image.startsWith("http")) {
+            // Split by "/" and take the last part (the actual filename)
+            const parts = item.thumbnail_image.split('/');
+            filename = parts[parts.length - 1]; 
+        } else {
+            // If API sent just "image.png" or "img/image.png", use it directly
+            filename = item.thumbnail_image;
+        }
+    }
+
+    // 3. FORCE your specific directory structure
+    // This creates "img/activities/image.png"
+    const thumb = "img/activities/" + filename;
 
     container.innerHTML += `
       <a href="activity-detail.html?id=${item.id}" 
