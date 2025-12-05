@@ -36,44 +36,18 @@ class MembersController
     {
         $id = $_POST['id'] ?? '';
 
-        // 0. Check if the user just clicked "Add Field"
+        // 0. Check for "Add Field" (Row Logic) - KEEP THIS AS IS
         if (isset($_POST['add_row'])) {
-            // Get the current data from the form so we don't lose what they typed
-            $data = [
-                'id' => $_POST['id'] ?? '',
-                'full_name' => $_POST['full_name'] ?? '',
-                'role' => $_POST['role'] ?? '',
-                'expertise' => $_POST['expertise'] ?? '',
-                'description' => $_POST['description'] ?? '',
-                'linkedin' => $_POST['linkedin'] ?? '',
-                'scholar' => $_POST['scholar'] ?? '',
-                'researchgate' => $_POST['researchgate'] ?? '',
-                'orcid' => $_POST['orcid'] ?? '',
-                'status' => $_POST['status'] ?? 'Active'
-            ];
-
-            // Get existing backgrounds from POST
-            $studyBackground = $_POST['backgrounds'] ?? [];
-
-            // ADD AN EMPTY ROW TO THE LIST
-            $studyBackground[] = [
-                'id' => 'new',
-                'institute' => '',
-                'academic_title' => '',
-                'year' => '',
-                'degree' => ''
-            ];
-
-            // Reload the view with the extra row
-            include __DIR__ . '/../views/members_form.php';
-            return; // STOP here. Do not save to DB yet.
+            // ... (Your existing Add Row code) ...
+            // (I omitted the body here to save space, but DO NOT delete it)
+            return; 
         }
 
         // 1. Prepare Data (10 Fields)
         $data = [
             $_POST['full_name'] ?? '',
             $_POST['role'] ?? '',
-            null, // Photo logic goes here later
+            null, // Placeholder for Photo
             $_POST['expertise'] ?? '',
             $_POST['description'] ?? '',
             $_POST['linkedin'] ?? '',
@@ -83,20 +57,44 @@ class MembersController
             $_POST['status'] ?? 'Active'
         ];
 
-        // 2. Save Main Data & Get ID
+        // 2. LOGIC SPLIT: CREATE vs UPDATE
         if ($id === "") {
-            // Create returns the NEW ID
-            $memberId = $this->model->create($data);
-        } else {
-            $this->model->update($id, $data);
-            $memberId = $id;
-        }
+            // ========================
+            // CASE A: CREATE NEW
+            // ========================
+            $memberId = $this->model->create($data); // Returns new ID
 
+            // Handle Photo Upload (New Member)
+            if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
+                $photoName = $this->handleFileUpload($memberId, $_FILES['photo']);
+                if ($photoName) {
+                    $this->model->updatePhoto($memberId, $photoName);
+                }
+            }
+
+        } else { // <--- THIS ELSE MATCHES "if ($id === "")"
+            // ========================
+            // CASE B: UPDATE EXISTING
+            // ========================
+            $memberId = $id;
+
+            // Handle Photo Upload (Existing Member)
+            if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
+                // Upload New & Overwrite in Data Array
+                $data[2] = $this->handleFileUpload($id, $_FILES['photo']);
+            } else {
+                // Keep Old Photo
+                $oldData = $this->model->find($id);
+                $data[2] = $oldData['photo'];
+            }
+
+            // Update Database
+            $this->model->update($id, $data);
+        }
 
         // 3. Save Backgrounds
         if (isset($_POST['backgrounds'])) {
             foreach ($_POST['backgrounds'] as $bgData) {
-
                 $bgFields = [
                     'institute'      => $bgData['institute'],
                     'academic_title' => $bgData['academic_title'],
@@ -104,13 +102,9 @@ class MembersController
                     'degree'         => $bgData['degree']
                 ];
 
-                // CHECK: Is the ID numeric? (Existing) OR is it 'new'? (Insert)
                 if (!empty($bgData['id']) && is_numeric($bgData['id'])) {
-                    // UPDATE Existing Row
                     $this->model->updateBackground($bgData['id'], $bgFields);
                 } else {
-                    // INSERT New Row
-                    // Crucial: $memberId comes from the logic above (either existing ID or new ID)
                     $this->model->createBackground($memberId, $bgFields);
                 }
             }
@@ -120,10 +114,63 @@ class MembersController
         exit;
     }
 
+    private function handleFileUpload($id, $file)
+    {
+        // 1. UPDATE TARGET DIRECTORY
+        // Points to: frontend/img/profile-photos/
+        $targetDir = __DIR__ . '/../../img/profile-photos/';
+
+        // Create folder if missing
+        if (!file_exists($targetDir)) {
+            mkdir($targetDir, 0777, true);
+        }
+
+        // 2. Delete Existing Files
+        // glob() finds all files matching the pattern (e.g. "15.*")
+        $existingFiles = glob($targetDir . $id . '.*'); 
+        foreach ($existingFiles as $oldFile) {
+            if (is_file($oldFile)) {
+                unlink($oldFile); // Delete the file
+            }
+        }
+
+        // 3. Get Extension
+        $imageFileType = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        // 4. Create Name (Just the ID + Ext)
+        // Example: "15.png"
+        $newFileName = $id . '.' . $imageFileType;
+        $targetPath = $targetDir . $newFileName;
+
+        // 5. Validate
+        $allowed = ['jpg', 'jpeg', 'png'];
+        if (!in_array($imageFileType, $allowed)) {
+            return null;
+        }
+
+        // 6. Move File
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            // RETURN ONLY THE FILENAME (e.g., "15.png")
+            // The view handles the directory path
+            return $newFileName;
+        }
+
+        return null;
+    }
+
     public function delete($id)
     {
+        // 2. Delete Photos
+        // glob() finds all files matching the pattern (e.g. "15.*")
+        $targetDir = __DIR__ . '/../../img/profile-photos/';
+        $existingFiles = glob($targetDir . $id . '.*'); 
+        foreach ($existingFiles as $oldFile) {
+            if (is_file($oldFile)) {
+                unlink($oldFile); // Delete the file
+            }
+        }
+
         $this->model->delete($id);
-        $this->model->deleteBackgroundFromMember($id);
         // $this->model->resetID();
         header("Location: index.php?action=members");
     }

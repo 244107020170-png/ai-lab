@@ -110,21 +110,21 @@
             <!-- /.Back Button -->
 
             <!-- Form -->
-            <form action="index.php?action=members_form_save" method="POST" id="memberForm">
+            <form action="index.php?action=members_form_save" method="POST" id="memberForm" enctype="multipart/form-data">
                 <!-- Profile Photo -->
                 <div class="profile-container" style="margin-bottom: 20px;">
 
                     <?php
                     // FIX: Database already has "img/name.png", so we just need "../" to go up one folder.
                     $pathPrefix = '../img/profile-photos/';
-                    $defaultImg = '../img/profile-photos/img/default-profile.png';
+                    $defaultImg = '../img/profile-photos/default-profile.png';
 
                     // Check if photo exists in DB
                     if (!empty($data['photo'])) {
                         // Result: ../img/yan.png
                         $photoSrc = $pathPrefix . $data['photo'] . '?' . time();
                     } else {
-                        // Result: ../img/default-profile.png
+                        // Result: ../profile-photos/default-profile.png
                         $photoSrc = $defaultImg;
                     }
                     ?>
@@ -328,6 +328,7 @@
     <!-- /.Save Bar -->
 
     <script src="views/js/members.js"></script>
+    <script src="views/js/forms.js"></script>
 </body>
 
 </html>

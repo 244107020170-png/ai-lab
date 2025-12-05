@@ -132,8 +132,10 @@ class Members
         return pg_query_params($this->conn, "DELETE FROM member_backgrounds WHERE id=$1", [$id]);
     }
 
-    public function deleteBackgroundFromMember($memberId)
-    {
-        return pg_query_params($this->conn, "DELETE FROM member_backgrounds WHERE member_id=$1", [$memberId]);
+    public function updatephoto($id, $photoName) {
+        $sql = "UPDATE members SET photo=$1 WHERE id=$2";
+        return pg_query_params($this->conn, $sql, [$photoName, $id]);
     }
 }
+
+
