@@ -82,12 +82,21 @@
     transition: 0.2s ease;
 }
 
+#vFilterDropdown.show {
+    display: flex;
+}
+
 .filter-dropdown div:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
 #filter-label {    
     color: rgba(255, 255, 255, 0.45);
+    font-size: 14px;
+}
+
+#vFilterLabel {
+    color: #fff;
     font-size: 14px;
 }
 
@@ -328,6 +337,33 @@
 .status-inactive {
     background-color: #ef4444; /* red */
 }
+
+/* Style label di modal */
+.modal-content table th {
+    color: #fff;
+    font-weight: 600;
+    padding-right: 10px;
+    font-size: 15px;
+}
+
+/* Style isi (td) */
+.modal-content table td {
+    color: #e5e5e5;
+    font-size: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Button Close */
+.modal-content .member-btn-action {
+    color: white !important;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.modal-content .member-btn-action:hover {
+    background: rgba(255,255,255,0.15);
+}
+
 .modal {
     position: fixed;
     inset: 0;
@@ -347,4 +383,67 @@
     padding: 20px;
     border-radius: 14px;
     width: 450px;
+}
+.modal-content h2 {
+    color: white !important;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.vol-action-btn {
+    background: rgba(255,255,255,0.08);
+    padding: 4px 10px;
+    margin-right: 6px;
+    border-radius: 6px;
+    color: white !important;
+    font-size: 13px;
+    text-decoration: none !important;
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: 0.2s;
+}
+
+.vol-action-btn:hover {
+    background: rgba(255,255,255,0.22);
+}
+
+/* Kolom Actions fix alignment */
+.member-table th:last-child,
+.member-table td.actions-cell {
+    text-align: center !important;
+}
+
+/* Biarkan coloum Actions tidak terlalu sempit */
+.member-table th:last-child {
+    width: 200px;
+}
+
+.admin-footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+    padding: 25px 120px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(8px) saturate(130%);
+    border-top: 1px solid rgba(255,255,255,0.12);
+
+    margin-top: 60px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: white;
+    font-size: 20px;
+}
+
+.admin-footer a {
+    color: white;
+    text-decoration: underline;
+}
+
+html, body {
+    overflow-x: hidden;
 }

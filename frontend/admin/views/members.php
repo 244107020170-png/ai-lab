@@ -99,7 +99,7 @@
         <div class="search-filter">
             <div class="leBox search-box">
                 <img src="views/img/maginifier-icon.png" alt="">
-                <input type="text" placeholder="Search Members" class="search-text">
+                <input id="mSearch" type="text" placeholder="Search Members" class="search-text">
             </div>
 
             <div class="filter-container">
@@ -272,10 +272,10 @@
                     <?= $v['status'] ?>
                 </td>
 
-                <td style="text-align:center;">
-                    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="member-btn-action">View</button>
-                    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="member-btn-action">Approve</a>
-                    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="member-btn-action">Reject</a>
+                <td class=actions-cell>
+    <button onclick="openVolunteerModal(<?= $v['id'] ?>)" class="vol-action-btn">View</button>
+    <a href="index.php?action=volunteer_approve&id=<?= $v['id'] ?>" class="vol-action-btn">Approve</a>
+    <a href="index.php?action=volunteer_reject&id=<?= $v['id'] ?>" class="vol-action-btn">Reject</a>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -286,19 +286,14 @@
 
 
         <!-- Footer Section -->
-        <footer class="footer">
+        <footer class="admin-footer">
             <div>
-                <span style="color: white; font-size: 24px;"">©</span>
-                        <span style=" color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
+                <span>© 2025 AI Lab Polinema</span>
             </div>
 
             <div>
-                <span style="color: white; font-size: 24px;">Contact: </span>
-                <span style="color: white; font-size: 24px; text-decoration: underline;">
-                    <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
-                        ailab@polinema.ac.id
-                    </a>
-                </span>
+                <span>Contact: </span>
+                    <a href="mailto:ailab@polinema.ac.id">ailab@polinema.ac.id</a>
             </div>
         </footer>
         <!-- /.Footer Section -->
