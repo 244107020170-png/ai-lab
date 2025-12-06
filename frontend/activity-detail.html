@@ -254,7 +254,10 @@
 
         // meta
         const published = item.published_at ? formatDateISO(item.published_at) : '';
-        metaArea.innerHTML = `${item.label ? `<span class="font-semibold text-sky-700">${escapeHtml(item.label)}</span> · ` : ''}<span>${escapeHtml(published)}</span>`;
+        metaArea.innerHTML = `
+          ${item.label ? `<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">${item.label.toLowerCase() === 'published' ? 'AI LAB - Research' : item.label}</span>` : ''}
+          ${published ? `<span class="ml-4">📅 ${published}</span>` : ''}
+        `;
 
         // title
         titleEl.textContent = item.title || 'Untitled';

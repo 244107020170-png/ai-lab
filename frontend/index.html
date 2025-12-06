@@ -10,7 +10,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;600;700&family=League+Spartan:wght@700&family=Pontano+Sans:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    /* Popup scale animation */
+  @keyframes pop {
+    0%   { transform: scale(0.75); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .animate-pop {
+    animation: pop 0.4s cubic-bezier(0.25, 1.2, 0.35, 1) forwards;
+  }
+
+  /* Floating mascot animation */
+  @keyframes floaty {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+  }
+  .floating {
+    animation: floaty 3.2s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+.delay-200 {
+  animation-delay: .2s;
+}
+/*-- Floating Animation */
+  @keyframes floatY {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-12px); }
+      100% { transform: translateY(0); }
+  }
+
+  .floatingMascot {
+      animation: floatY 3s ease-in-out infinite;
+  }
+
+  body {
   font-family: 'Poppins', sans-serif;
 
   /* BACKGROUND IMAGE FIX */
@@ -67,6 +110,28 @@
 </head>
 
 <body>
+  <!-- WELCOME POPUP -->
+<div id="welcomePopup"
+     class="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-[9999]">
+
+  <div class="bg-white rounded-[32px] shadow-2xl p-10 w-[90%] max-w-2xl text-center animate-pop">
+
+    <!-- Mascot Image BIG + floating animation -->
+    <img src="img/homemas.png" class="w-85 mx-auto mb-6 floating">
+
+    <!-- Title -->
+    <h2 class="text-3xl md:text-4xl font-bold text-sky-700 mb-3">
+      Welcome to AI Lab Polinema!
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="text-gray-600 text-lg md:text-xl flex justify-center items-center gap-2">
+      Explore our research, activities, and innovation <span class="text-2xl">✨</span>
+    </p>
+
+  </div>
+</div>
+
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
@@ -216,8 +281,31 @@
   </div>
 </section>
 
+<!-- MASCOT SECTION -->
+<section class="w-full py-20 px-6 flex flex-col items-center fade-up">
+
+  <div class="max-w-5xl w-full flex justify-between items-center">
+
+    <!-- Left mascot -->
+    <img src="img/mascope.png" 
+         class="w-55 md:w-56 floating-slow"
+         alt="mascot">
+
+    <!-- Text -->
+    <h2 class="text-3xl md:text-4xl font-bold text-sky-800 text-center mx-4 floating-slow delay-100">
+      How was our activity?
+    </h2>
+
+    <!-- Right mascot -->
+    <img src="img/robotscope.png"
+         class="w-55 md:w-56 floating-slow delay-200"
+         alt="mascot robot">
+  </div>
+
+</section>
+
 <!-- Latest Activities -->
-<section class="max-w-6xl mx-auto mt-32 px-6 fade-up">
+<section class="max-w-6xl mx-auto mt-15 px-6 fade-up">
 
   <!-- TITLE -->
   <h2 class="text-center text-sky-800 font-bold text-4xl mb-10">
@@ -234,6 +322,32 @@
       View All →
     </a>
   </div>
+
+</section>
+
+<!-- NEWS TITLE + MASCOTS (Persis sesuai contoh) -->
+<section class="relative w-full max-w-6xl mx-auto mt-24 mb-20 px-6 fade-up">
+
+    <!-- Grid 3 kolom: maskot kiri — title — maskot kanan -->
+    <div class="grid grid-cols-3 items-center">
+
+        <!-- LEFT MASCOT -->
+        <div class="flex justify-start">
+            <img src="img/robotnewsindex.png" class="w-[190px] md:w-[220px] floating">
+        </div>
+
+        <!-- TITLE -->
+        <h2 class="text-3xl md:text-4xl font-bold text-sky-800 text-center mx-4 floating-slow delay-100">
+        Is there any news from us?        
+        </h2>
+
+        <!-- RIGHT MASCOT -->
+        <div class="flex justify-end">
+            <img src="img/newsindex.png"
+                 class="w-40 md:w-60 lg:w-60 floatingMascot">
+        </div>
+
+    </div>
 
 </section>
 
@@ -315,6 +429,14 @@
 
 <!-- SCRIPT: fade-up on scroll -->
 <script>
+  const popup = document.getElementById("welcomePopup");
+  const closeBtn = document.getElementById("closePopup");
+
+  // Klik area luar popup = hilang
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) popup.style.display = "none";
+  });
+
   const faders = document.querySelectorAll(".fade-up");
   function reveal() {
     faders.forEach(el => {
@@ -361,7 +483,9 @@ async function loadLatestActivities() {
 
         latest.forEach(item => {
             const img = item.thumbnail_image ?? "img/activitymage.png";
-            const label = item.label ?? "Activity";
+            const label = item.label && item.label.toLowerCase() !== "published"
+              ? item.label
+              : "AI LAB - Research";
             const short = item.short_description ?? "";
             const date = item.published_at ?? "—";
 

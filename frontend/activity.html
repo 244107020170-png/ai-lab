@@ -20,6 +20,23 @@
 
       overflow-x: hidden;
     }
+    .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
+    .card-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
+    @media (max-width: 640px) {
+  .card-desc {
+    -webkit-line-clamp: 1;
+      }
+    }
 
     .navbar {
       transition: 0.4s ease;
@@ -124,6 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+});
+
 let activities = [];
 let currentPage = 1;
 const perPage = 12;  // <= LIMIT 12 PER PAGE
@@ -137,37 +159,39 @@ function renderActivities() {
   let pageItems = activities.slice(start, end);
 
   pageItems.forEach(item => {
-    // Getting Thumbnail Images
-    let filename = "default.png"; // 1. Set fallback
 
+    // LABEL FIX
+    let displayLabel = item.label || "AI LAB - Research";
+    if (displayLabel.toLowerCase() === "published") {
+        displayLabel = "AI LAB - Research";
+    }
+
+    // IMAGE FIX (punyamu sudah benar)
+    let filename = "default.png";
     if (item.banner_image) {
-        // 2. Check if API sent a full URL (e.g. http://.../storage/image.png)
         if (item.banner_image.startsWith("http")) {
-            // Split by "/" and take the last part (the actual filename)
             const parts = item.banner_image.split('/');
-            filename = parts[parts.length - 1]; 
+            filename = parts[parts.length - 1];
         } else {
-            // If API sent just "image.png" or "img/image.png", use it directly
             filename = item.banner_image;
         }
     }
-
-    // 3. FORCE your specific directory structure
-    // This creates "img/activities/image.png"
     const thumb = "img/activities/" + filename;
 
     container.innerHTML += `
       <a href="activity-detail.html?id=${item.id}" 
           class="block bg-white shadow-md hover:shadow-xl rounded-xl overflow-hidden transition">
+
         <img src="${thumb}" class="w-full h-48 object-cover">
+
         <div class="p-4">
-          <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">${item.label || "Published"}</span>
-          <h3 class="text-xl font-semibold mt-3">${item.title}</h3>
-          <p class="text-gray-600 mt-1">${item.short_description || ""}</p>
+          <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">${displayLabel}</span>
+          <h3 class="text-xl font-semibold mt-3 card-title">${item.title}</h3>
+          <p class="text-gray-600 mt-1 card-desc">${item.short_description || ""}</p>
         </div>
       </a>
     `;
-  });
+});
 
   renderPagination();
 }
