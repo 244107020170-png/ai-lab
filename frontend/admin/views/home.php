@@ -59,7 +59,7 @@
 
 <body>
 
-<div class="header-container">
+    <div class="header-container">
 
         <!-- LEFT BOX -->
         <div class="leBox header-left">
@@ -143,81 +143,96 @@
 
         <!-- /.Three Statistic Boxes -->
 
-        
 
-        <!-- Graph Section Title + Description -->
+
+        <!-- Recent Data -->
         <div class="graphs-row">
 
-            <!-- Graph Box 1 -->
-            <div class="leBox graph-box">
-                <div class="graph-inner">
-                    <div class="graph-header">
-                        <div class="graph-title">Projects Graph</div>
-                        <div class="graph-btn">
-                            <a href="projects.html" style="display: block; color: white !important; text-decoration: none !important;">
-                                Add Project
+            <!-- Recent Members -->
+            <div class="leBox member-container">
+                <div class="member-inner">
+                    <div class="member-header">
+                        <div class="member-title">Recent Members</div>
+                        <div class="member-btn">
+                            <a href="index.php?action=members_form" style="display: block; color: white !important; text-decoration: none !important;">
+                                Add Members
                             </a>
                         </div>
                     </div>
 
-                    <div class="graph-wrap">
-                        <div class="graph-area">
-                            <div class="graph-outline"></div>
-                            <div class="graph-gradient"></div>
-                            <img src="views/img/graph-lines.png">
-                        </div>
 
-                        <div class="graph-labels">
-                            <div>Jan</div>
-                            <div>Feb</div>
-                            <div>Mar</div>
-                            <div>Apr</div>
-                            <div>May</div>
-                            <div>Jun</div>
-                            <div>Jul</div>
-                            <div>Aug</div>
-                            <div>Sep</div>
-                            <div>Oct</div>
-                            <div>Nov</div>
-                            <div>Dec</div>
-                        </div>
-                    </div>
+                    <table class="member-table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <?php foreach ($recentmembers as $m): ?>
+                                <td><?= $m['id'] ?></td>
+                                <td><?= $m['full_name'] ?></td>
+                                <td>
+                                    <?php
+                                    $status = $m['status'];
+                                    $dotClass = match ($status) {
+                                        'Active'   => 'status-active',
+                                        'On Leave' => 'status-warning',
+                                        'Inactive' => 'status-inactive',
+                                        default    => 'status-inactive'
+                                    };
+                                    ?>
+                                    <span class="status-dot <?= $dotClass ?>"></span>
+                                    <?= $status ?>
+                                </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </table>
                 </div>
             </div>
+            <!-- /.Recent Members -->
 
-            <!-- Graph Box 2 -->
-            <div class="leBox graph-box">
-                <div class="graph-inner">
-                    <div class="graph-header">
-                        <div class="graph-title">Volunteers Joined Graph</div>
-                        <div class="graph-btn small">
-                            <a href="members.html" style="display: block; color: white !important; text-decoration: none !important;">
-                                Manage Volunteers
-                            </a>    
+            <!-- Recent Projects -->
+            <div class="leBox member-container">
+                <div class="member-inner">
+                    <div class="member-header">
+                        <div class="member-title">Recent Projects</div>
+                        <div class="member-btn">
+                            <a href="index.php?action=projects&op=create" style="display: block; color: white !important; text-decoration: none !important;">
+                                Add Projects
+                            </a>
                         </div>
                     </div>
 
-                    <div class="graph-wrap">
-                        <div class="graph-area">
-                            <div class="graph-outline"></div>
-                            <div class="graph-gradient"></div>
-                            <img src="views/img/graph-lines.png">
-                        </div>
 
-                        <div class="graph-labels wide">
-                            <div>2017</div>
-                            <div>2018</div>
-                            <div>2019</div>
-                            <div>2020</div>
-                            <div>2021</div>
-                            <div>2022</div>
-                            <div>2023</div>
-                            <div>2024</div>
-                            <div>2025</div>
-                        </div>
-                    </div>
+                    <table class="member-table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <?php foreach ($recentprojects as $m): ?>
+                                <td><?= $m['id'] ?></td>
+                                <td><?= $m['title'] ?></td>
+                                <td>
+                                    <?php
+                                    $status = $m['status'];
+                                    $dotClass = match ($status) {
+                                        'Published'   => 'status-active',
+                                        'Progressing' => 'status-warning',
+                                        'Cancelled' => 'status-inactive',
+                                        default    => 'status-inactive'
+                                    };
+                                    ?>
+                                    <span class="status-dot <?= $dotClass ?>"></span>
+                                    <?= $status ?>
+                                </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </table>
                 </div>
             </div>
+            <!-- /.Recent Projects -->
 
         </div>
         <!-- /.Graphs Container -->

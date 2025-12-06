@@ -39,17 +39,24 @@ class Members
         return pg_fetch_all($res) ?: [];
     }
 
-    public function sortByNameASC($limit, $offset)
+    public function sortBy($sort, $order, $limit, $offset)
     {
-        $sql = "SELECT * FROM members ORDER BY full_name ASC LIMIT $1 OFFSET $2";
-        $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
-        return pg_fetch_all($res) ?: [];
-    }
+        // 1. Whitelist allowed columns to prevent SQL Injection
+        // (Add any other columns you want to sort by here)
+        $allowedCols = ['id', 'full_name', 'role', 'expertise', 'status', 'created_at'];
+        $allowedDirs = ['ASC', 'DESC'];
 
-    public function sortByNameDESC($limit, $offset)
-    {
-        $sql = "SELECT * FROM members ORDER BY full_name DESC LIMIT $1 OFFSET $2";
+        // 2. Validate inputs (Default to 'id' and 'ASC' if invalid)
+        $sortCol = in_array($sort, $allowedCols) ? $sort : 'id';
+        $sortDir = in_array(strtoupper($order), $allowedDirs) ? strtoupper($order) : 'ASC';
+
+        // 3. Inject the VALIDATED column/direction directly into the string
+        // Note: We used $1 and $2 for LIMIT and OFFSET now.
+        $sql = "SELECT * FROM members ORDER BY $sortCol $sortDir LIMIT $1 OFFSET $2";
+
+        // 4. Bind only the values (limit and offset)
         $res = pg_query_params($this->conn, $sql, [$limit, $offset]);
+
         return pg_fetch_all($res) ?: [];
     }
 
@@ -132,10 +139,9 @@ class Members
         return pg_query_params($this->conn, "DELETE FROM member_backgrounds WHERE id=$1", [$id]);
     }
 
-    public function updatephoto($id, $photoName) {
+    public function updatephoto($id, $photoName)
+    {
         $sql = "UPDATE members SET photo=$1 WHERE id=$2";
         return pg_query_params($this->conn, $sql, [$photoName, $id]);
     }
 }
-
-

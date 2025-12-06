@@ -33,6 +33,9 @@ class HomeController
         // FIX: Ensure the variable name matches what is used in extract() below
         $projectsinprogress = count($this->activities->getByStatus('progress'));
 
+        $recentmembers = $this->members->sortBy('created_at', 'DESC', 8, 0);
+        $recentprojects = $this->activities->sortBy('created_at', 'DESC', 8, 0);
+
         extract([
             "totalmembers"       => $totalmembers,
             "members2025"        => $members2025,

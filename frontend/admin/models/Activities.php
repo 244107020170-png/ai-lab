@@ -1,27 +1,30 @@
 <?php
 require_once __DIR__ . '/../Database.php';
 
-class Activities {
+class Activities
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = Database::getConnection();
     }
 
     // GET ALL
-    public function getAll($search = null, $status = null, $limit = 10, $offset = 0) {
+    public function getAll($search = null, $status = null, $limit = 10, $offset = 0)
+    {
         $params = [];
         $where = [];
 
         $sql = "SELECT * FROM activities";
 
         if ($search) {
-            $where[] = "title ILIKE $" . (count($params)+1);
+            $where[] = "title ILIKE $" . (count($params) + 1);
             $params[] = '%' . $search . '%';
         }
 
         if ($status) {
-            $where[] = "status = $" . (count($params)+1);
+            $where[] = "status = $" . (count($params) + 1);
             $params[] = $status;
         }
 
@@ -29,7 +32,7 @@ class Activities {
             $sql .= " WHERE " . implode(' AND ', $where);
         }
 
-        $sql .= " ORDER BY id ASC LIMIT $" . (count($params)+1) . " OFFSET $" . (count($params)+2);
+        $sql .= " ORDER BY id ASC LIMIT $" . (count($params) + 1) . " OFFSET $" . (count($params) + 2);
         $params[] = $limit;
         $params[] = $offset;
 
@@ -38,19 +41,20 @@ class Activities {
     }
 
     // COUNT
-    public function countAll($search = null, $status = null) {
+    public function countAll($search = null, $status = null)
+    {
         $params = [];
         $where = [];
 
         $sql = "SELECT COUNT(*) AS cnt FROM activities";
 
         if ($search) {
-            $where[] = "title ILIKE $" . (count($params)+1);
+            $where[] = "title ILIKE $" . (count($params) + 1);
             $params[] = '%' . $search . '%';
         }
 
         if ($status) {
-            $where[] = "status = $" . (count($params)+1);
+            $where[] = "status = $" . (count($params) + 1);
             $params[] = $status;
         }
 
@@ -64,25 +68,28 @@ class Activities {
     }
 
     // GET BY ID
-    public function getById($id) {
+    public function getById($id)
+    {
         $res = pg_query_params($this->db, "SELECT * FROM activities WHERE id = $1", [$id]);
         return pg_fetch_assoc($res);
     }
 
     // Get by Status
-    public function getByStatus($status) {
-    // FIX: Added a comma after the SQL string
-    $res = pg_query_params($this->db, "SELECT * FROM activities WHERE status = $1", [$status]);
-    
-    $data = pg_fetch_all($res);
-    
-    // Safety check: pg_fetch_all returns FALSE if no rows found.
-    // Returning an empty array [] prevents count() from crashing in the controller.
-    return $data ? $data : []; 
-}
+    public function getByStatus($status)
+    {
+        // FIX: Added a comma after the SQL string
+        $res = pg_query_params($this->db, "SELECT * FROM activities WHERE status = $1", [$status]);
+
+        $data = pg_fetch_all($res);
+
+        // Safety check: pg_fetch_all returns FALSE if no rows found.
+        // Returning an empty array [] prevents count() from crashing in the controller.
+        return $data ? $data : [];
+    }
 
     // INSERT
-    public function insert($data) {
+    public function insert($data)
+    {
 
         // auto fix label
         if (empty($data['label'])) {
@@ -113,16 +120,23 @@ class Activities {
     }
 
     // UPDATE (final fixed)
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
 
         $set = [];
         $params = [];
         $i = 1;
 
         $columns = [
-            'title','label','short_description','full_description',
-            'published_at','thumbnail_image','banner_image',
-            'status','document_link'
+            'title',
+            'label',
+            'short_description',
+            'full_description',
+            'published_at',
+            'thumbnail_image',
+            'banner_image',
+            'status',
+            'document_link'
         ];
 
         foreach ($columns as $col) {
@@ -148,15 +162,38 @@ class Activities {
         if (empty($set)) return false;
 
         $params[] = $id;
-        $sql = "UPDATE activities SET " . implode(", ", $set) . 
-               ", updated_at = NOW() WHERE id = $" . $i;
+        $sql = "UPDATE activities SET " . implode(", ", $set) .
+            ", updated_at = NOW() WHERE id = $" . $i;
 
         $res = pg_query_params($this->db, $sql, $params);
         return $res !== false;
     }
 
     // DELETE
-    public function delete($id) {
+    public function delete($id)
+    {
         return pg_query_params($this->db, "DELETE FROM activities WHERE id = $1", [$id]) !== false;
+    }
+
+    // Sort By
+    public function sortBy($sort, $order, $limit, $offset)
+    {
+        // 1. Whitelist allowed columns to prevent SQL Injection
+        // (Add any other columns you want to sort by here)
+        $allowedCols = ['id', 'full_name', 'role', 'expertise', 'status', 'created_at'];
+        $allowedDirs = ['ASC', 'DESC'];
+
+        // 2. Validate inputs (Default to 'id' and 'ASC' if invalid)
+        $sortCol = in_array($sort, $allowedCols) ? $sort : 'id';
+        $sortDir = in_array(strtoupper($order), $allowedDirs) ? strtoupper($order) : 'ASC';
+
+        // 3. Inject the VALIDATED column/direction directly into the string
+        // Note: We used $1 and $2 for LIMIT and OFFSET now.
+        $sql = "SELECT * FROM activities ORDER BY $sortCol $sortDir LIMIT $1 OFFSET $2";
+
+        // 4. Bind only the values (limit and offset)
+        $res = pg_query_params($this->db, $sql, [$limit, $offset]);
+
+        return pg_fetch_all($res) ?: [];
     }
 }

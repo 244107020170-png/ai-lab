@@ -232,7 +232,7 @@ body {
 }
 
 /* Graph box container */
-.graph-box {
+.member-container {
     width: 565px;
     height: 360px;
 
@@ -244,7 +244,7 @@ body {
 }
 
 /* Inner content */
-.graph-inner {
+.member-inner {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -252,7 +252,7 @@ body {
 }
 
 /* Header line */
-.graph-header {
+.member-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -261,14 +261,14 @@ body {
 }
 
 /* Title */
-.graph-title {
+.member-title {
     font-size: 20px;
     font-weight: 700;
     color: white;
 }
 
 /* Button */
-.graph-btn {
+.member-btn {
     width: 98px;
     height: 25px;
 
@@ -288,68 +288,29 @@ body {
     cursor: pointer;
 }
 
-.graph-btn.small {
+.member-btn.small {
     width: 78px;
     height: 35px;
     font-size: 12px;
     text-align: center;
 }
 
-/* Graph main area */
-.graph-area {
-    width: 100%;
-    height: 146px;
-    position: relative;
-    display: flex;
-    justify-content: center;
+.member-table {
+    color: white;
 }
 
-/* Graph Wrapper that wraps both graph and the text */
-.graph-wrap {
-    padding-top: 64px;
+.member-table tr>th {
+    color: rgba(255, 255, 255, 0.75);
+    text-align: left;
 }
 
-/* White outline */
-.graph-outline {
-    width: 489px;
-    height: 146px;
-    position: absolute;
-    top: 0;
-    outline: 2px white solid;
-    left: 50%;
-    transform: translateX(-50%);
+.member-table tr {
+    gap: 5px;
 }
-
-/* Glass gradient */
-.graph-gradient {
-    width: 489px;
-    height: 146px;
-    position: absolute;
-    opacity: 65%;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-
-    background: linear-gradient(
-        180deg,
-        rgba(255,255,255,0.54),
-        rgba(115,115,115,0)
-    );
-}
-
-/* Month / year labels */
-.graph-labels {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 18px;
-    font-size: 16px;
-    color: rgba(255,255,255,0.5);
-    padding-top: 3px;
-}
-
-.graph-labels.wide {
-    gap: 23px;
+.member-table tr>td {
+    padding-bottom: 6px;
+    padding-top: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.11);
 }
 
 .footer {
@@ -360,4 +321,17 @@ body {
     align-items: center;
     margin-top: 50px;
     
+}
+
+/* Warna status */
+.status-active {
+    background-color: #4ade80; /* green */
+}
+
+.status-warning {
+    background-color: #facc15; /* yellow */
+}
+
+.status-inactive {
+    background-color: #ef4444; /* red */
 }
