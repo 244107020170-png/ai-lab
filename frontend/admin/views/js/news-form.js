@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveBtn.addEventListener("click", () => {
             isDirty = false; // prevent popup
             if (unsavedBanner) unsavedBanner.style.display = "none";
+            form.submit();
         });
     }
 

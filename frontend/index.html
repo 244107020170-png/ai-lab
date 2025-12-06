@@ -12,7 +12,13 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #DFF0F9 25%, #E5F4FF 75%);
+      /* BACKGROUND IMAGE FIX */
+      background-image: url('img/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+
       overflow-x: hidden;
     }
     .fade-up {
@@ -60,7 +66,7 @@
 </head>
 
 <body>
-  <!-- 🔹 NAVBAR -->
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
       <div class="flex items-center gap-3">
@@ -152,11 +158,6 @@
   </h2>
 
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 relative">
-
-    <!-- LEFT CHARACTER (opsional / kamu isi sendiri) -->
-    <div class="hidden lg:block absolute -left-48 top-56">
-      <img src="img/homemascott.png" alt="character-placeholder" class="w-72 h-96 object-contain">
-    </div>
 
     <!-- === CARD 1 : Application Development === -->
     <div class="bg-white/60 border border-black/10 shadow-md rounded-[35px] p-8 flex flex-col items-center text-center

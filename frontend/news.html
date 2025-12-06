@@ -10,7 +10,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { font-family: 'Poppins', sans-serif; background: linear-gradient(180deg,#DFF0F9 25%,#E5F4FF 75%); overflow-x: hidden; scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      /* BACKGROUND IMAGE FIX */
+      background-image: url('img/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+
+      overflow-x: hidden;
+      scroll-behavior: smooth; }
     /* Fade helpers */
     .fade-up { opacity:0; transform: translateY(30px); transition: all .6s ease; }
     .fade-up.show { opacity:1; transform: translateY(0); }
@@ -197,7 +207,7 @@ function renderGrid(items = []) {
     card.querySelector('.card-img').src = item.image_thumb || "img/newstop.png";
     card.querySelector('.card-title').textContent = item.title;
     card.querySelector('.card-date').textContent =
-      item.date ? new Date(item.date).toLocaleDateString() : "";
+      item.created_at ? new Date(item.created_at).toLocaleDateString() : "";
 
     el.addEventListener('click', () => openDetail(item.id));
 
@@ -217,7 +227,7 @@ async function openDetail(id) {
 
   document.getElementById("detailTitle").textContent = item.title;
   document.getElementById("detailDate").textContent =
-    item.date ? new Date(item.date).toLocaleDateString() : "";
+    item.created_at ? new Date(item.created_at).toLocaleDateString() : "";
 
   document.getElementById("detailImg").src =
     item.image_detail || item.image_thumb || "img/newsdown.png";
