@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,44 +8,72 @@
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      /* BACKGROUND IMAGE FIX */
-      background-image: url('img/background.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-
-      overflow-x: hidden;
+      background: linear-gradient(180deg, #DFF0F9 25%, #E5F4FF 75%);
     }
-    .fade-up { opacity: 0; transform: translateY(20px); transition: .6s ease; }
-    .fade-up.show { opacity: 1; transform: translateY(0); }
-    .navbar.scrolled { background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: .6s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
 
     /* small typography helper (since Tailwind-prose plugin may not be available) */
-    .content-prose p { margin-bottom: 1rem; color: #334155; line-height: 1.75; }
-    .content-prose h2 { margin-top: 1.25rem; margin-bottom: .75rem; }
-    .content-prose ul { margin-left: 1.25rem; margin-bottom: 1rem; }
+    .content-prose p {
+      margin-bottom: 1rem;
+      color: #334155;
+      line-height: 1.75;
+    }
+
+    .content-prose h2 {
+      margin-top: 1.25rem;
+      margin-bottom: .75rem;
+    }
+
+    .content-prose ul {
+      margin-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
 
     /* responsive banner area */
-    #bannerArea img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    #bannerArea img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
     #pageMain:focus {
-  outline: none;
-}
+      outline: none;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- NAVBAR (paste from index.html for consistent look) -->
   <nav class="navbar fixed top-0 w-full z-50 bg-transparent">
     <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-6 md:px-10">
       <div class="flex items-center gap-3">
-        <a href="index.html" aria-label="AI Lab Polinema homepage"><img src="img/logorm.png" alt="AI Lab Polinema" class="w-36 h-auto"></a>
+        <a href="index.html" aria-label="AI Lab Polinema homepage"><img src="img/logorm.png" alt="AI Lab Polinema"
+            class="w-36 h-auto"></a>
       </div>
 
       <ul class="hidden md:flex space-x-8 text-lg font-medium">
@@ -69,9 +98,11 @@
     </div>
 
     <!-- ACTIVITY DETAIL WRAPPER -->
-    <div id="activityWrapper" class="bg-white/80 rounded-3xl shadow-xl overflow-hidden" role="article" aria-labelledby="title">
+    <div id="activityWrapper" class="bg-white/80 rounded-3xl shadow-xl overflow-hidden" role="article"
+      aria-labelledby="title">
       <!-- Banner (filled by JS) -->
-      <div id="bannerArea" class="w-full h-64 bg-slate-100 flex items-center justify-center overflow-hidden" aria-hidden="false">
+      <div id="bannerArea" class="w-full h-64 bg-slate-100 flex items-center justify-center overflow-hidden"
+        aria-hidden="false">
         <!-- image injected here -->
       </div>
 
@@ -107,7 +138,8 @@
     <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
       <div>
         <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4" alt="logo white">
-        <p class="text-sm text-blue-100">AI Lab Polinema — a collaborative innovation hub advancing applied informatics.</p>
+        <p class="text-sm text-blue-100">AI Lab Polinema — a collaborative innovation hub advancing applied informatics.
+        </p>
       </div>
 
       <div>
@@ -170,8 +202,8 @@
     const contentArea = document.getElementById('contentArea');
 
     // show/hide helper
-    function show(el){ el.classList.remove('hidden'); }
-    function hide(el){ el.classList.add('hidden'); }
+    function show(el) { el.classList.remove('hidden'); }
+    function hide(el) { el.classList.add('hidden'); }
 
     async function loadActivity() {
       const id = getParam('id');
@@ -193,13 +225,32 @@
           return;
         }
         if (!res.ok) {
-          throw new Error('HTTP '+res.status);
+          throw new Error('HTTP ' + res.status);
         }
         const item = await res.json();
 
         // fill banner image (fallbacks)
-        const bannerUrl = item.banner_image || item.thumbnail_image || 'img/activitymage.png';
-        bannerArea.innerHTML = `<img src="${bannerUrl}" alt="${(item.title||'Activity')} banner">`;
+        // const bannerUrl = item.banner_image || item.thumbnail_image || 'img/activitymage.png';
+
+        let filename = "default.png"; // 1. Set fallback
+
+        if (item.banner_image) {
+          // 2. Check if API sent a full URL (e.g. http://.../storage/image.png)
+          if (item.banner_image.startsWith("http")) {
+            // Split by "/" and take the last part (the actual filename)
+            const parts = item.banner_image.split('/');
+            filename = parts[parts.length - 1];
+          } else {
+            // If API sent just "image.png" or "img/image.png", use it directly
+            filename = item.banner_image;
+          }
+        }
+
+        // 3. FORCE your specific directory structure
+        // This creates "img/activities/image.png"
+        const bannerUrl = "img/activities/" + filename;
+
+        bannerArea.innerHTML = `<img src="${bannerUrl}" alt="${(item.title || 'Activity')} banner">`;
 
         // meta
         const published = item.published_at ? formatDateISO(item.published_at) : '';
@@ -249,7 +300,7 @@
     });
 
     document.querySelectorAll(".email-link").forEach(link => {
-    link.addEventListener("click", function (e) {
+      link.addEventListener("click", function (e) {
         e.preventDefault();
 
         // buka Gmail dulu
@@ -257,10 +308,11 @@
 
         // fallback ke MAILTO (Outlook, Windows Mail)
         setTimeout(() => {
-            window.location.href = "mailto:ailab@polinema.ac.id";
+          window.location.href = "mailto:ailab@polinema.ac.id";
         }, 300);
+      });
     });
-});
   </script>
 </body>
+
 </html>
