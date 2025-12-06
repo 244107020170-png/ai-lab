@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Activity | AILab</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet">
 
   <style>
     body {
@@ -20,31 +23,35 @@
 
       overflow-x: hidden;
     }
+
     .card-title {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
     .card-desc {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
+
     @media (max-width: 640px) {
-  .card-desc {
-    -webkit-line-clamp: 1;
+      .card-desc {
+        -webkit-line-clamp: 1;
       }
     }
 
     .navbar {
       transition: 0.4s ease;
     }
+
     .navbar.scrolled {
-      background: rgba(255,255,255,0.92);
+      background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(10px);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
     }
 
     /* fade up animation */
@@ -53,6 +60,7 @@
       transform: translateY(30px);
       transition: all .7s ease;
     }
+
     .fade-up.show {
       opacity: 1;
       transform: translateY(0);
@@ -62,123 +70,124 @@
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar fixed top-0 w-full z-50 bg-transparent">
-  <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
-    <img src="img/logorm.png" class="w-40" alt="logo">
+  <!-- NAVBAR -->
+  <nav class="navbar fixed top-0 w-full z-50 bg-transparent">
+    <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
+      <img src="img/logorm.png" class="w-40" alt="logo">
 
-    <ul class="hidden md:flex space-x-8 text-lg font-medium">
-      <li><a href="index.html" class="nav-link">Home</a></li>
-      <li><a href="about.html" class="nav-link">About</a></li>
-      <li><a href="research.html" class="nav-link">Research</a></li>
-      <li><a href="activity.html" class="nav-link bg-orange-500 text-white px-4 py-1 rounded-full shadow">Activity</a></li>
-      <li><a href="members.html" class="nav-link">Members</a></li>
-      <li><a href="facility.html" class="nav-link">Facility</a></li>
-      <li><a href="contact.html" class="nav-link">Contact</a></li>
-    </ul>
-  </div>
-</nav>
-
-<!-- TITLE -->
-<section class="pt-40 text-center fade-up">
-  <h1 class="text-5xl font-bold text-sky-700 font-['Inter']">Lab Activity</h1>
-</section>
-
-<!-- GRID -->
-<section class="max-w-7xl mx-auto mt-16 px-10 fade-up">
-
-  <!-- WRAPPER FIX -->
-  <div id="activityList" class="grid md:grid-cols-3 gap-10 relative z-20">
-    <!-- Cards injected here -->
-  </div>
-
-</section>
-
-<section>
-  <div id="pagination" class="flex justify-center mt-10 space-x-3"></div>
-</section>
-
-<!-- FOOTER -->
-<footer class="mt-32 bg-cyan-900 text-white py-8">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
-
-    <div>
-      <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4">
-      <p class="text-sm text-blue-100">
-        AI Lab Polinema — a collaborative innovation hub advancing applied informatics.
-      </p>
-    </div>
-
-    <div>
-      <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
-      <ul class="space-y-2 text-blue-100">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="contact.html">Contact</a></li>
+      <ul class="hidden md:flex space-x-8 text-lg font-medium">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="research.html" class="nav-link">Research</a></li>
+        <li><a href="activity.html" class="nav-link bg-orange-500 text-white px-4 py-1 rounded-full shadow">Activity</a>
+        </li>
+        <li><a href="members.html" class="nav-link">Members</a></li>
+        <li><a href="facility.html" class="nav-link">Facility</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
       </ul>
     </div>
+  </nav>
 
-    <div>
-      <h3 class="text-lg font-semibold mb-3">Contact Us</h3>
-      <p class="text-blue-100 text-sm">
-        Gedung Pascasarjana Lt. 2, Politeknik Negeri Malang <br>
-        Email: <a class="email-link underline text-white">ailab@polinema.ac.id</a>
-      </p>
+  <!-- TITLE -->
+  <section class="pt-40 text-center fade-up">
+    <h1 class="text-5xl font-bold text-sky-700 font-['Inter']">Lab Activity</h1>
+  </section>
+
+  <!-- GRID -->
+  <section class="max-w-7xl mx-auto mt-16 px-10 fade-up">
+
+    <!-- WRAPPER FIX -->
+    <div id="activityList" class="grid md:grid-cols-3 gap-10 relative z-20">
+      <!-- Cards injected here -->
     </div>
 
-  </div>
-  <div class="text-center text-blue-100 text-sm border-t border-blue-200 mt-6 pt-4">
-    © 2025 AI Lab Polinema. All rights reserved.
-  </div>
-</footer>
+  </section>
 
-<script>
-/* Fade animation on load */
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".fade-up").forEach(el => {
-    setTimeout(() => el.classList.add("show"), 200);
-  });
-});
+  <section>
+    <div id="pagination" class="flex justify-center mt-10 space-x-3"></div>
+  </section>
 
-const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 20);
-});
+  <!-- FOOTER -->
+  <footer class="mt-32 bg-cyan-900 text-white py-8">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center md:text-left">
 
-let activities = [];
-let currentPage = 1;
-const perPage = 12;  // <= LIMIT 12 PER PAGE
+      <div>
+        <img src="img/logowhite.png" class="w-40 mx-auto md:mx-0 mb-4">
+        <p class="text-sm text-blue-100">
+          AI Lab Polinema — a collaborative innovation hub advancing applied informatics.
+        </p>
+      </div>
 
-function renderActivities() {
-  const container = document.getElementById("activityList");
-  container.innerHTML = "";
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2 text-blue-100">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
 
-  let start = (currentPage - 1) * perPage;
-  let end = start + perPage;
-  let pageItems = activities.slice(start, end);
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Contact Us</h3>
+        <p class="text-blue-100 text-sm">
+          Gedung Pascasarjana Lt. 2, Politeknik Negeri Malang <br>
+          Email: <a class="email-link underline text-white">ailab@polinema.ac.id</a>
+        </p>
+      </div>
 
-  pageItems.forEach(item => {
+    </div>
+    <div class="text-center text-blue-100 text-sm border-t border-blue-200 mt-6 pt-4">
+      © 2025 AI Lab Polinema. All rights reserved.
+    </div>
+  </footer>
 
-    // LABEL FIX
-    let displayLabel = item.label || "AI LAB - Research";
-    if (displayLabel.toLowerCase() === "published") {
-        displayLabel = "AI LAB - Research";
-    }
+  <script>
+    /* Fade animation on load */
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".fade-up").forEach(el => {
+        setTimeout(() => el.classList.add("show"), 200);
+      });
+    });
 
-    // IMAGE FIX (punyamu sudah benar)
-    let filename = "default.png";
-    if (item.banner_image) {
-        if (item.banner_image.startsWith("http")) {
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    let activities = [];
+    let currentPage = 1;
+    const perPage = 12;  // <= LIMIT 12 PER PAGE
+
+    function renderActivities() {
+      const container = document.getElementById("activityList");
+      container.innerHTML = "";
+
+      let start = (currentPage - 1) * perPage;
+      let end = start + perPage;
+      let pageItems = activities.slice(start, end);
+
+      pageItems.forEach(item => {
+
+        // LABEL FIX
+        let displayLabel = item.label || "AI LAB - Research";
+        if (displayLabel.toLowerCase() === "published") {
+          displayLabel = "AI LAB - Research";
+        }
+
+        // IMAGE FIX (punyamu sudah benar)
+        let filename = "default.png";
+        if (item.banner_image) {
+          if (item.banner_image.startsWith("http")) {
             const parts = item.banner_image.split('/');
             filename = parts[parts.length - 1];
-        } else {
+          } else {
             filename = item.banner_image;
+          }
         }
-    }
-    const thumb = "img/activities/" + filename;
+        const thumb = "img/activities/" + filename;
 
-    container.innerHTML += `
+        container.innerHTML += `
       <a href="activity-detail.html?id=${item.id}" 
           class="block bg-white shadow-md hover:shadow-xl rounded-xl overflow-hidden transition">
 
@@ -191,58 +200,59 @@ function renderActivities() {
         </div>
       </a>
     `;
-});
+      });
 
-  renderPagination();
-}
+      renderPagination();
+    }
 
-function renderPagination() {
-  const totalPages = Math.ceil(activities.length / perPage);
-  const pag = document.getElementById("pagination");
+    function renderPagination() {
+      const totalPages = Math.ceil(activities.length / perPage);
+      const pag = document.getElementById("pagination");
 
-  pag.innerHTML = "";
+      pag.innerHTML = "";
 
-  if (totalPages <= 1) return;
+      if (totalPages <= 1) return;
 
-  for (let i = 1; i <= totalPages; i++) {
-    pag.innerHTML += `
+      for (let i = 1; i <= totalPages; i++) {
+        pag.innerHTML += `
       <button 
         onclick="goToPage(${i})"
         class="px-4 py-2 rounded-lg border transition
-          ${i === currentPage 
-            ? 'bg-sky-600 text-white border-sky-700' 
+          ${i === currentPage
+            ? 'bg-sky-600 text-white border-sky-700'
             : 'bg-white text-sky-700 border-sky-300 hover:bg-sky-100'}">
         ${i}
       </button>
     `;
-  }
-}
+      }
+    }
 
-function goToPage(n) {
-  currentPage = n;
-  renderActivities();
-  window.scrollTo({ top: 300, behavior: "smooth" });
-}
+    function goToPage(n) {
+      currentPage = n;
+      renderActivities();
+      window.scrollTo({ top: 300, behavior: "smooth" });
+    }
 
 
-async function loadActivities() {
-  const container = document.getElementById("activityList");
-  container.innerHTML = `<p class="col-span-3 text-center text-sky-700">Loading activities...</p>`;
+    async function loadActivities() {
+      const container = document.getElementById("activityList");
+      container.innerHTML = `<p class="col-span-3 text-center text-sky-700">Loading activities...</p>`;
 
-  try {
-    const res = await fetch("http://127.0.0.1:8000/api/activities");
-    activities = await res.json(); // STORE ALL DATA
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/activities");
+        activities = await res.json(); // STORE ALL DATA
 
-    renderActivities(); // SHOW FIRST PAGE
+        renderActivities(); // SHOW FIRST PAGE
 
-  } catch (err) {
-    container.innerHTML = `<p class="col-span-3 text-red-600 text-center">Failed to load activities.</p>`;
-    console.error(err);
-  }
-}
+      } catch (err) {
+        container.innerHTML = `<p class="col-span-3 text-red-600 text-center">Failed to load activities.</p>`;
+        console.error(err);
+      }
+    }
 
-document.addEventListener("DOMContentLoaded", loadActivities);
-</script>
+    document.addEventListener("DOMContentLoaded", loadActivities);
+  </script>
 
 </body>
+
 </html>
