@@ -140,7 +140,7 @@ public function delete() {
 
         // If update, existing images may remain if no file uploaded
         $thumbPath = $processImage('image_thumb', 600, !$isUpdate); // required only for new entry, but for safety we recommend required
-        $detailPath = $processImage('image_detail', 1200, true);
+        $detailPath = $processImage('image_detail', 1200, !$isUpdate);
 
         if ($isUpdate && empty($errors)) {
             $id = intval($_POST['id'] ?? 0);
