@@ -15,7 +15,13 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #DFF0F9 25%, #E5F4FF 75%);
+      /* BACKGROUND IMAGE FIX */
+      background-image: url('img/background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+
       overflow-x: hidden;
     }
 
@@ -70,7 +76,7 @@
 </head>
 
 <body>
-  <!-- 🔹 NAVBAR -->
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
       <div class="flex items-center gap-3">
@@ -131,12 +137,72 @@
     <!-- PARAGRAPH CONTAINER -->
     <div class="bg-white/60 rounded-[40px] shadow-md p-10 text-center md:text-justify">
 
+<<<<<<< HEAD
       <p class="text-black text-xl leading-relaxed font-['Poppins']">
         The Applied Informatics Laboratory at Malang State Polytechnic is an innovation
         center focused on developing information technology-based solutions.
         Through collaboration, the Applied Informatics Laboratory continuously
         strives to deliver relevant and useful technology, strengthening Malang State
         Polytechnic’s position as a leading educational institution in applied informatics.
+=======
+    <!-- BUTTON -->
+    <a href="volunteer.html"
+       class="mt-8 bg-cyan-500 hover:bg-cyan-600 text-white text-2xl font-bold
+              px-10 py-3 rounded-full w-fit transition">
+      Join Us
+    </a>
+
+  </div>
+</section>
+
+<!-- ABOUT THE LAB SECTION -->
+<section class="max-w-6xl mx-auto mt-24 px-6 fade-up">
+
+  <!-- TITLE -->
+  <h2 class="text-center text-sky-700 text-4xl font-bold font-['Inter'] mb-6">
+    About the Lab
+  </h2>
+
+  <!-- PARAGRAPH CONTAINER -->
+  <div class="bg-white/60 rounded-[40px] shadow-md p-10 text-center md:text-justify">
+
+    <p class="text-black text-xl leading-relaxed font-['Poppins']">
+      The Applied Informatics Laboratory at Malang State Polytechnic is an innovation
+      center focused on developing information technology-based solutions.
+      Through collaboration, the Applied Informatics Laboratory continuously
+      strives to deliver relevant and useful technology, strengthening Malang State
+      Polytechnic’s position as a leading educational institution in applied informatics.
+    </p>
+
+    <!-- READ MORE BUTTON -->
+    <div class="flex justify-end mt-8">
+      <a href="about.html"
+         class="bg-sky-600 hover:bg-sky-700 text-white text-xl font-bold py-2 px-6 rounded-full transition">
+        Read More
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- OUR SCOPE SECTION -->
+<section class="max-w-7xl mx-auto px-6 mt-28 fade-up">
+
+  <!-- TITLE -->
+  <h2 class="text-center text-sky-700 text-4xl font-bold font-['Inter'] mb-10">
+    Our Scope
+  </h2>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 relative">
+
+    <!-- === CARD 1 : Application Development === -->
+    <div class="bg-white/60 border border-black/10 shadow-md rounded-[35px] p-8 flex flex-col items-center text-center
+                transition transform duration-300 hover:-translate-y-2 hover:shadow-xl">
+      <img src="img/gcode.png" class="w-14 h-14 mb-4" alt="icon">
+      <h3 class="text-xl font-bold font-['Pontano_Sans']">Application Development</h3>
+      <p class="text-black/70 text-base font-['Poppins'] mt-3">
+        Designing and building desktop, web, and mobile applications for industrial and academic needs.
+>>>>>>> 5654bf14d88fe1bab463222db9370ace3dc73bf7
       </p>
 
       <!-- READ MORE BUTTON -->
