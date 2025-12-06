@@ -145,8 +145,12 @@
         const json = await res.json();
 
         if (json.success) {
-            const row = document.querySelector(`.project-row:nth-child(${id})`);
-            if (row) row.remove();
+            // FIX — cari row yang benar berdasarkan tombol delete
+            const btn = document.querySelector(`.delete-btn[data-id="${id}"]`);
+            if (btn) {
+                const row = btn.closest(".project-row");
+                if (row) row.remove();
+            }
         } else {
             alert(json.msg || "Delete failed");
         }
@@ -155,6 +159,7 @@
         alert("Network error");
     }
 }
+
 
   confirmDelete?.addEventListener("click", () => {
     if (deleteID) doDelete(deleteID);
