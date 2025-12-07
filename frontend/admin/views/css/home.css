@@ -3,15 +3,11 @@ html {
 }
 
 body {
-    font-family: 'SF Pro Rounded';
-    justify-items: center;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Aligns content to the TOP, not center */
-    
+    font-family: 'SF Pro Rounded';    
     /* Allow scroll */
     min-height: 100vh; 
     margin: 0;
+    overflow-x: hidden;
 }
 
 /* Main Container */
