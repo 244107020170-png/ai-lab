@@ -216,16 +216,17 @@
                                 <td><?= $m['title'] ?></td>
                                 <td>
                                     <?php
-                                    $status = $m['status'];
+                                    $status = strtolower($m['status']); // normalize database value
+
                                     $dotClass = match ($status) {
-                                        'Published'   => 'status-active',
-                                        'Progressing' => 'status-warning',
-                                        'Cancelled' => 'status-inactive',
-                                        default    => 'status-inactive'
+                                        'published'   => 'status-active',
+                                        'progressing', 'progress' => 'status-warning',
+                                        'cancelled'   => 'status-inactive',
+                                        default       => 'status-inactive'
                                     };
                                     ?>
                                     <span class="status-dot <?= $dotClass ?>"></span>
-                                    <?= $status ?>
+                                    <?= statusUI($status) ?>
                                 </td>
                         </tr>
                     <?php endforeach; ?>
