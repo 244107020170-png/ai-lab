@@ -7,7 +7,6 @@ class LabPermit
 
     public function __construct()
     {
-        // FIXED → sesuai Database.php kamu
         $this->db = Database::getConnection();
     }
 

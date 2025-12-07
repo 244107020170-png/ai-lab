@@ -1,16 +1,15 @@
 <?php
+require_once __DIR__ . '/../Database.php';
 
-class Volunteer {
-
+class Volunteer
+{
     private $db;
 
-    public function __construct() {
-        $this->db = new PDO (
-            "pgsql:host=localhost;dbname=ai_lab_db", 
-             "postgres", 
-             "nasywa1010");//ngikut password db
+    public function __construct()
+    {
+        $this->db = Database::getConnection();
     }
-
+    
     // INSERT NEW VOLUNTEER
     public function insert($data) {
         $sql = "INSERT INTO volunteer_registrations 
