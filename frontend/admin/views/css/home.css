@@ -3,12 +3,13 @@ html {
 }
 
 body {
-    font-family: 'SF Pro Rounded';    
-    /* Allow scroll */
-    min-height: 100vh; 
+    font-family: 'SF Pro Rounded';
+    min-height: 100vh;
     margin: 0;
     overflow-x: hidden;
+    display: block; /* default*/
 }
+
 
 /* Main Container */
 .main-container {
