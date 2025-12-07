@@ -383,24 +383,42 @@ form.addEventListener('submit', async (e) => {
   if (!email) { alert('Please enter your email.'); form.email.focus(); return; }
   if (!agree) { alert('Please accept the agreement to continue.'); return; }
 
-  // Show processing animation
+  // Show processing
   form.closest('section').classList.add('opacity-60');
   processing.classList.remove('hidden');
   setTimeout(() => processing.classList.add('show'), 40);
   processing.scrollIntoView({ behavior: "smooth", block: "center" });
 
-  // wait animation
   await new Promise(r => setTimeout(r, 1300));
 
-  // SEND DATA WITH AJAX
-  let response = await fetch(form.action, {
-    method: "POST",
-    body: new FormData(form)
-  });
+  let result;
 
-  let result = await response.json();
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form)
+    });
 
-  // Hide processing
+    // cek kalau bukan JSON
+    const text = await response.text();
+
+    try {
+      result = JSON.parse(text);
+    } catch {
+      throw new Error("Server did not return JSON: " + text);
+    }
+
+  } catch (err) {
+
+    processing.classList.remove('show');
+    setTimeout(()=> processing.classList.add('hidden'), 300);
+    form.closest('section').classList.remove('opacity-60');
+
+    alert("Submission failed:\n" + err.message);
+    return;
+  }
+
+  // Hide loader
   processing.classList.remove('show');
   setTimeout(()=> processing.classList.add('hidden'), 300);
   form.closest('section').classList.remove('opacity-60');
@@ -412,7 +430,7 @@ form.addEventListener('submit', async (e) => {
     form.reset();
     success.scrollIntoView({ behavior: "smooth", block: "center" });
   } else {
-    alert("Something went wrong, please try again.");
+    alert(result.message || "Something went wrong, please try again.");
   }
 });
 
