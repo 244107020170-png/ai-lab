@@ -226,7 +226,7 @@
                                     };
                                     ?>
                                     <span class="status-dot <?= $dotClass ?>"></span>
-                                    <?= statusUI($status) ?>
+                                    <?= ucfirst($status) ?>
                                 </td>
                         </tr>
                     <?php endforeach; ?>
