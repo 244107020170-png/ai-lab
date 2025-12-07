@@ -62,5 +62,22 @@ class LabPermit
     $res = pg_query_params($this->db, $sql, [$limit]);
     return pg_fetch_all($res) ?: [];
     }
+    public function insert($data)
+    {
+    $sql = "
+        INSERT INTO lab_permit_requests
+        (full_name, study_program, semester, phone, email, reason, status)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+    ";
 
+    return pg_query_params($this->db, $sql, [
+        $data['full_name'],
+        $data['study_program'],
+        $data['semester'],
+        $data['phone'],
+        $data['email'],
+        $data['reason'],
+        $data['status']
+    ]);
+    }
 }
