@@ -246,12 +246,12 @@
 
           <div class="relative">
             <select id="studyProgram"
-              class="w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
-                    px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
+                class="appearance-none w-full h-14 bg-white border border-gray-300 rounded-2xl shadow-sm
+                      px-4 text-lg outline-none focus:ring-2 focus:ring-sky-400 transition">
               <option value="">Choose study program</option>
-              <option value="IE">Informatics Engineering</option>
-              <option value="IS">Information System</option>
-              <option value="EE">Electrical Engineering</option>
+              <option value="Informatics Engineering">Informatics Engineering</option>
+              <option value="Information System">Information System</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
               <option value="Other">Other...</option>
             </select>
 
@@ -436,8 +436,40 @@ setInterval(showSlides, 3000);
 /* ============================
       FORM POPUP HANDLER
 =============================== */
-function submitForm() {
-  document.getElementById("formPopup").classList.remove("hidden");
+async function submitForm() {
+  const data = {
+    fullname: document.getElementById("fullName").value.trim(),
+    program: document.getElementById("studyProgram").value,
+    semester: document.getElementById("semester").value,
+    phone: document.getElementById("phone").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    reason: document.getElementById("reason").value.trim()
+  };
+
+  // VALIDATION
+  if (!data.fullname || !data.program || !data.semester || !data.phone || !data.email || !data.reason) {
+    alert("Please fill in all fields before submitting.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost/admin/lab_permit_process.php", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      document.getElementById("formPopup").classList.remove("hidden");
+    } else {
+      alert("Submission failed: " + result.message);
+    }
+
+  } catch (err) {
+    alert("Error submitting form: " + err.message);
+  }
 }
 
 function closePopup() {
