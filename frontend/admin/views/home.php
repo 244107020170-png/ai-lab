@@ -239,6 +239,7 @@
         <!-- /.Graphs Container -->
 
         <!--Lab Permition-->
+        <div class="graphs-row">
 <div class="leBox permit-box">
     <div class="permit-inner">
 
@@ -295,6 +296,7 @@
 
     </div>
 </div>
+        </div>
 <!--/.Lab Permition-->
 
         <!-- Footer Section -->
