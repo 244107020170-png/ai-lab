@@ -98,6 +98,12 @@ case 'volunteer_view':
     echo json_encode($v);
     exit;
 
+case 'lab_permit':
+    require_once 'controllers/LabPermitController.php';
+    $controller = new LabPermitController();
+    $controller->index();
+    break;
+
     /* DEFAULT */
     default:
         (new HomeController())->index();
