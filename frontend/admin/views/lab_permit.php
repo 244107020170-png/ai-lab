@@ -56,7 +56,7 @@
             <tr>
                 <th style="width: 10%;">ID</th>
                 <th style="width: 25%;">Name</th>
-                <th style="width: 20%;">Program</th>
+                <th style="width: 20%;">Study Program</th>
                 <th style="width: 15%;">Status</th>
                 <th style="width: 15%;">Submitted</th>
                 <th style="width: 15%;">Action</th>
