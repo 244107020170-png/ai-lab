@@ -239,7 +239,6 @@
         <!-- /.Graphs Container -->
 
         <!--Lab Permition-->
-        <!-- LAB PERMIT SUMMARY BOX -->
 <div class="leBox permit-box">
     <div class="permit-inner">
 
@@ -251,6 +250,28 @@
                 </a>
             </div>
         </div>
+            
+        <table class="permit-table">
+        <tr>
+            <th>Full Name</th>
+            <th>Status</th>
+            <th>Submitted</th>
+        </tr>
+
+        <?php foreach ($recentPermits as $p): ?>
+        <tr>
+            <td><?= htmlspecialchars($p['full_name']) ?></td>
+
+            <td>
+                <span class="permit-dot <?= $p['status'] ?>"></span>
+                <?= ucfirst($p['status']) ?>
+            </td>
+
+            <td><?= date("Y-m-d", strtotime($p['submitted_at'])) ?></td>
+        </tr>
+        <?php endforeach; ?>
+
+        </table>
 
         <div class="permit-stats">
             <div class="permit-item">

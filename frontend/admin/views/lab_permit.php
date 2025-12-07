@@ -28,20 +28,26 @@
 
       <?php foreach($rows as $r): ?>
       <tr>
-        <td>LP<?= str_pad($r['id'],3,'0',STR_PAD_LEFT) ?></td>
-        <td><?= htmlspecialchars($r['fullname']) ?></td>
-        <td><?= htmlspecialchars($r['program']) ?></td>
+    <td>LP<?= str_pad($r['id'], 3, '0', STR_PAD_LEFT) ?></td>
 
-        <td>
-            <span class="lp-dot <?= $r['status'] ?>"></span>
-            <?= ucfirst($r['status']) ?>
-        </td>
+    <td><?= htmlspecialchars($r['full_name']) ?></td>
 
-        <td>
-            <button class="lp-view-btn"
-                    onclick="openPermitDetail(<?= $r['id'] ?>)">View</button>
-        </td>
-      </tr>
+    <td><?= htmlspecialchars($r['study_program']) ?></td>
+
+    <td>
+        <span class="lp-dot <?= $r['status'] ?>"></span>
+        <?= ucfirst($r['status']) ?>
+    </td>
+
+    <td>
+        <?= date("Y-m-d", strtotime($r['submitted_at'])) ?>
+    </td>
+
+    <td>
+        <button class="lp-view-btn"
+                onclick="openPermitDetail(<?= $r['id'] ?>)">View</button>
+    </td>
+</tr>
       <?php endforeach; ?>
 
     </table>

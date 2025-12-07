@@ -43,6 +43,7 @@ class HomeController
         $permitPending  = $this->permit->countByStatus("pending");
         $permitAccepted = $this->permit->countByStatus("accepted");
         $permitRejected = $this->permit->countByStatus("rejected");
+        $recentPermits = $this->permit->getRecent(3);
 
         /* -----------------------------------
            NEWS
@@ -68,6 +69,7 @@ class HomeController
 
             "recentmembers"      => $recentmembers,
             "recentprojects"     => $recentprojects,
+            "recentPermits"      => $recentPermits,
 
             "newscount"          => $newscount,
             "newscountapproved"  => $newscountapproved,

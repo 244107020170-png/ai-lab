@@ -56,4 +56,12 @@ class LabPermit
         $sql = "UPDATE lab_permit_requests SET status = 'rejected', reject_reason = $1 WHERE id = $2";
         return pg_query_params($this->db, $sql, [$reason, $id]);
     }
+
+    public function getRecent($limit = 3)   
+    {
+    $sql = "SELECT * FROM lab_permit ORDER BY submitted_at DESC LIMIT $1";
+    $res = pg_query_params($this->db, $sql, [$limit]);
+    return pg_fetch_all($res) ?: [];
+    }
+
 }
