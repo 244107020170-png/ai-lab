@@ -453,7 +453,7 @@ async function submitForm() {
   }
 
   try {
-    const response = await fetch("http://localhost/pbl/admin/lab_permit_process.php", {
+    const response = await fetch("http://localhost/admin/lab_permit_process.php", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
