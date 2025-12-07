@@ -238,6 +238,44 @@
         </div>
         <!-- /.Graphs Container -->
 
+        <!--Lab Permition-->
+        <!-- LAB PERMIT SUMMARY BOX -->
+<div class="leBox permit-box">
+    <div class="permit-inner">
+
+        <div class="permit-header">
+            <div class="permit-title">Lab Permit Requests</div>
+            <div class="permit-btn">
+                <a href="index.php?action=lab_permit" style="color:white;text-decoration:none;">
+                    Manage
+                </a>
+            </div>
+        </div>
+
+        <div class="permit-stats">
+            <div class="permit-item">
+                <span class="permit-dot pending"></span>
+                Pending
+                <span class="permit-count"><?= $permitPending ?></span>
+            </div>
+
+            <div class="permit-item">
+                <span class="permit-dot accepted"></span>
+                Accepted
+                <span class="permit-count"><?= $permitAccepted ?></span>
+            </div>
+
+            <div class="permit-item">
+                <span class="permit-dot rejected"></span>
+                Rejected
+                <span class="permit-count"><?= $permitRejected ?></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--/.Lab Permition-->
+
         <!-- Footer Section -->
         <footer class="footer">
             <div>

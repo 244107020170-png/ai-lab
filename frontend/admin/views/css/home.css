@@ -343,3 +343,71 @@ body {
     margin-right: 6px;
     box-shadow: 0 0 6px rgba(255,255,255,0.4);
 }
+/* PERMIT BOX */
+
+.permit-box {
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto 0; 
+    padding: 20px 25px;
+
+    background: rgba(0,0,0,0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+}
+
+.permit-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.permit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.permit-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+.permit-btn {
+    font-size: 14px;
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+}
+
+.permit-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.permit-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #AEBACB;
+}
+
+.permit-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.permit-dot.pending { background: #facc15; }
+.permit-dot.accepted { background: #4ade80; }
+.permit-dot.rejected { background: #ef4444; }
+
+.permit-count {
+    color: white;
+    font-weight: 600;
+}
