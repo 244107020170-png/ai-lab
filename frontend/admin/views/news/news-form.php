@@ -74,8 +74,23 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
       <!-- Thumbnail -->
       <div class="image-block">
         <div class="image-preview">
+        <?php
+                    // FIX: Database already has "img/name.png", so we just need "../" to go up one folder.
+                    $pathPrefix = '../img/news/';
+                    $defaultImg = '../img/news/default.png';
+
+                    // Check if photo exists in DB
+                    if (!empty($news['image_thumb'])) {
+                        // Result: ../img/yan.png
+                        $photoSrc = $pathPrefix . $news['image_thumb'] . '?' . time();
+                    } else {
+                        // Result: ../profile-photos/default-profile.png
+                        $photoSrc = $defaultImg;
+                    }
+                    ?>
+        
           <img id="thumbPreview"
-               src="<?= $news['image_thumb'] ?? 'views/img/placeholder-185x112.png' ?>">
+               src="<?= $photoSrc ?>">
         </div>
 
         <div class="image-meta">
