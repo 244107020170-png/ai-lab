@@ -335,3 +335,11 @@ body {
 .status-inactive {
     background-color: #ef4444; /* red */
 }
+.status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    box-shadow: 0 0 6px rgba(255,255,255,0.4);
+}
