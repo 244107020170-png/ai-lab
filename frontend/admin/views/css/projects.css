@@ -314,7 +314,7 @@ select option {
 }
 
 /* =============================== */
-/* 🔥 NAVBAR FIX – MATCH NEWS STYLE */
+/* NAVBAR FIX – MATCH NEWS STYLE */
 /* =============================== */
 
 /* Wrapper header */
@@ -325,6 +325,7 @@ select option {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position:fixed;
 }
 
 /* Logo container */
