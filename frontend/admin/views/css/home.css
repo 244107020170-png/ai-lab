@@ -386,6 +386,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
+    width: fit-content;
 }
 
 .permit-item {
@@ -410,4 +412,40 @@ body {
 .permit-count {
     color: white;
     font-weight: 600;
+}
+.permit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.permit-table th {
+    text-align: left;
+    padding-bottom: 10px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 600;
+}
+
+.permit-table td {
+    padding: 8px 0;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.permit-table td span.permit-dot {
+    margin-right: 6px;
+}
+/* Kolom agar tidak melebar aneh */
+.permit-table th:nth-child(1),
+.permit-table td:nth-child(1) {
+    width: 40%;
+}
+
+.permit-table th:nth-child(2),
+.permit-table td:nth-child(2) {
+    width: 30%;
+}
+
+.permit-table th:nth-child(3),
+.permit-table td:nth-child(3) {
+    width: 30%;
 }
