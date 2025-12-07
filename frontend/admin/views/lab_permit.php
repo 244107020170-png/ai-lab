@@ -16,7 +16,7 @@
     <div class="bg-gradient"></div>
 </div>
 
-<!-- HEADER (matches admin UI) -->
+<!-- HEADER -->
 <div class="admin-header">
     <div class="header-left">
         <img src="views/img/logo.png" class="admin-logo">
@@ -28,7 +28,6 @@
         <a href="index.php?action=members">Members</a>
         <a href="index.php?action=projects">Projects</a>
         <a href="index.php?action=news">News</a>
-        <a class="active" href="index.php?action=lab_permit">Lab Permit</a>
     </nav>
 </div>
 
@@ -40,7 +39,7 @@
     <p class="lp-desc">Review, approve, or reject lab usage permit submissions.</p>
 
     <!-- FILTER BAR -->
-    <div class="lp-controls">
+    <div class="controls">
         <input type="text" placeholder="Search name..." class="lp-search" id="searchName">
 
         <select class="lp-select" id="filterStatus">
