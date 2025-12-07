@@ -39,7 +39,7 @@
     <p class="lp-desc">Review, approve, or reject lab usage permit submissions.</p>
 
     <!-- FILTER BAR -->
-    <div class="controls">
+    <div class="lp-controls">
         <input type="text" placeholder="Search name..." class="lp-search" id="searchName">
 
         <select class="lp-select" id="filterStatus">
