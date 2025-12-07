@@ -80,6 +80,9 @@
 
                         <td>
                             <button class="lp-view-btn" onclick="openPermitDetail(<?= $r['id'] ?>)">View</button>
+                            <button class="lp-delete-btn" onclick="deletePermit(<?= $r['id'] ?>)">
+                                🗑️
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>

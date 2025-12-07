@@ -80,4 +80,9 @@ class LabPermit
         $data['status']
     ]);
     }
+    public function delete($id)
+    {
+    $sql = "DELETE FROM lab_permit WHERE id = $1";
+    return pg_query_params($this->db, $sql, [$id]);
+    }
 }

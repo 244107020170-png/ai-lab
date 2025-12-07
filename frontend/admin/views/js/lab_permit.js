@@ -125,3 +125,25 @@ function refreshRow(id, newStatus) {
     row.style.background = "rgba(255,255,255,0.06)";
     setTimeout(() => { row.style.background = "transparent"; }, 600);
 }
+function deletePermit(id) {
+    if (!confirm("Are you sure you want to delete this permit request?")) {
+        return;
+    }
+
+    fetch("index.php?action=lab_permit&op=delete", {
+        method: "POST",
+        body: new URLSearchParams({ id })
+    })
+    .then(res => res.text())
+    .then(resp => {
+        showToast("Permit deleted", true);
+
+        // Remove row without reload
+        const row = document.querySelector(`button[onclick="openPermitDetail(${id})"]`).closest("tr");
+        if (row) row.remove();
+    })
+    .catch(() => {
+        showToast("Failed to delete permit", false);
+    });
+}
+

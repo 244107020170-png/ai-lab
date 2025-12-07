@@ -39,6 +39,12 @@ class LabPermitController
             echo "OK";
             return;
         }
+        if ($op === "delete") {
+        $id = $_POST['id'] ?? null;
+        $this->permit->delete($id);
+        echo "OK";
+        return;
+        }
 
         /* NORMAL PAGE LOAD */
         $status = $_GET['status'] ?? '';
@@ -51,4 +57,5 @@ class LabPermitController
 
         include __DIR__ . '/../views/lab_permit.php';
     }
+    
 }

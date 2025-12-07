@@ -256,7 +256,21 @@ h1 {
     cursor: pointer;
     color: white;
 }
+.lp-delete-btn {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #b42323;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 6px;
+    transition: .25s ease;
+}
 
+.lp-delete-btn:hover {
+    box-shadow: 0 0 14px rgba(255,50,50,0.4);
+    transform: translateY(-2px);
+}
 /* FOOTER */
 .admin-footer {
     width: 100%;
