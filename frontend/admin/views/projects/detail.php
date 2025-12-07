@@ -27,7 +27,7 @@ $mode = $activity ? 'edit' : 'create';
     <a href="index.php">Home</a>
     <a href="index.php?action=members">Members</a>
     <a class="active" href="index.php?action=projects">Projects</a>
-    <a href="index.php?action=news-list">News</a>
+    <a href="index.php?action=news">News</a>
   </nav>
 </div>
 
