@@ -4,12 +4,15 @@ html {
 
 body {
     font-family: 'SF Pro Rounded';
-    min-height: 100vh;
+    justify-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Aligns content to the TOP, not center */
+    
+    /* Allow scroll */
+    min-height: 100vh; 
     margin: 0;
-    overflow-x: hidden;
-    display: block; /* default*/
 }
-
 
 /* Main Container */
 .main-container {
@@ -310,34 +313,14 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.11);
 }
 
-.admin-footer {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-
-    padding: 25px 120px;
-    box-sizing: border-box;
-
-    background: rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(8px) saturate(130%);
-    border-top: 1px solid rgba(255,255,255,0.12);
-
-    margin-top: 60px;
-
+.footer {
+    color: white;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    color: white;
-    font-size: 20px;
-}
-
-.admin-footer a {
-    color: white;
-    text-decoration: underline;
-}
-
-html, body {
-    overflow-x: hidden;
+    margin-top: 50px;
+    
 }
 
 /* Warna status */
