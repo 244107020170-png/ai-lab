@@ -89,7 +89,7 @@ public function delete() {
         $allowed = ['image/jpeg','image/png'];
 
         // prepare uploads dir
-        $uploadDir = __DIR__ . '/../uploads/news/';
+        $uploadDir = __DIR__ . '/../../img/news/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
         // helper to validate and move & resize image

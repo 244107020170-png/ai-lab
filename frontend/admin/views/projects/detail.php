@@ -41,13 +41,13 @@ $mode = $activity ? 'edit' : 'create';
     <?php endif; ?>
 
     <div class="card">
-      <label>Project Thumbnail</label>
+      <!-- <label>Project Thumbnail</label> -->
       <div class="thumb-row">
-        <div class="thumb-preview">
+        <div class="thumb-preview" style="margin-top: 10px;">
           <?php if($activity && !empty($activity['thumbnail_image'])): ?>
-            <img src="<?php echo htmlspecialchars($activity['thumbnail_image']); ?>" alt="thumb" />
+            <img src="<?php echo "../img/activities/" . htmlspecialchars($activity['thumbnail_image']); ?>" alt="thumb" style="width: 287px; height: 112px;" />
           <?php else: ?>
-            <div class="thumb-empty"></div>
+            <img src="<?php echo "../img/activities/default.png"; ?>" alt="" style="width: 287px; height: 112px;" />
           <?php endif; ?>
         </div>
         <div class="thumb-upload">

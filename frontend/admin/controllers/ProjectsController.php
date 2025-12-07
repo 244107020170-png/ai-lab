@@ -33,7 +33,7 @@ class ProjectsController {
         $data = $this->sanitizePost();
         // handle uploads
         $uploads = $this->handleUploads();
-        if ($uploads['thumbnail']) $data['thumbnail_image'] = $uploads['thumbnail'];
+        // if ($uploads['thumbnail']) $data['thumbnail_image'] = $uploads['thumbnail'];
         if ($uploads['banner']) $data['banner_image'] = $uploads['banner'];
 
         $id = $this->model->insert($data);
@@ -61,7 +61,7 @@ class ProjectsController {
         $id = intval($_POST['id'] ?? 0);
         $data = $this->sanitizePost();
         $uploads = $this->handleUploads();
-        if ($uploads['thumbnail']) $data['thumbnail_image'] = $uploads['thumbnail'];
+        // if ($uploads['thumbnail']) $data['thumbnail_image'] = $uploads['thumbnail'];
         if ($uploads['banner']) $data['banner_image'] = $uploads['banner'];
 
         $ok = $this->model->update($id, $data);
@@ -110,17 +110,17 @@ class ProjectsController {
 
     private function handleUploads() {
         $result = ['thumbnail' => null, 'banner' => null];
-        $uploadDir = __DIR__ . '/../uploads/activities/';
+        $uploadDir = __DIR__ . '/../../img/activities/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
-        if (!empty($_FILES['thumbnail_image']['tmp_name'])) {
-            $ext = pathinfo($_FILES['thumbnail_image']['name'], PATHINFO_EXTENSION);
-            $fn = 'thumb_' . time() . '_' . rand(100,999) . '.' . $ext;
-            $dest = $uploadDir . $fn;
-            if (move_uploaded_file($_FILES['thumbnail_image']['tmp_name'], $dest)) {
-                $result['thumbnail'] = 'uploads/activities/' . $fn;
-            }
-        }
+        // if (!empty($_FILES['thumbnail_image']['tmp_name'])) {
+        //     $ext = pathinfo($_FILES['thumbnail_image']['name'], PATHINFO_EXTENSION);
+        //     $fn = 'thumb_' . time() . '_' . rand(100,999) . '.' . $ext;
+        //     $dest = $uploadDir . $fn;
+        //     if (move_uploaded_file($_FILES['thumbnail_image']['tmp_name'], $dest)) {
+        //         $result['thumbnail'] = 'uploads/activities/' . $fn;
+        //     }
+        // }
         if (!empty($_FILES['banner_image']['tmp_name'])) {
             $ext = pathinfo($_FILES['banner_image']['name'], PATHINFO_EXTENSION);
             $fn = 'banner_' . time() . '_' . rand(100,999) . '.' . $ext;
