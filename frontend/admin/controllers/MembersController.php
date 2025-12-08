@@ -16,9 +16,11 @@ class MembersController
         $offset = ($page - 1) * $limit;
 
         // 2. Get Data
-        $members = $this->model->getPaginated($limit, $offset);
-        $membersNameASC = $this->model->sortBy('full_name', 'ASC', $limit, $offset);
-        $membersNameDESC = $this->model->sortBy('full_name', 'DESC', $limit, $offset);
+        $sortCol = $_GET['sort'] ?? 'id';
+        $sortDir = $_GET['order'] ?? 'ASC';
+
+        // This puts the correctly sorted list into the main $members variable
+        $members = $this->model->sortBy($sortCol, $sortDir, $limit, $offset);
         $totalRows = $this->model->countAll();
         $totalPages = ceil($totalRows / $limit);
 

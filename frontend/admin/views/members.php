@@ -99,33 +99,39 @@
         <div class="search-filter">
             <div class="leBox search-box">
                 <img src="views/img/maginifier-icon.png" alt="">
-                <input id="mSearch" type="text" placeholder="Search Members" class="search-text">
+                <input id="mSearch" type="text" placeholder="Search Members Within the Row" class="search-text">
             </div>
 
             <div class="filter-container">
                 <div class="leBox filter-box" onclick="toggleFilter()">
-                    <span id="filter-label">Filter</span>
+                    <span id="filter-label">
+                        <?php
+                        $f = $_GET['sort'] ?? '';
+                        if ($f == 'full_name') echo 'Name';
+                        elseif ($f == 'id') echo 'ID';
+                        elseif ($f == 'status') echo 'Status';
+                        else echo 'Filter';
+                        ?>
+                    </span>
                     <img src="views/img/arrow-down.png" class="filter-arrow" alt="">
                 </div>
 
                 <div class="filter-dropdown" id="filter-dropdown">
-                    <div onclick="setFilter('Name')">Name</div>
-                    <div onclick="setFilter('ID')">ID</div>
-                    <div onclick="setFilter('Position')">Position</div>
-                    <div onclick="setFilter('Status')">Status</div>
+                    <div onclick="applySort('full_name')">Name</div>
+                    <div onclick="applySort('id')">ID</div>
+                    <div onclick="applySort('status')">Status</div>
                 </div>
             </div>
 
-            <!-- NEW SORT BOX -->
             <div class="sort-container">
                 <div class="leBox sort-box" onclick="toggleSort()">
-                    <span id="sort-label">Asc</span>
+                    <span id="sort-label"><?= isset($_GET['order']) ? strtoupper($_GET['order']) : 'ASC' ?></span>
                     <img src="views/img/arrow-down.png" alt="">
                 </div>
 
                 <div class="sort-dropdown" id="sort-dropdown">
-                    <div onclick="setSort('Asc')">Asc</div>
-                    <div onclick="setSort('Desc')">Desc</div>
+                    <div onclick="applyOrder('ASC')">ASC</div>
+                    <div onclick="applyOrder('DESC')">DESC</div>
                 </div>
             </div>
         </div>

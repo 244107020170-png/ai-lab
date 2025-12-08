@@ -20,6 +20,42 @@ function setSort(value) {
     document.getElementById("sort-label").innerText = value;
     document.getElementById("sort-dropdown").style.display = "none";
 }
+
+function updateUrlParam(key, value) {
+    const url = new URL(window.location.href);
+    url.searchParams.set(key, value);
+    url.searchParams.set('page', 1); // Reset to page 1 on sort change
+    window.location.href = url.toString();
+}
+
+function applySort(column) {
+    updateUrlParam('sort', column);
+}
+
+function applyOrder(order) {
+    updateUrlParam('order', order);
+}
+
+const mSearch = document.getElementById("mSearch");
+if (mSearch) {
+    mSearch.addEventListener("keyup", function () {
+        const value = this.value.toLowerCase();
+        
+        // Loop through all table rows
+        document.querySelectorAll(".member-table tr").forEach((row, index) => {
+            // Skip the Header Row (Index 0)
+            if (index === 0) return; 
+
+            // Check if the row text contains the search input
+            if (row.innerText.toLowerCase().includes(value)) {
+                row.style.display = ""; 
+            } else {
+                row.style.display = "none"; 
+            }
+        });
+    });
+}
+
 function openVolunteerModal(id) {
     fetch(`index.php?action=volunteer_view&id=${id}`)
         .then(res => res.json())
