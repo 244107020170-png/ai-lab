@@ -102,8 +102,8 @@ body {
 
 /* TITLE AREA */
 .admin-section-title {
-  width: 90%;
-  max-width: 934px;
+  width: 100%;
+  max-width: 1164px;
   margin: 60px auto 20px;
 }
 
