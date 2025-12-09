@@ -1,3 +1,7 @@
+html, body {
+    overflow-x: hidden;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -5,14 +9,13 @@ html {
 body {
     font-family: 'SF Pro Rounded';
     justify-items: center;
-    display: flex;
+    display: block;
     justify-content: center;
-    align-items: flex-start; /* Aligns content to the TOP, not center */
-    
-    /* Allow scroll */
-    min-height: 100vh; 
+    align-items: flex-start; 
+    min-height: 100vh;
     margin: 0;
 }
+
 
 /* Main Container */
 .main-container {
@@ -20,7 +23,8 @@ body {
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-
+    margin-left: auto;
+    margin-right: auto;
     /* Add this padding/margin to clear the Fixed Header */
     margin-top: 140px; /* Adjust this value if your header is taller/shorter */
     margin-bottom: 50px; /* Adds breathing room at the bottom of the page */
@@ -234,7 +238,7 @@ body {
 /* Graph box container */
 .member-container {
     width: 565px;
-    height: auto;
+    height: 360px;
 
     padding: 20px 25px;
     display: flex;
@@ -313,16 +317,6 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.11);
 }
 
-.footer {
-    color: white;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 50px;
-    
-}
-
 /* Warna status */
 .status-active {
     background-color: #4ade80; /* green */
@@ -356,7 +350,6 @@ body {
     outline: 1px solid rgba(255,255,255,0.12);
     backdrop-filter: blur(6px);
 }
-
 .permit-inner {
     display: flex;
     flex-direction: column;
@@ -380,7 +373,16 @@ body {
     padding: 6px 12px;
     background: rgba(255,255,255,0.1);
     border-radius: 6px;
+    transition: .25s ease;
 }
+
+.permit-btn:hover {
+    background: rgba(255,255,255,0.18);
+    outline: 1px solid rgba(31,199,199,0.45);
+    box-shadow: 0 0 14px rgba(31,199,199,0.35);
+    transform: translateY(-2px);
+}
+
 
 .permit-stats {
     display: flex;
@@ -448,4 +450,66 @@ body {
 .permit-table th:nth-child(3),
 .permit-table td:nth-child(3) {
     width: 30%;
+}
+
+.admin-footer {
+    width: 100%;
+    margin-top: 40px;
+    padding: 20px 28px;
+    background: rgba(0,0,0,0.18);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    text-align: center;
+}
+
+#text-footer {
+    color: white !important;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* === PAGE FADE-IN === */
+.page-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* === STATS ANIM === */
+.stat-box {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: statPop 0.65s ease-out forwards;
+}
+
+.stat-box:nth-child(1) { animation-delay: .1s; }
+.stat-box:nth-child(2) { animation-delay: .25s; }
+.stat-box:nth-child(3) { animation-delay: .4s; }
+
+@keyframes statPop {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.member-container {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: softSlide 0.9s ease-out forwards;
+}
+
+.member-container:nth-child(1) { animation-delay: .5s; }
+.member-container:nth-child(2) { animation-delay: .7s; }
+
+@keyframes softSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

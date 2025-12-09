@@ -417,32 +417,25 @@
 .member-table th:last-child {
     width: 200px;
 }
-
 .admin-footer {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-
-    padding: 25px 120px;
-    box-sizing: border-box;
-
-    background: rgba(0, 0, 0, 0.18);
-    backdrop-filter: blur(8px) saturate(130%);
+    margin-top: 40px;
+    padding: 20px 28px;
+    background: rgba(0,0,0,0.18);
     border-top: 1px solid rgba(255,255,255,0.12);
-
-    margin-top: 60px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    color: white;
-    font-size: 20px;
+    backdrop-filter: blur(8px);
+    text-align: center;
+    width: 100%;
+}
+/* Hanya sembunyikan DIV KOSONG yang muncul setelah table */
+.empty-spacer {
+    display: none !important;
 }
 
-.admin-footer a {
-    color: white;
-    text-decoration: underline;
+#text-footer {
+    margin: 0 auto;
+    color: white !important;
 }
+
 
 html, body {
     overflow-x: hidden;

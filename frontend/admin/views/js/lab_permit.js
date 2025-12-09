@@ -147,3 +147,44 @@ function deletePermit(id) {
     });
 }
 
+/* ==========================================
+   REALTIME SEARCH + STATUS FILTER (SMOOTH)
+========================================== */
+
+const searchInputLP = document.querySelector(".lp-search-input");
+const statusFilterLP = document.getElementById("filterStatus");
+const tableRowsLP = document.querySelectorAll(".lp-table tr:not(:first-child)");
+
+function applyPermitFilter() {
+    const q = searchInputLP.value.toLowerCase().trim();
+    const status = statusFilterLP.value;
+
+    tableRowsLP.forEach(row => {
+        const name = row.children[1].innerText.toLowerCase();
+        const rowStatus = row.children[3].innerText.toLowerCase();
+
+        let visible = true;
+
+        if (q && !name.includes(q)) visible = false;
+        if (status && !rowStatus.includes(status)) visible = false;
+
+        row.classList.remove("lp-row-show", "lp-row-hide");
+
+        if (visible) {
+            row.classList.add("lp-row-show");
+        } else {
+            row.classList.add("lp-row-hide");
+        }
+    });
+}
+
+function debounceLP(fn, delay = 160) {
+    let timer;
+    return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+}
+
+searchInputLP.addEventListener("input", debounceLP(applyPermitFilter, 120));
+statusFilterLP.addEventListener("change", applyPermitFilter);

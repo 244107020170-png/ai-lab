@@ -1,4 +1,26 @@
 /* projects.css - basic theming inspired by the design */
+/* cleanup */
+* { box-sizing: border-box; }
+
+/* global layout anchor */
+.layout {
+  width: 90%;
+  max-width: 1164px; /* atau 1250px — samakan juga admin-header */
+  margin: 0 auto;
+}
+
+/* responsive controls */
+@media (max-width: 720px) {
+  .controls { flex-direction: column; gap:12px; align-items: stretch; }
+  .controls form { 
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center; 
+}
+  .right-controls { width: 100%; display:flex; justify-content:flex-end; }
+}
+
 :root{
   --bg:#071623;
   --card:#0e2a34;
@@ -9,34 +31,108 @@
 
 *{box-sizing:border-box}
 body{font-family: "SF Pro Rounded"; margin:0; background:linear-gradient(180deg,#031d26 0%, #072936 100%); color:#e6f7f7}
-.admin-header{display:flex;align-items:center;justify-content:space-between;padding:18px 36px;background:transparent}
 .admin-header .logo{font-weight:600}
-.container{max-width:1100px;margin:28px auto;padding:0 18px}
+/* === MATCH GLOBAL ADMIN LAYOUT === */
+.container {
+    width: 90%;
+    max-width: 1164px;
+    margin: 60px auto 20px; /* sama seperti admin-section-title */
+    padding: 0;
+}
+
 h1 {
     font-size: 36px;
     margin: 8px 0 4px;
     font-weight: 700;
     color: #ffffff;
     /* GLOW EFFECT */
-    text-shadow:
-        0 0 12px rgba(0, 255, 255, 0.55);
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.55);
 }
 
 .lead{color:var(--muted);margin-bottom:18px}
 
 /* controls */
-.controls{display:flex;justify-content:space-between;align-items:center;margin:18px 0}
+.controls {
+    width: 90%;
+    max-width: 1164px;
+
+    margin-left: 0;      /* KUNCI UTAMA */
+    margin-right: 0;     /* KUNCI UTAMA */
+    margin-top: 15px;    /* Sesuai News */
+    margin-bottom: 20px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 22px; /* News default spacing */
+}
+
+
 .controls form{display:flex;gap:10px;align-items:center}
 .controls input[type="text"]{padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;min-width:260px}
-.controls select{padding:10px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff}
 .controls button{padding:10px 14px;border-radius:8px;background:#0f8a8a;color:#fff;border:0}
 .right-controls .btn.add{padding:8px 12px;border-radius:8px;background:#0f8a8a;color:#fff;text-decoration:none}
 
 /* card + table */
-.table-card{background:rgba(255,255,255,0.03);border-radius:12px;padding:14px;margin-top:12px;box-shadow:0 6px 40px rgba(0,0,0,0.5)}
-.table-head{display:grid;grid-template-columns:120px 1fr 160px 80px;padding:12px 8px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--muted);font-weight:600}
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+.table-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "SF Pro Rounded";
+}
+
+.add-btn {
+    border: 1px solid rgba(255,255,255,0.44);
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    transition: 0.25s ease;
+}
+
+.add-btn:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+.table-wrapper {
+    margin-top: 20px auto;
+    width: 100%;
+}
+
+.table-head {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px 120px;
+    padding: 14px 25px;
+    opacity: 0.55;
+    color: #aebacb;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.20);
+}
+.table-card {
+    padding: 12px 20px 40px;
+    background: rgba(0,0,0,0.34) !important;
+    outline: 1px solid rgba(255,255,255,0.12);
+    border-radius: 11px;
+    backdrop-filter: blur(6px);
+    box-shadow: none !important;
+}
 .table-body{display:flex;flex-direction:column}
-.table-row{display:grid;grid-template-columns:120px 1fr 160px 80px;padding:14px 8px;border-bottom:1px solid rgba(255,255,255,0.03);align-items:center}
+.table-head,
+.table-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px 120px;
+    padding: 10px 10px;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.20);
+    transition: 0.25s ease;
+}
 .col.id{color:#bcdadb}
 .col.title{font-weight:600}
 .col.status{display:flex;align-items:center;gap:8px}
@@ -148,20 +244,28 @@ h1 {
     background: rgba(255,255,255,0.08);
 }
 
-.search-container {
-    position: relative;
-}
 .controls select option {
     background:#0e2b35;
     color:#fff;
 }
-.search-container {
-    position: relative;
-    width: 260px;
-}
-
 #search-input {
     width: 100%;
+}
+.search-container input {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+
+    padding: 0;
+    margin: 0;
+
+    height: 100%;
+    color: white;
+    font-size: 15px;
+}
+
+.search-container input::placeholder {
+    color: rgba(255,255,255,0.55);
 }
 select option {
     background: #0e2b35;
@@ -172,10 +276,10 @@ select option {
 }
 
 .table-row:hover {
-    transform: translateX(6px);
-    background: rgba(255,255,255,0.06);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  background: rgba(255,255,255,0.08) !important;
+  transform: none; /* hilang efek geser */
 }
+
 /* muncul dari bawah */
 .row-appear {
     opacity: 0;
@@ -270,22 +374,20 @@ select option {
   z-index: -1;
 }
 
-/* === MATCH TABLE OPACITY LIKE NEWS === */
-.table-card {
-  background: rgba(0,0,0,0.34) !important;  /* glass transparency */
-  outline: 1px solid rgba(255,255,255,0.12);
-  border-radius: 11px;
-  backdrop-filter: blur(6px);
-  box-shadow: none !important;
-}
-
-.table-row:hover {
-  background: rgba(255,255,255,0.08) !important;
-  transform: none; /* hilang efek geser */
-}
 /* GLASS ELEMENTS */
 .leBox,
-.glass-box,
+.search-container.glass-box {
+    padding: 12px 20px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: rgba(0,0,0,0.34) !important;
+    outline: 1px solid rgba(255,255,255,0.12);
+    border-radius: 11px;
+    backdrop-filter: blur(6px);
+}
 .glass-panel {
   background: rgba(0, 0, 0, 0.34);
   outline: 1px solid rgba(255, 255, 255, 0.12);
@@ -294,23 +396,6 @@ select option {
 }
 
 /* HEADER */
-.admin-header {
-  width: 90%;
-  max-width: 1250px;
-  margin: 20px auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-left,
-.header-right {
-  padding: 8px 18px;
-  border-radius: 60px !important;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
 
 .admin-logo {
   height: 38px;
@@ -378,29 +463,110 @@ select option {
 
 /* FOOTER */
 .admin-footer {
-  width: 100%;
-  height: 90px;
-  margin-top: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 120px;
-  background: rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(8px) saturate(130%);
-  border-top: 1px solid rgba(255,255,255,0.12);
+    margin-top: 40px;
+    padding: 20px 28px;
+    background: rgba(0,0,0,0.18);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    justify-content: space-between;
+    text-align: center;
 }
 
-.footer-left,
-.footer-right {
-  font-size: 20px;
-  font-family: "SF Pro Rounded";
-}
-
-.footer-right span {
-  text-decoration: underline;
+#text-footer {
+    color: white;
+    font-size: 16px;
+    text-align: center;
 }
 
 /* FIX DATE PICKER ICON COLOR */
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1);
+}
+/* override */
+.search-container {
+    width: 320px;
+    padding: 12px 20px;
+    background: rgba(0,0,0,0.34); /* glass */
+    border-radius: 11px;
+    outline: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    height: 48px;
+}
+
+#search-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    outline: none;
+    color: white;
+    font-size: 15px;
+}
+
+#search-input::placeholder {
+    color: rgba(255,255,255,0.55);
+}
+/* FILTER SELECT — SAME AS NEWS */
+.controls select {
+    padding: 10px 14px;
+    height: 48px;
+    background: rgba(0,0,0,0.34) !important;
+    border-radius: 11px;
+    border: 1px solid rgba(255,255,255,0.12);
+    color: white;
+    backdrop-filter: blur(6px);
+    font-size: 15px;
+}
+/* === PAGE FADE-IN === */
+.container.layout {
+    opacity: 0;
+    animation: fadePage .6s ease-out forwards;
+}
+
+@keyframes fadePage {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.controls {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeControls .55s ease-out forwards;
+    animation-delay: .15s;
+}
+
+@keyframes fadeControls {
+    to { opacity: 1; transform: translateY(0); }
+}
+.table-card {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: cardUp .55s ease-out forwards;
+    animation-delay: .25s;
+}
+
+@keyframes cardUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+.table-row:hover {
+    background: rgba(255,255,255,0.10) !important;
+    transition: background .25s ease;
+}
+.dot {
+    animation: dotPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.25); opacity: .75; }
+}
+.dots-menu {
+    opacity: 0;
+    transform: translateY(6px) scale(.95);
+    transition: .18s ease;
+}
+
+.dots-menu.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }

@@ -26,7 +26,6 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
     <a href="index.php?action=home">
       <img src="views/img/logo.png" class="admin-logo">
     </a>
-    <span class="admin-title">Lab Admin Page</span>
   </div>
 
   <nav class="leBox header-right">
@@ -196,8 +195,7 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
 
 <!-- FOOTER -->
 <footer class="admin-footer">
-  <div class="footer-left">© 2025 AI Lab Polinema</div>
-  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+  <div id="text-footer">© 2025 AI Lab Polinema</div>
 </footer>
 
 <script src="views/js/news-form.js"></script>

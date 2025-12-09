@@ -20,7 +20,6 @@ $mode = $activity ? 'edit' : 'create';
 
   <div class="header-left">
     <img src="views/img/logo.png" class="admin-logo">
-    <span class="admin-title">Lab Admin Page</span>
   </div>
 
   <nav class="header-right nav">
@@ -110,8 +109,7 @@ $mode = $activity ? 'edit' : 'create';
 
 <!-- FOOTER -->
 <footer class="admin-footer">
-  <div class="footer-left">© 2025 AI Lab Polinema</div>
-  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+  <div id="text-footer">© 2025 AI Lab Polinema</div>
 </footer>
 
 <script src="views/js/projects.js"></script>
