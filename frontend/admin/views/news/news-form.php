@@ -38,7 +38,7 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
 </header>
 
 <!-- TITLE -->
-<section class="admin-section-title">
+<section class="admin-section-title-form">
   <h1><?= $news ? 'Edit News' : 'Add News' ?></h1>
   <p>Manage the news that will be shown in the website. Freely edit on who participated in the project, what is the current status of the projects, and the link towards the document if any.</p>
 </section>
