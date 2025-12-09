@@ -64,7 +64,6 @@
         <!-- LEFT BOX -->
         <div class="leBox header-left">
             <a href="../"><img src="views/img/logo.png"></a>
-            <div class="logo-text">Lab Admin Page</div>
         </div>
 
         <!-- RIGHT BOX (NAVBAR) -->
@@ -83,7 +82,7 @@
     </div>
 
     <!-- Main Figma Canvas Container -->
-    <div class="main-container">
+    <div class="main-container page-fade">
 
         <!--Brief Description-->
         <div class="desc-title">
@@ -298,24 +297,13 @@
 </div>
         </div>
 <!--/.Lab Permition-->
-
-        <!-- Footer Section -->
-        <footer class="footer">
-            <div>
-                <span style="color: white; font-size: 24px;"">©</span>
-                        <span style=" color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
-            </div>
-
-            <div>
-                <span style="color: white; font-size: 24px;">Contact: </span>
-                <span style="color: white; font-size: 24px; text-decoration: underline;">
-                    <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
-                        ailab@polinema.ac.id
-                    </a>
-                </span>
-            </div>
-        </footer>
     </div>
+    <!-- /.Main Container -->
+<footer class="admin-footer">
+    <div id="text-footer">© 2025 AI Lab Polinema</div>
+</footer>
+
+
     <!-- /.Main Canvas -->
 
 </body>

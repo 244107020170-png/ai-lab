@@ -20,7 +20,6 @@
 <div class="admin-header">
     <div class="header-left">
         <img src="views/img/logo.png" class="admin-logo">
-        <span class="admin-title">Lab Admin Page</span>
     </div>
 
     <nav class="header-right nav">
@@ -40,8 +39,9 @@
 
     <!-- FILTER BAR -->
     <div class="lp-controls">
-        <input type="text" placeholder="Search name..." class="lp-search" id="searchName">
-
+<div class="lp-search-box">
+    <input type="text" class="lp-search-input" placeholder="Search name..." />
+</div>
         <select class="lp-select" id="filterStatus">
             <option value="">All Status</option>
             <option value="pending">Pending</option>
@@ -121,8 +121,7 @@
 
 <!-- FOOTER -->
 <footer class="admin-footer">
-    <div class="footer-left">© 2025 AI Lab Polinema</div>
-    <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+  <div id="text-footer">© 2025 AI Lab Polinema</div>
 </footer>
 
 <script src="views/js/lab_permit.js"></script>

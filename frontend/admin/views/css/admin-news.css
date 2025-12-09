@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: "SF Pro Display", sans-serif;
   color: white;
   overflow-x: hidden;
   min-height: 100vh;
@@ -74,7 +74,7 @@ body {
 .admin-title {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.65);
-  font-family: "SF Pro Rounded", sans-serif;
+  font-family: "SF Pro Rounded";
 }
 
 /* NAVBAR */
@@ -111,7 +111,7 @@ body {
   font-size: 36px;
   font-weight: 700;
   font-family: "SF Pro Rounded", sans-serif;
-  text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4);
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.55);
 }
 
 .admin-section-title p {
@@ -137,6 +137,10 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp .55s ease-out forwards;
+    animation-delay: .2s;
 }
 
 .search-box input {
@@ -156,6 +160,24 @@ body {
   margin: 40px auto;
   padding-bottom: 60px;
 }
+.table-card {
+    opacity: 0;
+    transform: translateY(22px);
+    animation: tableAppear .65s ease-out forwards;
+    animation-delay: .30s;
+}
+
+@keyframes tableAppear {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.table-card:hover {
+    outline: 1px solid rgba(255,255,255,0.22);
+    box-shadow: 0 8px 22px rgba(0,255,255,0.13);
+}
+
 
 /* Table header */
 .table-header {
@@ -200,6 +222,12 @@ body {
 .table-head-row {
   opacity: 0.55;
 }
+.table-row:hover {
+    background: rgba(255,255,255,0.10) !important;
+    transform: scale(1.01);
+    transition: .25s ease;
+}
+
 
 .project-row {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -262,32 +290,20 @@ body {
   border-radius: 16px;
 }
 
-/* FOOTER */
 .admin-footer {
-  width: 100%;
-  height: 90px;
-  position:relative;
-  margin-top: auto;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 120px;
-  background: rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(8px) saturate(130%);
-  border-top: 1px solid rgba(255,255,255,0.12);
+    margin-top: 40px;
+    padding: 20px 28px;
+    background: rgba(0,0,0,0.18);
+    border-top: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    justify-content: space-between;
+    text-align: center;
 }
-
-.footer-left,
-.footer-right {
-  font-size: 20px;
-  font-family: "SF Pro Rounded", sans-serif;
+#text-footer {
+    color: white;
+    font-size: 16px;
+    text-align: center;
 }
-
-.footer-right span {
-  text-decoration: underline;
-}
-
 /* MODAL */
 .modal-overlay {
   position: fixed;
@@ -339,4 +355,28 @@ body {
 .table-wrapper,
 .news-form {
     padding-bottom: 120px;
+}
+/* === PAGE FADE-IN === */
+.page-fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp .75s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* === SEARCH & FILTER APPEAR === */
+.controls, 
+.top-controls {
+    opacity: 0;
+    animation: fadeControls .6s ease-out forwards;
+    animation-delay: .15s;
+}
+
+@keyframes fadeControls {
+    to { opacity: 1; transform: translateY(0); }
 }

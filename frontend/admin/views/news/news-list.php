@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>News Management • Admin</title>
   <link rel="stylesheet" href="views/css/admin-news.css">
+  <link rel="stylesheet" href="views/css/admin-global.css">
 </head>
 
 <body>
@@ -20,7 +21,6 @@
     <a href="index.php?action=home">
       <img src="views/img/logo.png" class="admin-logo">
     </a>
-    <span class="admin-title">Lab Admin Page</span>
   </div>
 
   <nav class="leBox header-right">
@@ -32,6 +32,7 @@
 </header>
 
 <!-- TITLE -->
+<div class="container page-fade">
 <section class="admin-section-title">
   <h1>News Management</h1>
   <p>Manage the News and Research Highlight that will be shown in the website. You can set which three news that will be displayed in the main website.</p>
@@ -143,11 +144,11 @@
       </div>
   </div>
 </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="admin-footer">
-  <div class="footer-left">© 2025 AI Lab Polinema</div>
-  <div class="footer-right">Contact: <span>ailab@polinema.ac.id</span></div>
+  <div id="text-footer">© 2025 AI Lab Polinema</div>
 </footer>
 
 <script src="views/js/admin-news.js"></script>

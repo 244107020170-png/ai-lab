@@ -64,7 +64,6 @@
         <!-- LEFT BOX -->
         <div class="leBox header-left">
             <a href="../"><img src="views/img/logo.png"></a>
-            <div class="logo-text">Lab Admin Page</div>
         </div>
 
         <!-- RIGHT BOX (NAVBAR) -->
@@ -288,22 +287,13 @@
 
             </div>
         </div>
-
-
-        <!-- Footer Section -->
-        <footer class="admin-footer">
-            <div>
-                <span>© 2025 AI Lab Polinema</span>
-            </div>
-
-            <div>
-                <span>Contact: </span>
-                <a href="mailto:ailab@polinema.ac.id">ailab@polinema.ac.id</a>
-            </div>
-        </footer>
-        <!-- /.Footer Section -->
     </div>
-    <!-- /.Main Container -->
+
+    <!-- FOOTER -->
+<footer class="admin-footer">
+    <div id="text-footer">© 2025 AI Lab Polinema</div>
+</footer>
+        <!-- /.Footer Section -->
 
     <!-- Volunteer Detail Modal -->
     <div id="volunteerModal" class="modal hidden">
