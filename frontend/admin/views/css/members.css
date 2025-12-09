@@ -152,7 +152,7 @@
 /* --- MEMBER BOX (THE FIX) --- */
 .member-container {
     width: 100%;
-    height: 478px;
+    height: auto;
     padding: 24px 45px !important; 
 
     display: flex;
