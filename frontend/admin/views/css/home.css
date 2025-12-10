@@ -32,7 +32,7 @@ body {
 
 /* Brief Description Title*/
 .desc-title {
-    font-family: 'SF Pro Display';
+    font-family: 'SF Pro Rounded' sans-serif;
     font-size: 36px;
     font-weight: 700;
     color: white;
@@ -91,6 +91,13 @@ body {
 }
 
 /* Right header (Navbar) */
+.right-navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
 .header-right {
     border-radius: 90px !important;
     padding: 12px 22px;

@@ -67,11 +67,17 @@
         </div>
 
         <!-- RIGHT BOX (NAVBAR) -->
-        <div class="leBox header-right">
-            <a href="index.php?action=index" class="nav-item">Home</a>
-            <a href="index.php?action=members" class="nav-item selected-navbar">Members</a>
-            <a href="index.php?action=projects" class="nav-item">Projects</a>
-            <a href="index.php?action=news" class="nav-item">News</a>
+        <div class="right-navbar-container">
+            <div class="leBox header-right">
+                <a href="index.php?action=index" class="nav-item">Home</a>
+                <a href="index.php?action=members" class="nav-item selected-navbar">Members</a>
+                <a href="index.php?action=projects" class="nav-item">Projects</a>
+                <a href="index.php?action=news" class="nav-item">News</a>
+            </div>
+
+            <div class="leBox header-right">
+                <a href="index.php?action=logout" class="nav-item">Logout</a>
+            </div>
         </div>
 
     </div>
@@ -84,7 +90,7 @@
     </div>
 
     <!-- Main Container -->
-    <div class="main-container">
+    <div class="main-container page-fade">
         <!--Brief Description-->
         <div class="desc-title">Members Management</div>
         <div class="desc-text">

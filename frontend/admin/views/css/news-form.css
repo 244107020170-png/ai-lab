@@ -57,7 +57,8 @@ body {
   font-size: 36px;
   font-weight: 700;
   font-family: "SF Pro Rounded", sans-serif;
-  text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4);
+  text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.40);
+  /* text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4); */
 }
 
 .admin-logo {

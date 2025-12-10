@@ -67,11 +67,17 @@
         </div>
 
         <!-- RIGHT BOX (NAVBAR) -->
-        <div class="leBox header-right">
-            <a href="index.php?action=index" class="nav-item selected-navbar">Home</a>
-            <a href="index.php?action=members" class="nav-item">Members</a>
-            <a href="index.php?action=projects" class="nav-item">Projects</a>
-            <a href="index.php?action=news" class="nav-item">News</a>
+        <div class="right-navbar-container">
+            <div class="leBox header-right">
+                <a href="index.php?action=index" class="nav-item selected-navbar">Home</a>
+                <a href="index.php?action=members" class="nav-item">Members</a>
+                <a href="index.php?action=projects" class="nav-item">Projects</a>
+                <a href="index.php?action=news" class="nav-item">News</a>
+            </div>
+
+            <div class="leBox header-right">
+                <a href="index.php?action=logout" class="nav-item">Logout</a>
+            </div>
         </div>
     </div>
 
@@ -239,69 +245,69 @@
 
         <!--Lab Permition-->
         <div class="graphs-row">
-<div class="leBox permit-box">
-    <div class="permit-inner">
+            <div class="leBox permit-box">
+                <div class="permit-inner">
 
-        <div class="permit-header">
-            <div class="permit-title">Lab Permit Requests</div>
-            <div class="permit-btn">
-                <a href="index.php?action=lab_permit" style="color:white;text-decoration:none;">
-                    Manage
-                </a>
+                    <div class="permit-header">
+                        <div class="permit-title">Lab Permit Requests</div>
+                        <div class="permit-btn">
+                            <a href="index.php?action=lab_permit" style="color:white;text-decoration:none;">
+                                Manage
+                            </a>
+                        </div>
+                    </div>
+
+                    <table class="permit-table">
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Status</th>
+                            <th>Submitted</th>
+                        </tr>
+
+                        <?php foreach ($recentPermits as $p): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($p['full_name']) ?></td>
+
+                                <td>
+                                    <span class="permit-dot <?= $p['status'] ?>"></span>
+                                    <?= ucfirst($p['status']) ?>
+                                </td>
+
+                                <td><?= date("Y-m-d", strtotime($p['submitted_at'])) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+
+                    </table>
+
+                    <div class="permit-stats">
+                        <div class="permit-item">
+                            <span class="permit-dot pending"></span>
+                            Pending
+                            <span class="permit-count"><?= $permitPending ?></span>
+                        </div>
+
+                        <div class="permit-item">
+                            <span class="permit-dot accepted"></span>
+                            Accepted
+                            <span class="permit-count"><?= $permitAccepted ?></span>
+                        </div>
+
+                        <div class="permit-item">
+                            <span class="permit-dot rejected"></span>
+                            Rejected
+                            <span class="permit-count"><?= $permitRejected ?></span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-            
-        <table class="permit-table">
-        <tr>
-            <th>Full Name</th>
-            <th>Status</th>
-            <th>Submitted</th>
-        </tr>
-
-        <?php foreach ($recentPermits as $p): ?>
-        <tr>
-            <td><?= htmlspecialchars($p['full_name']) ?></td>
-
-            <td>
-                <span class="permit-dot <?= $p['status'] ?>"></span>
-                <?= ucfirst($p['status']) ?>
-            </td>
-
-            <td><?= date("Y-m-d", strtotime($p['submitted_at'])) ?></td>
-        </tr>
-        <?php endforeach; ?>
-
-        </table>
-
-        <div class="permit-stats">
-            <div class="permit-item">
-                <span class="permit-dot pending"></span>
-                Pending
-                <span class="permit-count"><?= $permitPending ?></span>
-            </div>
-
-            <div class="permit-item">
-                <span class="permit-dot accepted"></span>
-                Accepted
-                <span class="permit-count"><?= $permitAccepted ?></span>
-            </div>
-
-            <div class="permit-item">
-                <span class="permit-dot rejected"></span>
-                Rejected
-                <span class="permit-count"><?= $permitRejected ?></span>
-            </div>
-        </div>
-
-    </div>
-</div>
-        </div>
-<!--/.Lab Permition-->
+        <!--/.Lab Permition-->
     </div>
     <!-- /.Main Container -->
-<footer class="admin-footer">
-    <div id="text-footer">© 2025 AI Lab Polinema</div>
-</footer>
+    <footer class="admin-footer">
+        <div id="text-footer">© 2025 AI Lab Polinema</div>
+    </footer>
 
 
     <!-- /.Main Canvas -->

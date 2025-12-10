@@ -71,11 +71,17 @@ $pages = ($total > 0) ? ceil($total / $limit) : 1;
     </div>
 
     <!-- RIGHT BOX (NAVBAR) -->
-    <div class="header-box header-right">
-      <a href="index.php?action=index" class="nav-item">Home</a>
-      <a href="index.php?action=members" class="nav-item">Members</a>
-      <a href="index.php?action=projects" class="nav-item selected-navbar">Projects</a>
-      <a href="index.php?action=news" class="nav-item">News</a>
+    <div class="right-navbar-container">
+      <div class="header-box header-right">
+        <a href="index.php?action=index" class="nav-item">Home</a>
+        <a href="index.php?action=members" class="nav-item">Members</a>
+        <a href="index.php?action=projects" class="nav-item selected-navbar">Projects</a>
+        <a href="index.php?action=news" class="nav-item">News</a>
+      </div>
+
+      <div class="header-box header-right">
+        <a href="index.php?action=logout" class="nav-item">Logout</a>
+      </div>
     </div>
   </div>
 
