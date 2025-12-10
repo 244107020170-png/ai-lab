@@ -44,21 +44,13 @@ body {
   backdrop-filter: blur(6px);
 }
 
-/* HEADER (Same as News List) */
-.admin-header {
-  width: 90%;
-  max-width: 1250px;
-  margin: 20px auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 /* TITLE AREA */
 .admin-section-title-form{
   width: 100%;
   max-width: 1100px;
   margin: 60px auto 20px;
+
+  margin-top: 140px;
 }
 
 .admin-section-title-form h1 {
@@ -66,15 +58,6 @@ body {
   font-weight: 700;
   font-family: "SF Pro Rounded", sans-serif;
   text-shadow: 0px 5px 10px rgba(0, 224, 255, 0.4);
-}
-
-.header-left,
-.header-right {
-  padding: 8px 18px;
-  border-radius: 60px !important;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
 .admin-logo {
@@ -85,20 +68,6 @@ body {
   font-size: 18px;
   color: rgba(255, 255, 255, 0.65);
   font-family: "SF Pro Rounded", sans-serif;
-}
-
-.nav-item {
-  color: #8ef1ff;
-  font-size: 17px;
-  padding: 5px 14px;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: 0.25s ease;
-}
-
-.nav-item:hover {
-  color: white;
-  transform: translateY(-1px);
 }
 
 /* PAGE TITLE */
@@ -125,7 +94,7 @@ body {
 .news-form {
   width: 90%;
   max-width: 1100px;
-  margin: 30px auto;
+  margin: 5px auto;
   padding: 30px;
 }
 

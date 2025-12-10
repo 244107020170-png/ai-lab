@@ -5,6 +5,7 @@
   <title>News Management • Admin</title>
   <link rel="stylesheet" href="views/css/admin-news.css">
   <link rel="stylesheet" href="views/css/admin-global.css">
+  <link rel="stylesheet" href="views/css/anims.css">
 </head>
 
 <body>
@@ -15,21 +16,22 @@
   <div class="bg-gradient"></div>
 </div>
 
-<!-- HEADER -->
-<header class="admin-header">
-  <div class="leBox header-left">
-    <a href="index.php?action=home">
-      <img src="views/img/logo.png" class="admin-logo">
-    </a>
-  </div>
+  <!-- Header -->
+  <div class="header-container">
 
-  <nav class="leBox header-right">
-    <a href="index.php?action=home" class="nav-item">Home</a>
-    <a href="index.php?action=members" class="nav-item">Members</a>
-    <a href="index.php?action=projects" class="nav-item">Projects</a>
-    <a href="index.php?action=news" class="nav-item selected-navbar">News</a>
-  </nav>
-</header>
+    <!-- LEFT BOX -->
+    <div class="header-box header-left">
+      <a href="../"><img src="views/img/logo.png"></a>
+    </div>
+
+    <!-- RIGHT BOX (NAVBAR) -->
+    <div class="header-box header-right">
+      <a href="index.php?action=index" class="nav-item">Home</a>
+      <a href="index.php?action=members" class="nav-item">Members</a>
+      <a href="index.php?action=projects" class="nav-item">Projects</a>
+      <a href="index.php?action=news" class="nav-item selected-navbar">News</a>
+    </div>
+  </div>
 
 <!-- TITLE -->
 <div class="container page-fade">

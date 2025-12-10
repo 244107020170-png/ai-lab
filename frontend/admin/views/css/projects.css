@@ -5,7 +5,7 @@
 /* global layout anchor */
 .layout {
   width: 90%;
-  max-width: 1164px; /* atau 1250px — samakan juga admin-header */
+  max-width: 1164px; /* atau 1250px */
   margin: 0 auto;
 }
 
@@ -38,6 +38,8 @@ body{font-family: "SF Pro Rounded"; margin:0; background:linear-gradient(180deg,
     max-width: 1164px;
     margin: 60px auto 20px; /* sama seperti admin-section-title */
     padding: 0;
+    margin-top: 140px;
+    margin-bottom: 50px;
 }
 
 h1 {
@@ -395,71 +397,86 @@ select option {
   backdrop-filter: blur(6px);
 }
 
-/* HEADER */
+/* Whole header */
+/* Container */
+.header-box {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
 
-.admin-logo {
-  height: 38px;
+    transition: 0.25s ease;
 }
 
-.admin-title {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.65);
-  font-family: "SF Pro Rounded";
-}
+.header-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 
-/* =============================== */
-/* NAVBAR FIX – MATCH NEWS STYLE */
-/* =============================== */
-
-/* Wrapper header */
-.admin-header {
-    width: 90%;
-    max-width: 1250px;
-    margin: 25px auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    width: 90%;
+    max-width: 1440px;
+
+    z-index: 999;
 }
 
-/* Logo container */
-.header-left, .header-right {
-    background: rgba(0,0,0,0.34);
-    outline: 1px solid rgba(255,255,255,0.12);
-    border-radius: 60px;
-    padding: 10px 22px;
+/* Left header */
+.header-left {
+    border-radius: 90px !important;
+    padding: 12px 22px;
     display: flex;
     align-items: center;
-    gap: 18px;
-    backdrop-filter: blur(6px);
+    gap: 12px;
+}
+.header-left img {
+    width: 120px;
+    transition: 0.25s ease;
 }
 
-/* Navbar link (like news page) */
-.nav a {
-    color: #8ef1ff !important;
-    font-size: 17px;
-    padding: 6px 16px;
-    border-radius: 30px;
-    text-decoration: none !important;
-    transition: .25s ease;
+.header-left .logo-text {
+    font-size: 22px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'SF Pro Rounded';
 }
 
-.nav a:hover {
-    color: white !important;
-    transform: translateY(-1px);
-}
-
-/* Active nav style */
-.nav a.active {
-    background: linear-gradient(246deg, #03d3f1, #027a8b);
-    color: white !important;
-    font-weight: 500;
-}
-
-/* Remove the old default nav spacing */
-.nav {
+/* Right header (Navbar) */
+.header-right {
+    border-radius: 90px !important;
+    padding: 12px 22px;
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 15px;
 }
+
+/* Navbar Items */
+.nav-item {
+    display: inline-block; /* so padding applies */
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #8EF1FF !important;
+    font-size: 18px;
+    font-family: 'SF Pro Rounded';
+    transition: 0.25s ease;
+    text-decoration: none !important;
+}
+
+
+/* Selected Navbar */
+.selected-navbar {
+    background: linear-gradient(246deg, #03D3F1 0%, #027A8B 100%) !important;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0px 4px 30px rgba(0,0,0,0.3);
+}
+
+/* ./Whole header */
 
 /* FOOTER */
 .admin-footer {

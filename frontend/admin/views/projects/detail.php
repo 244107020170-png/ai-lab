@@ -16,19 +16,22 @@ $mode = $activity ? 'edit' : 'create';
   <div class="bg-gradient"></div>
 </div>
 
-<div class="admin-header">
+  <!-- Header -->
+  <div class="header-container">
 
-  <div class="header-left">
-    <img src="views/img/logo.png" class="admin-logo">
+    <!-- LEFT BOX -->
+    <div class="header-box header-left">
+      <a href="../"><img src="views/img/logo.png"></a>
+    </div>
+
+    <!-- RIGHT BOX (NAVBAR) -->
+    <div class="header-box header-right">
+      <a href="index.php?action=index" class="nav-item">Home</a>
+      <a href="index.php?action=members" class="nav-item">Members</a>
+      <a href="index.php?action=projects" class="nav-item selected-navbar">Projects</a>
+      <a href="index.php?action=news" class="nav-item">News</a>
+    </div>
   </div>
-
-  <nav class="header-right nav">
-    <a href="index.php">Home</a>
-    <a href="index.php?action=members">Members</a>
-    <a class="active" href="index.php?action=projects">Projects</a>
-    <a href="index.php?action=news">News</a>
-  </nav>
-</div>
 
 <main class="container form-container">
   <h1>Project Management</h1>

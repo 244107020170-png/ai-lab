@@ -68,7 +68,7 @@
 
         <!-- RIGHT BOX (NAVBAR) -->
         <div class="leBox header-right">
-            <div class="nav-item selected-navbar">Home</div>
+            <a href="index.php?action=index" class="nav-item selected-navbar">Home</a>
             <a href="index.php?action=members" class="nav-item">Members</a>
             <a href="index.php?action=projects" class="nav-item">Projects</a>
             <a href="index.php?action=news" class="nav-item">News</a>

@@ -23,7 +23,7 @@
     </div>
 
     <nav class="header-right nav">
-        <a href="index.php">Home</a>
+        <a href="index.php?action=index">Home</a>
         <a href="index.php?action=members">Members</a>
         <a href="index.php?action=projects">Projects</a>
         <a href="index.php?action=news">News</a>

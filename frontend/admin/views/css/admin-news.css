@@ -48,57 +48,86 @@ body {
   backdrop-filter: blur(6px);
 }
 
-/* HEADER */
-.admin-header {
-  width: 90%;
-  max-width: 1250px;
-  margin: 20px auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Whole header */
+/* Container */
+.header-box {
+    background: rgba(0, 0, 0, 0.34);
+    border-radius: 11px;
+    outline: 1px solid rgba(255, 255, 255, 0.11);
+    backdrop-filter: blur(6.35px);
+
+    transition: 0.25s ease;
 }
 
-.header-left,
+.header-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+    max-width: 1440px;
+
+    z-index: 999;
+}
+
+/* Left header */
+.header-left {
+    border-radius: 90px !important;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.header-left img {
+    width: 120px;
+    transition: 0.25s ease;
+}
+
+.header-left .logo-text {
+    font-size: 22px;
+    color: rgba(255,255,255,0.7);
+    font-family: 'SF Pro Rounded';
+}
+
+/* Right header (Navbar) */
 .header-right {
-  padding: 8px 18px;
-  border-radius: 60px !important;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    border-radius: 90px !important;
+    padding: 12px 22px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.admin-logo {
-  height: 38px;
-}
-
-.admin-title {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.65);
-  font-family: "SF Pro Rounded";
-}
-
-/* NAVBAR */
+/* Navbar Items */
 .nav-item {
-  color: #8ef1ff;
-  font-size: 17px;
-  padding: 5px 14px;
-  border-radius: 30px;
-  text-decoration: none;
-  transition: 0.25s ease;
+    display: inline-block; /* so padding applies */
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+    color: #8EF1FF !important;
+    font-size: 18px;
+    font-family: 'SF Pro Rounded';
+    transition: 0.25s ease;
+    text-decoration: none !important;
 }
 
-.nav-item:hover {
-  color: white;
-  transform: translateY(-1px);
-}
 
+/* Selected Navbar */
 .selected-navbar {
-  background: linear-gradient(246deg, #03d3f1, #027a8b);
-  color: white !important;
-  padding: 6px 16px;
-  border-radius: 30px;
-  font-weight: 500;
+    background: linear-gradient(246deg, #03D3F1 0%, #027A8B 100%) !important;
+    color: white !important;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-weight: 600;
+    box-shadow: 0px 4px 30px rgba(0,0,0,0.3);
 }
+
+/* ./Whole header */
 
 /* TITLE AREA */
 .admin-section-title {
@@ -115,9 +144,13 @@ body {
 }
 
 .admin-section-title p {
-  margin-top: 10px;
   font-size: 14px;
   color: #aebacb;
+}
+
+.container {
+    margin-top: 80px;
+    margin-bottom: 50px;
 }
 
 /* SEARCH + FILTER */
