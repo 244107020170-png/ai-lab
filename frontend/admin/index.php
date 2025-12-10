@@ -10,6 +10,8 @@ $action = $_GET['action'] ?? 'home';
 $op     = $_GET['op'] ?? 'index';
 
 if (session_status() === PHP_SESSION_NONE) {
+    // 0 means "until the browser is closed"
+    session_set_cookie_params(0);
     session_start();
 }
 
