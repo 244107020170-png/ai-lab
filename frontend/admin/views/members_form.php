@@ -300,24 +300,14 @@
         </form>
         <!-- /.Study Background Container -->
 
-        <!-- Footer Section -->
-        <footer class="footer" style="margin-bottom: 100px;">
-            <div>
-                <span style="color: white; font-size: 24px;"">©</span>
-                        <span style=" color: white; font-size: 24px;"">2025 AI Lab Polinema</span>
-            </div>
 
-            <div>
-                <span style="color: white; font-size: 24px;">Contact: </span>
-                <span style="color: white; font-size: 24px; text-decoration: underline;">
-                    <a style="color: white;" href="mailto:ailab@polinema.ac.id" class="underline text-white">
-                        ailab@polinema.ac.id
-                    </a>
-                </span>
-            </div>
-        </footer>
-        <!-- /.Footer Section -->
     </div>
+
+    <!-- FOOTER -->
+    <footer class="admin-footer">
+        <div id="text-footer">© 2025 AI Lab Polinema</div>
+    </footer>
+    <!-- /.Footer Section -->
 
     <!-- Save Bar -->
     <div class="leBox save-bar">

@@ -296,10 +296,10 @@
     </div>
 
     <!-- FOOTER -->
-<footer class="admin-footer">
-    <div id="text-footer">© 2025 AI Lab Polinema</div>
-</footer>
-        <!-- /.Footer Section -->
+    <footer class="admin-footer">
+        <div id="text-footer">© 2025 AI Lab Polinema</div>
+    </footer>
+    <!-- /.Footer Section -->
 
     <!-- Volunteer Detail Modal -->
     <div id="volunteerModal" class="modal hidden">
