@@ -58,6 +58,15 @@ class AuthController {
                 $_SESSION['status']   = 'login';
 
                 // Redirect to Home
+
+                if (strtolower($user['role']) == 'admin') {
+                    header("Location: index.php?action=home");
+                    exit;
+                } else if (strtolower($user['role']) == 'member') {
+                    // Change smth here for members ig.
+                    header("Location: index.php?action=home");
+                    exit;
+                }
                 header("Location: index.php?action=home");
                 exit;
             } else {
