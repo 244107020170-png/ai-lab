@@ -70,9 +70,14 @@
         <div class="right-navbar-container">
             <div class="leBox header-right">
                 <a href="index.php?action=index" class="nav-item selected-navbar">Home</a>
+                <?php if ($_SESSION['role'] == 'admin'): ?>
                 <a href="index.php?action=members" class="nav-item">Members</a>
-                <a href="index.php?action=projects" class="nav-item">Projects</a>
+                <?php endif; ?>
+                <a href="index.php?action=projects" class="nav-item">Projects</a> 
+
+                <?php if ($_SESSION['role'] == 'admin'): ?>
                 <a href="index.php?action=news" class="nav-item">News</a>
+                <?php endif; ?>
             </div>
 
             <div class="leBox header-right">
@@ -92,7 +97,7 @@
 
         <!--Brief Description-->
         <div class="desc-title">
-            Admin Dashboard</div>
+            Welcome, <?php echo $_SESSION['username']; ?></div>
         <div class="desc-text">
             The home page serves as a quick view of the performance graph for the Projects that are published by the Lab
             and
@@ -244,6 +249,7 @@
         <!-- /.Graphs Container -->
 
         <!--Lab Permition-->
+        <?php if ($_SESSION['role'] == 'admin'): ?>
         <div class="graphs-row">
             <div class="leBox permit-box">
                 <div class="permit-inner">
@@ -303,7 +309,9 @@
             </div>
         </div>
         <!--/.Lab Permition-->
+        <?php endif; ?>
     </div>
+
     <!-- /.Main Container -->
     <footer class="admin-footer">
         <div id="text-footer">© 2025 AI Lab Polinema</div>

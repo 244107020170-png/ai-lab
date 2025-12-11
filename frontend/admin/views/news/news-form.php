@@ -1,7 +1,12 @@
 <?php
+if ($_SESSION['role'] != 'admin') {
+  header("Location: index.php");
+  exit;
+}
 // $news = null (add) atau array (edit)
 // $categories dari controller sudah benar
 $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_store";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

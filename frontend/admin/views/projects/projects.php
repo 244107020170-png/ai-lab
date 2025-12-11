@@ -74,9 +74,16 @@ $pages = ($total > 0) ? ceil($total / $limit) : 1;
     <div class="right-navbar-container">
       <div class="header-box header-right">
         <a href="index.php?action=index" class="nav-item">Home</a>
+
+        <?php if ($_SESSION['role'] == 'admin'): ?>
         <a href="index.php?action=members" class="nav-item">Members</a>
+        <?php endif; ?>
+
         <a href="index.php?action=projects" class="nav-item selected-navbar">Projects</a>
+
+        <?php if ($_SESSION['role'] == 'admin'): ?>
         <a href="index.php?action=news" class="nav-item">News</a>
+        <?php endif; ?>
       </div>
 
       <div class="header-box header-right">
