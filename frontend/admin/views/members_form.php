@@ -73,7 +73,6 @@
         <!-- LEFT BOX -->
         <div class="leBox header-left">
             <a href="../"><img src="views/img/logo.png"></a>
-            <div class="logo-text">Lab Admin Page</div>
         </div>
 
         <!-- RIGHT BOX (NAVBAR) -->
