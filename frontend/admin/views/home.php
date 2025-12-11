@@ -97,7 +97,7 @@
 
         <!--Brief Description-->
         <div class="desc-title">
-            Welcome, <?php echo $_SESSION['username']; ?></div>
+            Welcome, <?php echo $_SESSION['username']; ?>!</div>
         <div class="desc-text">
             The home page serves as a quick view of the performance graph for the Projects that are published by the Lab
             and
@@ -159,6 +159,7 @@
         <div class="graphs-row">
 
             <!-- Recent Members -->
+            <?php if ($_SESSION['role'] == 'admin'): ?>
             <div class="leBox member-container">
                 <div class="member-inner">
                     <div class="member-header">
@@ -199,6 +200,7 @@
                     </table>
                 </div>
             </div>
+            <?php endif; ?>
             <!-- /.Recent Members -->
 
             <!-- Recent Projects -->

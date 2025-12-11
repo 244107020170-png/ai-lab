@@ -248,7 +248,7 @@ body {
 
 /* Graph box container */
 .member-container {
-    width: 565px;
+    width: 100%;
     height: auto;
 
     padding: 20px 25px;

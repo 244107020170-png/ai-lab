@@ -41,26 +41,92 @@ body {
     z-index: -1;
 }
 
-/* HEADER (navbar) */
-.admin-header {
-    width: 90%;
-    max-width: 1250px;
-    margin: 25px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Whole header */
+/* Container */
+.header-box {
+  background: rgba(0, 0, 0, 0.34);
+  border-radius: 11px;
+  outline: 1px solid rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(6.35px);
+
+  transition: 0.25s ease;
 }
 
-.header-left, .header-right {
-    background: rgba(0,0,0,0.34);
-    outline: 1px solid rgba(255,255,255,0.12);
-    border-radius: 60px;
-    padding: 10px 22px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    backdrop-filter: blur(6px);
+.header-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 90%;
+  max-width: 1440px;
+
+  z-index: 999;
 }
+
+/* Left header */
+.header-left {
+  border-radius: 90px !important;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-left img {
+  width: 120px;
+  transition: 0.25s ease;
+}
+
+.header-left .logo-text {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: "SF Pro Rounded";
+}
+
+/* Right header (Navbar) */
+.right-navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-right {
+  border-radius: 90px !important;
+  padding: 12px 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Navbar Items */
+.nav-item {
+  display: inline-block; /* so padding applies */
+  padding: 8px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  color: #8ef1ff !important;
+  font-size: 18px;
+  font-family: "SF Pro Rounded";
+  transition: 0.25s ease;
+  text-decoration: none !important;
+}
+
+/* Selected Navbar */
+.selected-navbar {
+  background: linear-gradient(246deg, #03d3f1 0%, #027a8b 100%) !important;
+  color: white !important;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-weight: 600;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ./Whole header */
 
 .admin-logo { height: 38px; }
 
@@ -70,36 +136,13 @@ body {
     font-family: "SF Pro Rounded";
 }
 
-/* NAV LINKS */
-.nav {
-    display: flex;
-    gap: 8px;
-}
-
-.nav a {
-    color: #8ef1ff !important;
-    font-size: 17px;
-    padding: 6px 16px;
-    border-radius: 30px;
-    text-decoration: none !important;
-    transition: .25s ease;
-}
-.nav a:hover {
-    color: white !important;
-    transform: translateY(-1px);
-}
-.nav a.active {
-    background: linear-gradient(246deg, #03d3f1, #027a8b);
-    color: white !important;
-    font-weight: 500;
-}
-
 /* PAGE WRAPPER */
 .container {
     width: 90%;
     max-width: 1100px;
     flex: 1;
     margin: 28px auto;
+    margin-top: 140px;
 }
 
 /* TITLE */

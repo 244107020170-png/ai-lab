@@ -1,3 +1,9 @@
+<?php if ($_SESSION['role'] != 'admin') {
+    header("Location: index.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +12,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="views/css/lab_permit.css">
+    <link rel="stylesheet" href="views/css/anims.css">
 </head>
 
 <body>
@@ -16,19 +23,29 @@
     <div class="bg-gradient"></div>
 </div>
 
-<!-- HEADER -->
-<div class="admin-header">
-    <div class="header-left">
-        <img src="views/img/logo.png" class="admin-logo">
+  <!-- Header -->
+  <div class="header-container">
+
+    <!-- LEFT BOX -->
+    <div class="header-box header-left">
+      <a href="../"><img src="views/img/logo.png"></a>
     </div>
 
-    <nav class="header-right nav">
-        <a href="index.php?action=index">Home</a>
-        <a href="index.php?action=members">Members</a>
-        <a href="index.php?action=projects">Projects</a>
-        <a href="index.php?action=news">News</a>
-    </nav>
-</div>
+    <!-- RIGHT BOX (NAVBAR) -->
+    <div class="right-navbar-container">
+      <div class="header-box header-right">
+        <a href="index.php?action=index" class="nav-item">Home</a>
+        <a href="index.php?action=members" class="nav-item">Members</a>
+        <a href="index.php?action=projects" class="nav-item">Projects</a>
+        <a href="index.php?action=news" class="nav-item">News</a>
+      </div>
+
+      <div class="header-box header-right">
+        <a href="index.php?action=logout" class="nav-item">Logout</a>
+      </div>
+    </div>
+  </div>
+  <!-- /.Header -->
 
 
 <!-- PAGE CONTENT -->
