@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Research | AILab</title>
 <style>
+    * {
+        box-sizing: border-box;
+    }
 :root {
     --glass-bg: rgba(0,0,0,0.34);
     --glass-outline: rgba(255,255,255,0.11);
@@ -71,6 +74,8 @@ html, body {
     max-width: 1440px;
 
     z-index: 999;
+
+    
 }
 
 /* Left header */
@@ -148,6 +153,8 @@ html, body {
     max-width: 1200px;
     margin: 160px auto 80px auto;
     padding: 0 20px;
+
+    animation: fadeUp 0.45s ease forwards;
 }
 
 /* Soft glass wrapper for page box */
