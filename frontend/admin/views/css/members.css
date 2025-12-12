@@ -260,6 +260,7 @@
 
 .member-table {
     color: white;
+    table-layout: fixed;
 }
 
 .member-table tr>th {
@@ -270,6 +271,10 @@
 .member-table tr {
     gap: 5px;
 }
+.member-table th {
+    padding-bottom: 4px;
+}
+
 .member-table tr>td {
     padding-bottom: 6px;
     padding-top: 6px;
@@ -406,6 +411,45 @@
 .vol-action-btn:hover {
     background: rgba(255,255,255,0.22);
 }
+/* ID */
+.member-table th:nth-child(1),
+.member-table td:nth-child(1) {
+    width: 60px;
+}
+
+/* Name */
+.member-table th:nth-child(2),
+.member-table td:nth-child(2) {
+    width: 180px;
+}
+
+/* Program */
+.member-table th:nth-child(3),
+.member-table td:nth-child(3) {
+    width: 220px;
+}
+
+/* Semester */
+.member-table th:nth-child(4),
+.member-table td:nth-child(4) {
+    width: 80px;
+    text-align: center;
+}
+
+/* Status */
+.member-table th:nth-child(5),
+.member-table td:nth-child(5) {
+    width: 150px;
+    text-align: center;
+}
+
+/* Actions */
+.member-table th:nth-child(6),
+.member-table td:nth-child(6) {
+    width: 200px;
+    text-align: center;
+}
+
 
 /* Kolom Actions fix alignment */
 .member-table th:last-child,

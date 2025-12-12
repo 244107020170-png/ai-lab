@@ -53,6 +53,7 @@ class AuthController {
 
             if ($isValid) {
                 // SUCCESS! Set Session
+                $_SESSION['user_id']  = $user['id'];
                 $_SESSION['username'] = $user['name'];
                 $_SESSION['role']     = $user['role'];
                 $_SESSION['status']   = 'login';
@@ -64,7 +65,7 @@ class AuthController {
                     exit;
                 } else if (strtolower($user['role']) == 'member') {
                     // Change smth here for members ig.
-                    header("Location: index.php?action=home");
+                    header("Location: index.php?action=member_dashboard");
                     exit;
                 }
                 header("Location: index.php?action=home");
