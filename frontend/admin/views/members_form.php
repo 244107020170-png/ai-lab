@@ -16,53 +16,7 @@ if ($_SESSION['role'] != 'admin') {
     <link rel="stylesheet" href="views/css/anims.css">
     <link rel="stylesheet" href="views/css/members.css">
     <link rel="stylesheet" href="views/css/form.css">
-    <style>
-        :root {
-            --img-opacity: 0.25;
-        }
-
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-        }
-
-        /* Background Layers */
-        .bg-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: -2;
-        }
-
-        .bg-image {
-            position: absolute;
-            inset: 0;
-            background-image: url("views/img/background3.jpg");
-            background-size: cover;
-            background-position: center;
-            opacity: var(--img-opacity);
-            transform: translateZ(0);
-        }
-
-        .bg-gradient {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(#0F2027, #203A43, #2C5364);
-            z-index: -1;
-            mix-blend-mode: normal;
-        }
-
-        main {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            color: #fff;
-            padding: 2rem;
-        }
-    </style>
+    
 </head>
 
 <body>

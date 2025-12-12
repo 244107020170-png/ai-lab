@@ -45,7 +45,7 @@
 body {
   font-family: "SF Pro Rounded", sans-serif;
   margin: 0;
-  background: linear-gradient(180deg, #031d26 0%, #072936 100%);
+  background: #071623;
   color: #e6f7f7;
 }
 
@@ -482,6 +482,14 @@ select option {
   z-index: -2;
 }
 
+/* BACKGROUND LAYER */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
 .bg-image {
   position: absolute;
   inset: 0;
@@ -494,7 +502,11 @@ select option {
 .bg-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(#0f2027, #203a43, #2c5364);
+  background: linear-gradient(
+    rgba(15, 32, 39, 0.65),
+    rgba(32, 58, 67, 0.65),
+    rgba(44, 83, 100, 0.65)
+  );
   z-index: -1;
 }
 

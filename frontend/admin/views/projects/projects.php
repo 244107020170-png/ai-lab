@@ -42,7 +42,8 @@ $pages = ($total > 0) ? ceil($total / $limit) : 1;
 
 <body>
 
-  <div class="bg-layer">
+<!-- Background -->
+  <div class="bg-layer" aria-hidden="true">
     <div class="bg-image"></div>
     <div class="bg-gradient"></div>
   </div>
@@ -76,13 +77,13 @@ $pages = ($total > 0) ? ceil($total / $limit) : 1;
         <a href="index.php?action=index" class="nav-item">Home</a>
 
         <?php if ($_SESSION['role'] == 'admin'): ?>
-        <a href="index.php?action=members" class="nav-item">Members</a>
+          <a href="index.php?action=members" class="nav-item">Members</a>
         <?php endif; ?>
 
         <a href="index.php?action=projects" class="nav-item selected-navbar">Projects</a>
 
         <?php if ($_SESSION['role'] == 'admin'): ?>
-        <a href="index.php?action=news" class="nav-item">News</a>
+          <a href="index.php?action=news" class="nav-item">News</a>
         <?php endif; ?>
       </div>
 

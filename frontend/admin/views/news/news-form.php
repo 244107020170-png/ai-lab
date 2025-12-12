@@ -21,7 +21,7 @@ $actionUrl = $news ? "index.php?action=news_update" : "index.php?action=news_sto
 <body>
 
   <!-- BACKGROUND -->
-  <div class="bg-layer">
+  <div class="bg-layer" aria-hidden="true">
     <div class="bg-image"></div>
     <div class="bg-gradient"></div>
   </div>
