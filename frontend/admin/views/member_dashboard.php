@@ -544,7 +544,7 @@
                 // AVATAR
                 const avatarEl = document.querySelector(".welcome-avatar img");
                 avatarEl.src = data.member.photo ?
-                    "uploads/members/" + data.member.photo :
+                    "img/profile-photos/" + data.member.photo :
                     "views/img/memberavatar.png";
 
                 // RESEARCH STATS
