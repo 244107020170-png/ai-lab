@@ -137,9 +137,10 @@ switch ($action) {
     ============================= */
 
     case "member_dashboard_api":
-        requireRole('member');
-        require_once "controllers/MemberDashboardController.php";
-        exit;
+    requireRole('member');
+    require_once "controllers/MemberDashboardController.php";
+    (new MemberDashboardController())->api();
+    exit;
 
     case "member_dashboard":
         requireRole('member');

@@ -694,6 +694,7 @@
 
     <script>
         let expertiseTags = [];
+        let removeAvatar = false;
         /* ---------- QUERY SHORTCUTS ---------- */
         const qs = id => document.getElementById(id);
 
@@ -746,35 +747,50 @@
         qs("removeAvatarBtn").addEventListener("click", () => {
             if (confirm("Remove photo?")) {
                 fields.avatarImg.src = "views/img/memberavatar.png";
+                removeAvatar = true;
                 updateCompletion();
             }
         });
 
         /* ---------- SAVE BUTTON ---------- */
         qs("saveBtn").addEventListener("click", () => {
-            const fd = new FormData();
+    const fd = new FormData();
 
-            fd.append("fullName", fields.fullName.value);
-            fd.append("expertise", expertiseTags.join(","));
-            fd.append("description", fields.description.value);
+    fd.append("fullName", fields.fullName.value);
+    fd.append("expertise", expertiseTags.join(","));
+    fd.append("description", fields.description.value);
 
-            fd.append("linkScholar", fields.linkScholar.value);
-            fd.append("linkOrcid", fields.linkOrcid.value);
-            fd.append("linkRG", fields.linkRG.value);
-            fd.append("linkLinkedIn", fields.linkLinkedIn.value);
+    fd.append("linkScholar", fields.linkScholar.value);
+    fd.append("linkOrcid", fields.linkOrcid.value);
+    fd.append("linkRG", fields.linkRG.value);
+    fd.append("linkLinkedIn", fields.linkLinkedIn.value);
 
-            if (fields.avatarFile.files[0]) {
-                fd.append("avatarFile", fields.avatarFile.files[0]);
-            }
+    if (fields.avatarFile.files[0]) {
+        fd.append("avatarFile", fields.avatarFile.files[0]);
+    }
 
-            fetch("index.php?action=member_profile_update", {
-                method: "POST",
-                body: fd
-            }).then(() => {
-                alert("Profile updated");
-                location.reload();
-            });
-        });
+    if (removeAvatar) {
+        fd.append("removeAvatar", "1");
+    }
+
+    fetch("index.php?action=member_profile_update", {
+        method: "POST",
+        body: fd
+    })
+    .then(() => {
+        alert("Profile updated");
+
+        // ambil data TERBARU tanpa reload
+        return fetch("index.php?action=member_profile_api");
+    })
+    .then(res => res.json())
+    .then(data => {
+        fields.avatarImg.src = data.photo_url;
+        fields.avatarImg.onerror = () => {
+            fields.avatarImg.src = "views/img/memberavatar.png";
+        };
+    });
+});
 
         function renderExpertiseTags(tags) {
             expertiseTags = tags.slice();
@@ -825,9 +841,9 @@
             fields.linkOrcid.value = data.orcid ?? "";
             fields.linkRG.value = data.researchgate ?? "";
             fields.linkLinkedIn.value = data.linkedin ?? "";
-
-            if (data.photo) {
-                fields.avatarImg.src = "uploads/members/" + data.photo;
+                fields.avatarImg.src = data.photo_url;
+                fields.avatarImg.onerror = () => {
+                    fields.avatarImg.src = "views/img/memberavatar.png";
             }
 
             updateCompletion();

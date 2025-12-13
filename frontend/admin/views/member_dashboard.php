@@ -416,8 +416,11 @@
                 </div>
 
                 <div class="welcome-avatar">
-                    <img src="views/img/memberavatar.png" alt="User Avatar">
+                    <img id="userAvatar"
+                         src=""
+                         alt="User Avatar">
                 </div>
+
             </div>
 
             <!-- STATS -->
@@ -542,11 +545,13 @@
                 document.querySelector(".welcome-title span").textContent = data.member.full_name;
 
                 // AVATAR
+                // AVATAR (PAKAI HASIL DARI BACKEND)
                 const avatarEl = document.querySelector(".welcome-avatar img");
-                avatarEl.src = data.member.photo ?
-                    "img/profile-photos/" + data.member.photo :
-                    "views/img/memberavatar.png";
+                avatarEl.src = data.member.photo_url;
 
+                avatarEl.onerror = () => {
+                    avatarEl.src = "views/img/memberavatar.png";
+                };
                 // RESEARCH STATS
                 document.querySelectorAll(".stat-value")[0].textContent = data.research_total;
 
