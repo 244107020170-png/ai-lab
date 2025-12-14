@@ -10,7 +10,7 @@ class Database
             $port = "5432";
             $db = "ai_lab_db";     // ganti
             $user = trim("postgres");
-            $password = "1234";  // ganti
+            $password = "nasywa1010";  // ganti
             $connStr = "host=$host port=$port dbname=$db user=$user password=$password";
 
             self::$conn = pg_connect($connStr);
