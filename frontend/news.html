@@ -204,7 +204,11 @@ function renderGrid(items = []) {
 
     el.dataset.id = item.id;
 
-    card.querySelector('.card-img').src = item.image_thumb || "img/newstop.png";
+    card.querySelector('.card-img').src =
+  item.image_thumb
+    ? "img/news/" + item.image_thumb
+    : "img/news/newstop.png";
+
     card.querySelector('.card-title').textContent = item.title;
     card.querySelector('.card-date').textContent =
       item.created_at ? new Date(item.created_at).toLocaleDateString() : "";
@@ -230,7 +234,11 @@ async function openDetail(id) {
     item.created_at ? new Date(item.created_at).toLocaleDateString() : "";
 
   document.getElementById("detailImg").src =
-    item.image_detail || item.image_thumb || "img/newsdown.png";
+  item.image_detail
+    ? "img/news/" + item.image_detail
+    : item.image_thumb
+      ? "img/news/" + item.image_thumb
+      : "img/news/newstop.png";
 
   document.getElementById("detailBody").innerHTML =
     item.content || item.excerpt || "";

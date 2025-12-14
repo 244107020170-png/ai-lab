@@ -592,7 +592,10 @@
         data.forEach(item => {
           const node = tpl.cloneNode(true);
 
-          node.querySelector('.card-img').src = item.image_thumb || 'img/newstop.png';
+          node.querySelector('.card-img').src =
+          item.image_thumb
+            ? 'img/news/' + item.image_thumb
+            : 'img/news/newstop.png';
           node.querySelector('.card-title').textContent = item.title;
           node.querySelector('.card-excerpt').textContent = item.excerpt?.slice(0, 150) + "...";
 
