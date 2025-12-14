@@ -135,7 +135,7 @@ public function delete() {
             imagedestroy($dst);
 
             // return web path relative to admin root (adjust as needed)
-            return 'uploads/news/' . $basename;
+            return $basename;
         };
 
         // If update, existing images may remain if no file uploaded
