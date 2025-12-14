@@ -124,27 +124,27 @@ if ($_SESSION['role'] != 'admin') {
                     <label>Full Name</label>
                     <input type="text" name="full_name" class="glass-input"
                         value="<?= isset($data['full_name']) ? $data['full_name'] : '' ?>"
-                        placeholder="e.g. Spinosaurus Aegyptiacus">
+                        placeholder="e.g. John Doe">
                 </div>
 
                 <div class="form-group">
                     <label>Role</label>
                     <input type="text" name="role" class="glass-input"
                         value="<?= isset($data['role']) ? $data['role'] : '' ?>"
-                        placeholder="e.g. Terrestial Carnivore">
+                        placeholder="e.g. Researcher">
                 </div>
 
                 <div class="form-group">
                     <label>Expertise</label>
                     <input type="text" name="expertise" class="glass-input"
                         value="<?= isset($data['expertise']) ? $data['expertise'] : '' ?>"
-                        placeholder="e.g. Paleoanthropology">
+                        placeholder="e.g. Artificial Intelligence">
                 </div>
 
                 <div class="form-group">
                     <label>Brief Description</label>
                     <textarea name="description" class="glass-input textarea"
-                        placeholder="I am a student who wants to be..."><?= isset($data['description']) ? $data['description'] : '' ?></textarea>
+                        placeholder="I am a researcher who wants to be..."><?= isset($data['description']) ? $data['description'] : '' ?></textarea>
                 </div>
 
                 <div class="section-header">External Links</div>
@@ -203,7 +203,6 @@ if ($_SESSION['role'] != 'admin') {
                 </tr>
 
                 <?php
-                // Ensure variable exists
                 if (!isset($studyBackground)) $studyBackground = [];
                 ?>
 
