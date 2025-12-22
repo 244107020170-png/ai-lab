@@ -15,9 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-/* ==========================================================
-   ROLE GUARD FUNCTION
-========================================================== */
+/* ROLE GUARD FUNCTION */
 function requireRole($role) {
     if (!isset($_SESSION['role']) || strtolower($_SESSION['role']) !== strtolower($role)) {
         header("Location: views/403.php");
@@ -69,6 +67,25 @@ switch ($action) {
         elseif ($op === 'delete') $ctrl->delete($_GET['id'] ?? null);
         else                      $ctrl->members();
         break;
+    case 'volunteer_view':
+    requireRole('admin');
+    require_once 'models/Volunteer.php';
+    $id = $_GET['id'] ?? null;
+    header('Content-Type: application/json');
+    echo json_encode((new Volunteer())->find($id));
+    exit;
+case 'volunteer_approve':
+    requireRole('admin');
+    require_once 'models/Volunteer.php';
+    (new Volunteer())->updateStatus($_GET['id'], 'Approved');
+    header("Location: index.php?action=home");
+    exit;
+case 'volunteer_reject':
+    requireRole('admin');
+    require_once 'models/Volunteer.php';
+    (new Volunteer())->updateStatus($_GET['id'], 'Rejected');
+    header("Location: index.php?action=home");
+    exit;
 
     case 'members_form':
         requireRole('admin');
@@ -106,6 +123,11 @@ switch ($action) {
         requireRole('admin');
         (new NewsController())->index();
         break;
+    case 'lab_permit':
+    requireRole('admin');
+    require_once 'controllers/LabPermitController.php';
+    (new LabPermitController())->index();
+    break;
 
     case 'news_create':
         requireRole('admin');

@@ -134,7 +134,7 @@ public function delete() {
             imagedestroy($srcImg);
             imagedestroy($dst);
 
-            // return web path relative to admin root (adjust as needed)
+            // return web path relative to admin roo_t (adjust as needed)
             return $basename;
         };
 

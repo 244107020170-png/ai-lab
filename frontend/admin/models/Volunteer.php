@@ -48,6 +48,13 @@ class Volunteer
         return pg_fetch_assoc($res) ?: null;
     }
 
+    public function find($id)
+{
+    $sql = "SELECT * FROM volunteer_registrations WHERE id = $1 LIMIT 1";
+    $res = pg_query_params($this->db, $sql, [$id]);
+    return pg_fetch_assoc($res) ?: null;
+}
+
     /* UPDATE STATUS (Approve / Reject) */
     public function updateStatus($id, $status)
     {
